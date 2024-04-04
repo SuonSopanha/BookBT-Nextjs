@@ -5,8 +5,6 @@ import SearchBar from "../searchBar/searchBar";
 
 const Header = () => {
   const [openSearchBar, setOpenSearchBar] = useState(false);
-  const [textColor, setTextColor] = useState("text-white");
-  const [backgroundColor, setBackgroundColor] = useState("bg-black/10");
 
   console.log(openSearchBar);
   const toggleSearchBar = () => {
@@ -14,30 +12,11 @@ const Header = () => {
     console.log("clicked");
   };
 
-  useEffect(() => {
-    function handleScroll() {
-      const scrollPosition = window.scrollY;
-
-      if (scrollPosition > 100) {
-        setTextColor("text-black");
-        setBackgroundColor("bg-gray-200");
-      } else {
-        setTextColor("text-white");
-        setBackgroundColor("bg-black/10");
-      }
-    }
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
   return (
     <>
       <nav
-        className={`left-0 top-0 w-full h-fit bg-transparent p-4 md:px-6 lg:px-12 xl:px-24 z-50 text-black`}
+        className={`left-0 top-0 w-full h-fit bg-transparent p-4 md:px-6 lg:px-12 xl:px-24 z-50 text-white`}
       >
         <div className="container mx-auto">
           <div className="flex items-center justify-between font-semibold">

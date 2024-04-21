@@ -3,11 +3,11 @@ const ForgetPassword = () => {
     <div>
       <div
         className="min-h-screen py-40 bg-cover bg-no-repeat"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(25, 44, 154, 0.444), rgba(0, 0, 0, 0.5)), url(image/Slide_3.jpg)",
-          // Add other styles here as needed
-        }}
+        // style={{
+        //   backgroundImage:
+        //     "linear-gradient(rgba(25, 44, 154, 0.444), rgba(0, 0, 0, 0.5)), url(image/Slide_3.jpg)",
+        //   // Add other styles here as needed
+        // }}
       >
         <div className="container max-auto">
           <div className="flex flex-col lg:flex-row w-10/12 lg:w-8/12 bg-white rounded-xl mx-auto shadow-lg overflow-hidden">

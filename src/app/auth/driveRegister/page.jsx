@@ -1,7 +1,7 @@
 const DriveRegister = () => {
   return (
     <>
-      <div className="bg-white mx-auto px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 text-start">
+      <div className="bg-white  mx-auto px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 text-start">
         <h1 className="text-3xl text-gray-700 pt-20 pb-8">Driver Information</h1>
         <hr className="-mx-4 sm:-mx-8 md:-mx-12 lg:-mx-16 xl:-mx-20" />
         <div className="py-8">

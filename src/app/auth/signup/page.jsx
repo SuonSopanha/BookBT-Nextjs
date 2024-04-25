@@ -1,12 +1,69 @@
+"use client"
+
+import { useState } from 'react';
+import axios from 'axios';
+import { redirect } from 'next/navigation';
+
 const Signup = () => {
+
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false); // Track form submission state
+
+  const handleSignup = async (e) => {
+    e.preventDefault();
+  
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }     
+  
+    try {
+      setIsSubmitting(true); // Set isSubmitting to true when form is submitted
+  
+      const response = await axios.post('http://localhost:8000/api/v1/auth/signup', {
+        fullname: name,
+        email,
+        password,
+        confirm_password: confirmPassword
+      });
+  
+      console.log(response.data);
+  
+      // Redirect to the login page after successful signup
+      window.location.href = '/auth/login';
+    } catch (error) {
+      // Handle network errors or HTTP errors
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        console.error('Server responded with error:', error.response.data);
+        setError(error.response.data.message); // Set error message from server response
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.error('No response received from server');
+        setError('Failed to connect to the server');
+      } else {
+        // Something else happened while setting up the request
+        console.error('Error setting up the request:', error.message);
+        setError('An unexpected error occurred');
+      }
+    } finally {
+      setIsSubmitting(false); // Reset isSubmitting to false regardless of success or failure
+    }
+  };
+
   return (
     <>
       <div
         className="min-h-screen py-40 bg-cover bg-no-repeat"
-        // style={{
-        //   backgroundImage:
-        //     "linear-gradient(rgba(25, 44, 154, 0.444), rgba(0, 0, 0, 0.5)), url(image/Slide_3.jpg)",
-        // }}
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(25, 44, 154, 0.444), rgba(0, 0, 0, 0.5)), url(image/Slide_3.jpg)",
+        }}
       >
         <div className="container max-auto">
           <div className="flex flex-col lg:flex-row w-10/12 lg:w-8/12 bg-white rounded-xl mx-auto shadow-lg overflow-hidden">
@@ -30,67 +87,54 @@ const Signup = () => {
               <p className="mt-4">
                 Create your account. It's free and only takes a minute.
               </p>
-              <form id="registrationForm" action="#">
+              <form id="registrationForm" onSubmit={handleSignup}>
 
                 <div className="mt-4">
                   <input
                     type="text"
                     placeholder="Name"
                     className="border border-gray-400 py-1 px-2 w-full"
-                  ></input>
-                </div>
-                <div className="mt-4 grid grid-cols-2 gap-4">
-                  <input
-                    type="date"
-                    className="border border-gray-400 py-1 px-2"
-                  ></input>
-                  <select
-                    placeholder="Gender"
-                    className="border border-gray-400 py-1 px-2"
-                  >
-                    <option>Male</option>
-                    <option>Female</option>
-                  </select>
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
                 </div>
                 <div className="mt-4">
                   <input
                     type="text"
                     placeholder="Email"
                     className="border border-gray-400 py-1 px-2 w-full"
-                  ></input>
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
                 </div>
                 <div className="mt-4">
                   <input
                     type="password"
                     placeholder="Password"
                     className="border border-gray-400 py-1 px-2 w-full"
-                  ></input>
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
                 </div>
                 <div className="mt-4">
                   <input
                     type="password"
                     placeholder="Confirm Password"
                     className="border border-gray-400 py-1 px-2 w-full"
-                  ></input>
-                </div>
-                <div className="mt-4">
-                  <input type="checkbox" className="border border-gray-400"></input>
-                  <span className="ml-2">
-                    I agree with the{" "}
-                    <a href="/terms" className="text-blue-500">
-                      terms and conditions
-                    </a>
-                  </span>
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                  />
                 </div>
                 <div className="mt-8">
-                  <a
-                    href="RegisterDriver.html"
-                    id="registerButton"
+                  <button
+                    type="submit"
                     className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    disabled={isSubmitting} // Disable the button when isSubmitting is true
                   >
-                    Register
-                  </a>
+                    {isSubmitting ? 'Signing Up...' : 'Register'}
+                  </button>
                 </div>
+                {error && <p className="text-red-500 mt-4">{error}</p>}
               </form>
             </div>
           </div>

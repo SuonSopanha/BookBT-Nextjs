@@ -27,18 +27,18 @@ const Header = () => {
                 </a>
               </div>
               <span className="text-gray-400">|</span>
-              <div className="inline h-8 hover:border-b-2">
-                <a href="/booking" className="mx-4">Booking</a>
-              </div>
+              <button className="inline h-8 hover:border-b-2">
+                <a href="/bus/list" className="mx-4">Booking</a>
+              </button>
               <span className="text-gray-400">|</span>
               <div className="inline h-8 hover:border-b-2">
-                <a href="/bus-list" className="mx-4">
+                <a href="/bus/list" className="mx-4">
                   Services
                 </a>
               </div>
               <span className="text-gray-400">|</span>
               <div className="inline h-8 hover:border-b-2">
-                <a href="/user-profile" className="mx-4">
+                <a href="/user" className="mx-4">
                   Account
                 </a>
               </div>
@@ -126,7 +126,7 @@ const Header = () => {
                 className="rounded bg-white px-4 py-2 font-bold text-black hover:bg-yellow-500"
                 id="login"
               >
-                <a href="/login" className="text-black">
+                <a href="/auth/login" className="text-black">
                   Login
                 </a>
               </button>

@@ -1,10 +1,9 @@
 const Compare = () => {
   return (
     <div>
-      <div className=" mt-20 h-fit text-white text-center">Taxi Compare</div>
       <div className="relative">
-        <div className="relative bg-black bg-opacity-50 py-10">
-          <div className="mx-auto flex flex-col justify-center space-y-4 p-4 md:flex-row md:space-x-20 md:space-y-0">
+        <div className="relative py-10">
+          <div className="mx-auto flex flex-col justify-center space-y-4 p-4 md:flex-row md:space-x-8 md:space-y-0">
             <div className="relative rounded-lg bg-white">
               <div className="flex border-1-gray h-auto w-full items-center justify-center rounded-t-lg bg-slate-600 object-fill text-center align-middle font-medium text-slate-300">
                 <img

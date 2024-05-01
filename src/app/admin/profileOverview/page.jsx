@@ -3,7 +3,7 @@ const ProfileOverview = () => {
     <div>
       <main className="flex h-full overflow-hidden pt-16">
 
-        <div className="flex-grow p-4 sm:ml-64">
+        <div className="flex-grow p-4 ">
           <div className="relative w-full mx-auto mt-6">
             <div className="relative flex flex-col flex-auto min-w-0 p-4 mx-6 overflow-hidden break-words bg-white border-0 dark:bg-slate-850 dark:shadow-dark-xl shadow-3xl rounded-2xl bg-clip-border">
               <div className="flex flex-wrap -mx-3">

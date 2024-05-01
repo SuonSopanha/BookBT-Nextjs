@@ -3,7 +3,7 @@ const AdminDashboard = () => {
     <div>
       <main class="flex h-full overflow-hidden pt-20 -z-10">
 
-        <div class="flex-grow p-4 sm:ml-64">
+        <div class="flex-grow p-4 ">
           <div class="w-full px-6 py-6 mx-auto">
             <div class="flex flex-wrap -mx-3">
               <div class="w-full max-w-full px-3 mb-6 sm:w-1/2 sm:flex-none xl:mb-0 xl:w-1/4">
@@ -137,7 +137,7 @@ const AdminDashboard = () => {
                 </div>
               </div>
 
-              <div class="w-full max-w-full px-3 lg:w-5/12 lg:flex-none">
+              <div class="w-full max-w-full px-3 lg:w-4/12 lg:flex-none ml-12">
                 <div
                   slider
                   class="relative w-full h-full overflow-hidden rounded-2xl"

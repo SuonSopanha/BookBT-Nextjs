@@ -2,9 +2,8 @@
 const TaxiFeedback = () => {
   return (
     <div>
-      <div className="h-96"></div>
       <div className="relative">
-        <div className="relative bg-black bg-opacity-50 py-10">
+        <div className="relative py-10">
           <div className="mx-auto flex flex-col justify-center space-y-4 p-4 md:flex-row md:space-x-20 md:space-y-0">
             <div className="relative rounded-lg bg-white">
               <img
@@ -138,7 +137,7 @@ const TaxiFeedback = () => {
                     src="https://img.icons8.com/material-sharp/48/FAB005/user-male-circle.png"
                     alt="user-male-circle"
                   />
-                  <div className="ml-4 w-96 border-b-2 border-black p-2 sm:w-auto">
+                  <div className="ml-2 w-80 border-b border-black p-1 sm:w-auto">
                     <div>
                       <p className="font-medium">Soun Sopanha</p>
                     </div>
@@ -196,7 +195,7 @@ const TaxiFeedback = () => {
                     src="https://img.icons8.com/material-sharp/48/FAB005/user-male-circle.png"
                     alt="user-male-circle"
                   />
-                  <div className="ml-4 w-96 border-b-2 border-black p-2 sm:w-auto">
+                  <div className="ml-2 w-80 border-b border-black p-1 sm:w-auto">
                     <div>
                       <p className="font-medium">Kalo</p>
                     </div>
@@ -233,7 +232,7 @@ const TaxiFeedback = () => {
                     src="https://img.icons8.com/material-sharp/48/FAB005/user-male-circle.png"
                     alt="user-male-circle"
                   />
-                  <div className="ml-4 w-96 border-b-2 border-black p-2 sm:w-auto">
+                  <div className="ml-2 w-80 border-b border-black p-1 sm:w-auto">
                     <div>
                       <p className="font-medium">Sanin</p>
                     </div>
@@ -290,7 +289,7 @@ const TaxiFeedback = () => {
                     src="https://img.icons8.com/material-sharp/48/FAB005/user-male-circle.png"
                     alt="user-male-circle"
                   />
-                  <div className="ml-4 w-96 border-b-2 border-black p-2 sm:w-auto">
+                  <div className="ml-2 w-80 border-b border-black p-1 sm:w-auto">
                     <div>
                       <p className="font-medium">AhTa SmosSnea</p>
                     </div>
@@ -341,7 +340,7 @@ const TaxiFeedback = () => {
                     src="https://img.icons8.com/material-sharp/48/FAB005/user-male-circle.png"
                     alt="user-male-circle"
                   />
-                  <div className="ml-4 w-96 border-b-2 border-black p-2 sm:w-auto">
+                  <div className="ml-2 w-80 border-b border-black p-1 sm:w-auto">
                     <div>
                       <p className="font-medium">AhTa SmosSnea</p>
                     </div>
@@ -392,7 +391,7 @@ const TaxiFeedback = () => {
                     src="https://img.icons8.com/material-sharp/48/FAB005/user-male-circle.png"
                     alt="user-male-circle"
                   />
-                  <div className="ml-4 w-96 border-b-2 border-black p-2 sm:w-auto">
+                  <div className="ml-2 w-80 border-b border-black p-1 sm:w-auto">
                     <div>
                       <p className="font-medium">AhTa SmosSnea</p>
                     </div>

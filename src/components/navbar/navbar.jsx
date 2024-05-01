@@ -27,9 +27,9 @@ const Header = () => {
                 </a>
               </div>
               <span className="text-gray-400">|</span>
-              <button className="inline h-8 hover:border-b-2">
+              <div className="inline h-8 hover:border-b-2">
                 <a href="/bus/list" className="mx-4">Booking</a>
-              </button>
+              </div>
               <span className="text-gray-400">|</span>
               <div className="inline h-8 hover:border-b-2">
                 <a href="/bus/list" className="mx-4">

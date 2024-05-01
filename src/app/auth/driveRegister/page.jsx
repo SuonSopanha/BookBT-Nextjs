@@ -2,14 +2,18 @@ const DriveRegister = () => {
   return (
     <>
       <div className="bg-white  mx-auto px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 text-start">
-        <h1 className="text-3xl text-gray-700 pt-20 pb-8">Driver Information</h1>
+        <h1 className="text-3xl text-gray-700 pt-20 pb-8">
+          Driver Information
+        </h1>
         <hr className="-mx-4 sm:-mx-8 md:-mx-12 lg:-mx-16 xl:-mx-20" />
         <div className="py-8">
           <div className="flex mb-4 px-1 ">
             <span className="flex justify-center border rounded-full w-6 h-6 mr-3 border-blue-500 text-blue-500">
               1
             </span>
-            <span className="text-gray-700 font-bold">Personal Information</span>
+            <span className="text-gray-700 font-bold">
+              Personal Information
+            </span>
           </div>
           <div className="flex flex-wrap">
             <div className="w-full sm:w-1/2 mb-4 sm:mb-0 pr-0 sm:pr-4">
@@ -30,13 +34,11 @@ const DriveRegister = () => {
             </div>
           </div>
           <div className="flex flex-wrap mt-4">
-            <div className="w-full sm:w-2/4 mb-4 sm:mb-0 pr-0 sm:pr-4">
-              <label className="text-gray-600 font-light">
-                Company Name (optional)
-              </label>
+            <div className="w-full sm:w-1/2 mb-4 sm:mb-0 pr-0 sm:pr-4">
+              <label className="text-gray-600 font-light">Contact Number</label>
               <input
                 type="text"
-                placeholder="Enter Company Name (optional)"
+                placeholder="Enter your Contact Number"
                 className="w-full mt-2 px-2 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500 bg-slate-100"
               ></input>
             </div>
@@ -57,10 +59,10 @@ const DriveRegister = () => {
           </div>
           <div className="flex flex-wrap mt-4">
             <div className="w-full sm:w-1/2 mb-4 sm:mb-0 pr-0 sm:pr-4">
-              <label className="text-gray-600 font-light">Contact Number</label>
+              <label className="text-gray-600 font-light">Address</label>
               <input
                 type="text"
-                placeholder="Enter your Contact Number"
+                placeholder="Enter your Address"
                 className="w-full mt-2 px-2 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500 bg-slate-100"
               ></input>
             </div>
@@ -73,7 +75,7 @@ const DriveRegister = () => {
               ></input>
             </div>
           </div>
-          <div className="flex flex-wrap mt-4">
+          {/* <div className="flex flex-wrap mt-4">
             <div className="w-full sm:w-1/2 mb-4 sm:mb-0 pr-0 sm:pr-4">
               <label className="text-gray-600 font-light">Address</label>
               <input
@@ -90,7 +92,7 @@ const DriveRegister = () => {
                 className="w-full mt-2 px-2 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500 bg-slate-100"
               ></input>
             </div>
-          </div>
+          </div> */}
 
           <div className="flex flex-wrap mt-4">
             <div className="w-full sm:w-1/2 mb-4 sm:mb-0 pr-0 sm:pr-4">
@@ -112,7 +114,9 @@ const DriveRegister = () => {
                 <img id="preview1" className="hidden mt-2" alt="Preview"></img>
               </label>
             </div>
-            <div className="w-full sm:w-1/2 pl-0 sm:pl-4">
+
+            {/*add car profile*/}
+            {/* <div className="w-full sm:w-1/2 pl-0 sm:pl-4">
               <label className="block text-gray-700 text-sm font-semibold mb-2">
                 Add your car
               </label>
@@ -130,10 +134,10 @@ const DriveRegister = () => {
                 </span>
                 <img id="preview2" className="hidden mt-2" alt="Preview"></img>
               </label>
-            </div>
+            </div> */}
           </div>
 
-          <div className="flex mb-4 px-1 mt-8">
+          {/* <div className="flex mb-4 px-1 mt-8">
             <span className="flex justify-center border rounded-full w-6 h-6 mr-3 border-blue-500 text-blue-500">
               2
             </span>
@@ -177,7 +181,9 @@ const DriveRegister = () => {
           </div>
           <div className="flex flex-wrap mt-4">
             <div className="w-full sm:w-1/2 mb-4 sm:mb-0 pr-0 sm:pr-4">
-              <label className="text-gray-600 font-light">Additional charges</label>
+              <label className="text-gray-600 font-light">
+                Additional charges
+              </label>
               <input
                 type="text"
                 placeholder="Enter your Additional charges"
@@ -220,7 +226,7 @@ const DriveRegister = () => {
                 className="w-full mt-2 px-2 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500 bg-slate-100"
               ></input>
             </div>
-          </div>
+          </div> */}
 
           <div className="flex justify-center mt-4">
             <button className="w-full sm:w-1/5 lg:w-1/5 h-16 mt-2 mb-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">

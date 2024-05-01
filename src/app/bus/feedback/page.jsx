@@ -1,10 +1,8 @@
-
 const BusFeedback = () => {
   return (
     <div>
-      <div className="h-96"></div>
       <div className="relative">
-        <div className="relative bg-black bg-opacity-50 py-10">
+        <div className="relative py-10">
           <div className="mx-auto flex flex-col justify-center space-y-4 p-4 md:flex-row md:space-x-20 md:space-y-0">
             <div className="relative rounded-lg bg-white">
               <img
@@ -54,7 +52,9 @@ const BusFeedback = () => {
                     src="https://img.icons8.com/material-outlined/24/FAB005/signpost-tourist.png"
                     alt="signpost-tourist"
                   />
-                  <p className="ml-4 text-xl font-bold text-zinc-600">Direction</p>
+                  <p className="ml-4 text-xl font-bold text-zinc-600">
+                    Direction
+                  </p>
                 </div>
                 <p className="ml-11 font-medium text-slate-500">
                   Phnom Penh - Siem Reap
@@ -128,7 +128,9 @@ const BusFeedback = () => {
             <div className="relative w-full rounded-lg bg-white md:w-1/2">
               <div className="m-4 pb-12">
                 <div className="ml-0.5 flex items-center border-b-2 border-black p-2">
-                  <p className="ml-2 text-xl font-bold text-zinc-600">Feedback</p>
+                  <p className="ml-2 text-xl font-bold text-zinc-600">
+                    Feedback
+                  </p>
                 </div>
 
                 <div className="flex items-center p-4">
@@ -138,7 +140,7 @@ const BusFeedback = () => {
                     src="https://img.icons8.com/material-sharp/48/FAB005/user-male-circle.png"
                     alt="user-male-circle"
                   />
-                  <div className="ml-4 w-96 border-b-2 border-black p-2 sm:w-auto">
+                  <div className="ml-2 w-80 border-b border-black p-1 sm:w-auto">
                     <div>
                       <p className="font-medium">Soun Sopanha</p>
                     </div>
@@ -196,7 +198,7 @@ const BusFeedback = () => {
                     src="https://img.icons8.com/material-sharp/48/FAB005/user-male-circle.png"
                     alt="user-male-circle"
                   />
-                  <div className="ml-4 w-96 border-b-2 border-black p-2 sm:w-auto">
+                  <div className="ml-2 w-80 border-b border-black p-1 sm:w-auto">
                     <div>
                       <p className="font-medium">Kalo</p>
                     </div>
@@ -233,7 +235,7 @@ const BusFeedback = () => {
                     src="https://img.icons8.com/material-sharp/48/FAB005/user-male-circle.png"
                     alt="user-male-circle"
                   />
-                  <div className="ml-4 w-96 border-b-2 border-black p-2 sm:w-auto">
+                  <div className="ml-2 w-80 border-b border-black p-1 sm:w-auto">
                     <div>
                       <p className="font-medium">Sanin</p>
                     </div>
@@ -290,7 +292,7 @@ const BusFeedback = () => {
                     src="https://img.icons8.com/material-sharp/48/FAB005/user-male-circle.png"
                     alt="user-male-circle"
                   />
-                  <div className="ml-4 w-96 border-b-2 border-black p-2 sm:w-auto">
+                  <div className="ml-2 w-80 border-b border-black p-1 sm:w-auto">
                     <div>
                       <p className="font-medium">AhTa SmosSnea</p>
                     </div>
@@ -341,7 +343,7 @@ const BusFeedback = () => {
                     src="https://img.icons8.com/material-sharp/48/FAB005/user-male-circle.png"
                     alt="user-male-circle"
                   />
-                  <div className="ml-4 w-96 border-b-2 border-black p-2 sm:w-auto">
+                  <div className="ml-2 w-80 border-b border-black p-1 sm:w-auto">
                     <div>
                       <p className="font-medium">AhTa SmosSnea</p>
                     </div>
@@ -392,7 +394,7 @@ const BusFeedback = () => {
                     src="https://img.icons8.com/material-sharp/48/FAB005/user-male-circle.png"
                     alt="user-male-circle"
                   />
-                  <div className="ml-4 w-96 border-b-2 border-black p-2 sm:w-auto">
+                  <div className="ml-2 w-80 border-b border-black p-1 sm:w-auto">
                     <div>
                       <p className="font-medium">AhTa SmosSnea</p>
                     </div>
@@ -456,4 +458,4 @@ const BusFeedback = () => {
   );
 };
 
-export default  BusFeedback;
+export default BusFeedback;

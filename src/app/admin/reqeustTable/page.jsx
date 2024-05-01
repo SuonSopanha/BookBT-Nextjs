@@ -3,7 +3,7 @@ const RequestTable = () => {
     <div>
       <main className="flex h-full overflow-hidden pt-16">
 
-        <div className="flex-grow p-4 sm:ml-64">
+        <div className="flex-grow p-4">
           <div className="w-full px-6 py-6 mx-auto">
             <div className="flex flex-wrap -mx-3">
               <div className="flex-none w-full max-w-full px-3">

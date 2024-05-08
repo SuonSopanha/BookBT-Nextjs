@@ -24,7 +24,7 @@ const BookingReciept = () => {
                     </div>
                     <div className="flex w-full items-center justify-end border-t-4 border-yellow-400 px-2 pt-4 italic">
                       <p class="text-xs sm:text-base mr-2 sm:mr-0">ServiceID :</p>
-                      <p className="ml-2 text-xs sm:text-base">39473940232</p>
+                      <p className="ml-2 text-xs sm:text-base font-medium">39473940232</p>
                     </div>
                   </div>
                   <div className="flex w-full px-4 md:px-10">
@@ -58,7 +58,7 @@ const BookingReciept = () => {
                           <p class="text-xs sm:text-base">Tel:</p>
                         </div>
                         <div className="flex w-full items-center justify-end">
-                          <p className="ml-0 sm:ml-2 font-medium text-xs sm:text-base">094 686 1232</p>
+                          <p className="ml-0 sm:ml-2 font-bold text-xs sm:text-base">094 686 1232</p>
                         </div>
                       </div>
                     </div>
@@ -77,7 +77,7 @@ const BookingReciept = () => {
                         <p class="text-xs sm:text-base">Tel:</p>
                       </div>
                       <div className="flex w-full items-center justify-end">
-                        <p className="ml-0 sm:ml-2 font-medium text-xs sm:text-base">088 654 8899</p>
+                        <p className="ml-0 sm:ml-2 font-bold text-xs sm:text-base">088 654 8899</p>
                       </div>
                     </div>
                   </div>

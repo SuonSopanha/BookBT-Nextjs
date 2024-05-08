@@ -93,7 +93,7 @@ const BookingRequest = () => {
                       </div>
                     </div>
                     <div className="flex w-full items-center justify-end bg-yellow-200 px-2">
-                      <div className="flex w-28 items-center justify-end font-medium md:w-full text-xs sm:text-base">
+                      <div className="flex w-28 items-center justify-end md:w-full text-xs sm:text-base">
                         <p>Time :</p>
                       </div>
                       <div className="flex w-full items-center justify-end ">
@@ -120,7 +120,7 @@ const BookingRequest = () => {
                       </div>
                     </div>
                     <div className="flex w-full items-center justify-end px-2">
-                      <div className="flex w-24 items-center justify-end font-medium md:w-full text-xs sm:text-base">
+                      <div className="flex w-24 items-center justify-end md:w-full text-xs sm:text-base">
                         <p>type:</p>
                       </div>
                       <div className="flex items-center justify-end md:w-full">
@@ -146,13 +146,14 @@ const BookingRequest = () => {
                   </div>
 
                   <div className="flex w-full px-4 md:px-16">
-                    <div className="flex w-52 border-b-2 border-yellow-400 px-2 py-2 font-medium">
+                    <div className="flex w-52 border-b-2 border-yellow-400 px-2 py-2">
                       <div className="text-xs sm:text-base">
                         <p>Total Price :</p>
                       </div>
-                      <div className="ml-2 font-bold text-xs sm:text-base">
+                      <div class="ml-2 font-bold text-xs sm:text-base text-green-600 bg-yellow-200 px-2">
                         <p>20 $</p>
                       </div>
+
                     </div>
                     <div className="flex w-full items-center border-b-2 border-yellow-400 p-2">
                       <div className="flex w-full items-center justify-end text-xs sm:text-base">

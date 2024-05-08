@@ -13,7 +13,7 @@ const BookingReciept = () => {
                         </p>
                     </div>
                   <div className="mt-8 pt-4 text-zinc-600">
-                    <div className="flex w-full px-4 md:px-10">
+                    <div className="flex w-full px-4 md:px-16">
                       <div className="flex w-full border-t-4 border-yellow-400 px-2 pt-4">
                         <div>
                           <p class="text-xs sm:text-base">Location :</p>
@@ -27,7 +27,7 @@ const BookingReciept = () => {
                         <p className="ml-2 text-xs sm:text-base font-medium">39473940232</p>
                       </div>
                     </div>
-                    <div className="flex w-full px-4 md:px-10">
+                    <div className="flex w-full px-4 md:px-16">
                       <div className="flex w-full px-2 pb-4">
                         <div>
                           <p class="text-xs sm:text-base">Destination :</p>
@@ -43,7 +43,7 @@ const BookingReciept = () => {
                     </div>
                   </div>
                   <div className="text-zinc-600">
-                    <div className="flex w-full px-4 md:px-10">
+                    <div className="flex w-full px-4 md:px-16">
                       <div className="flex w-full border-t-2 border-yellow-400 px-2 pt-4">
                         <div>
                           <p class="text-xs sm:text-base">User Name:</p>
@@ -63,7 +63,7 @@ const BookingReciept = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="flex w-full px-4 md:px-10">
+                    <div className="flex w-full px-4 md:px-16">
                       <div className="flex w-full px-2 pb-4">
                         <div>
                           <p class="text-xs sm:text-base">Driver Name:</p>
@@ -81,8 +81,7 @@ const BookingReciept = () => {
                         </div>
                       </div>
                     </div>
-
-                    <div className="flex w-full px-4 md:px-10">
+                    <div className="flex w-full px-4 md:px-16">
                       <div className="flex w-full bg-yellow-200 px-2 py-2">
                         <div className="font-medium">
                           <p class="text-xs sm:text-base">Date:</p>
@@ -101,7 +100,7 @@ const BookingReciept = () => {
                       </div>
                     </div>
 
-                    <div className="flex w-full px-4 md:px-10">
+                    <div className="flex w-full px-4 md:px-16">
                       <div className="flex w-96 px-2 py-2 md:w-full">
                         <div>
                           <p class="text-xs sm:text-base">Vehicle:</p>
@@ -128,7 +127,7 @@ const BookingReciept = () => {
                       </div>
                     </div>
 
-                    <div className="flex w-full px-4 md:px-10">
+                    <div className="flex w-full px-4 md:px-16">
                       <div className="flex w-full bg-yellow-200 px-2 py-2">
                         <div className="font-medium">
                           <p class="text-xs sm:text-base">Seat Price :</p>
@@ -144,13 +143,13 @@ const BookingReciept = () => {
                       </div>
                     </div>
 
-                    <div className="flex w-full px-4 md:px-10">
+                    <div className="flex w-full px-4 md:px-16">
                       <div className="flex w-52 border-b-2 border-yellow-400 px-2 py-2 font-medium">
                         <div>
                           <p class="text-xs sm:text-base">Total Price :</p>
                         </div>
-                        <div className="ml-2 font-medium">
-                          <p class="text-xs sm:text-base font-bold">20 $</p>
+                        <div class="ml-2 font-bold text-xs sm:text-base text-green-600 bg-yellow-200 px-2">
+                          <p>20 $</p>
                         </div>
                       </div>
                       <div className="flex w-full items-center border-b-2 border-yellow-400 p-2">
@@ -163,9 +162,9 @@ const BookingReciept = () => {
                       </div>
                     </div>
 
-                    <div className="flex w-full px-4 md:px-10">
+                    <div className="flex w-full px-4 md:px-16">
                       <div className="flex w-52 py-8 font-medium">
-                        <button className="relative mb-8 mt-5 flex h-8 w-28 sm:h-12 sm:w-40 items-center justify-center overflow-hidden rounded-lg bg-gradient-to-r from-yellow-500 to-amber-200 text-sm font-medium text-black shadow-lg shadow-slate-500 hover:border-2 hover:border-zinc-400 hover:shadow-none">
+                        <button className="relative mb-8 mt-5 flex h-8 w-28 sm:h-12 sm:w-40 items-center justify-center overflow-hidden rounded-lg bg-gradient-to-r from-yellow-500 to-amber-200 text-xl font-medium text-black shadow-lg shadow-slate-500 hover:border-2 hover:border-zinc-400 hover:shadow-none">
                           <a href="homePage.html">Back</a>
                           <div className="absolute right-0 mt-12 h-20 w-20 translate-x-1/2 transform rounded-full bg-yellow-200 bg-opacity-80"></div>
                         </button>

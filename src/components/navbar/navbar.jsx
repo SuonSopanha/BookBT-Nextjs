@@ -13,6 +13,8 @@ const Header = () => {
   };
 
 
+
+
   return (
     <>
       <nav
@@ -122,6 +124,14 @@ const Header = () => {
                 <span className="sr-only">Dribbble account</span>
               </a>
               {/* Other social media icons */}
+              <button
+                className="rounded bg-white px-4 py-2 font-bold text-black hover:bg-yellow-500"
+                id="login"
+              >
+                <a href="/auth/login" className="text-black">
+                  KH
+                </a>
+              </button>
               <button
                 className="rounded bg-white px-4 py-2 font-bold text-black hover:bg-yellow-500"
                 id="login"

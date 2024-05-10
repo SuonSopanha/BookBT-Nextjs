@@ -6,7 +6,6 @@ const SearchButton = () => {
       type="button"
       className="ml-2 rounded bg-white p-2 hover:bg-yellow-500"
       id="search"
-      onClick={() => console.log("Button clicked!")}
     >
       <div className="text-black">
         <svg

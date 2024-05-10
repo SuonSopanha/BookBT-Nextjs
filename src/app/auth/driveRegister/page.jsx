@@ -1,4 +1,56 @@
+"use client";
+import React, { useState } from "react";
+
 const DriveRegister = () => {
+  const [imagePreview, setImagePreview] = useState(null);
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleFileUpload = async () => {
+    const fileInput = document.getElementById("profile-image");
+    const file = fileInput.files[0];
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "BookingBT");
+
+    try {
+      const response = await fetch(
+        "https://api.cloudinary.com/v1_1/dfevo0hzt/image/upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data)
+        url = data.secure_url;
+        
+      } else {
+        console.error("Failed to upload image to Cloudinary");
+      }
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    }
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    await handleFileUpload();
+    // Collect form data including the imageURL
+    console.log("imageURL:", url);
+  };
+
   return (
     <>
       <div className="bg-white  mx-auto px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 text-start">
@@ -75,161 +127,43 @@ const DriveRegister = () => {
               ></input>
             </div>
           </div>
-          {/* <div className="flex flex-wrap mt-4">
-            <div className="w-full sm:w-1/2 mb-4 sm:mb-0 pr-0 sm:pr-4">
-              <label className="text-gray-600 font-light">Address</label>
-              <input
-                type="text"
-                placeholder="Enter your Address"
-                className="w-full mt-2 px-2 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500 bg-slate-100"
-              ></input>
-            </div>
-            <div className="w-full sm:w-1/2 pl-0 sm:pl-4">
-              <label className="text-gray-600 font-light">Location</label>
-              <input
-                type="text"
-                placeholder="Enter your Location"
-                className="w-full mt-2 px-2 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500 bg-slate-100"
-              ></input>
-            </div>
-          </div> */}
 
           <div className="flex flex-wrap mt-4">
             <div className="w-full sm:w-1/2 mb-4 sm:mb-0 pr-0 sm:pr-4">
               <label className="block text-gray-700 text-sm font-semibold mb-2">
                 Add Profile
               </label>
-              <label className="w-1/3 flex flex-col items-center justify-center bg-slate-100 border-dashed border-2 border-gray-400 rounded-lg cursor-pointer hover:border-blue-500 hover:bg-blue-300 h-32 relative">
+              <label
+                htmlFor="profile-image"
+                className="w-1/3 flex flex-col items-center justify-center bg-slate-100 border-dashed border-2 border-gray-400 rounded-lg cursor-pointer hover:border-blue-500 hover:bg-blue-300 h-32 relative"
+              >
                 <input
+                  id="profile-image"
                   type="file"
+                  accept="image/*"
                   className="hidden"
-                  onchange="showImagePreview(this, 'preview1', 'fileLabel1')"
+                  onChange={handleFileChange}
                 ></input>
-                <span
-                  id="fileLabel1"
-                  className="text-gray-600 font-bold py-2 px-4 hover:text-blue-700"
-                >
-                  Choose a file
-                </span>
-                <img id="preview1" className="hidden mt-2" alt="Preview"></img>
+                {!imagePreview && (
+                  <span className="text-gray-600 font-bold py-2 px-4 hover:text-blue-700">
+                    Choose a file
+                  </span>
+                )}
+                {imagePreview && (
+                  <img
+                    src={imagePreview}
+                    className="w-full h-full object-cover"
+                    alt="Preview"
+                  ></img>
+                )}
               </label>
             </div>
-
-            {/*add car profile*/}
-            {/* <div className="w-full sm:w-1/2 pl-0 sm:pl-4">
-              <label className="block text-gray-700 text-sm font-semibold mb-2">
-                Add your car
-              </label>
-              <label className="w-1/3 flex flex-col items-center justify-center bg-slate-100 border-dashed border-2 border-gray-400 rounded-lg cursor-pointer hover:border-blue-500 hover:bg-blue-300 h-32 relative">
-                <input
-                  type="file"
-                  className="hidden"
-                  onchange="showImagePreview(this, 'preview2', 'fileLabel2')"
-                ></input>
-                <span
-                  id="fileLabel2"
-                  className="text-gray-600 font-bold py-2 px-4 hover:text-blue-700"
-                >
-                  Choose a file
-                </span>
-                <img id="preview2" className="hidden mt-2" alt="Preview"></img>
-              </label>
-            </div> */}
           </div>
-
-          {/* <div className="flex mb-4 px-1 mt-8">
-            <span className="flex justify-center border rounded-full w-6 h-6 mr-3 border-blue-500 text-blue-500">
-              2
-            </span>
-            <span className="text-gray-700 font-bold">Vehicle Information</span>
-          </div>
-          <div className="flex flex-wrap">
-            <div className="w-full sm:w-1/2 mb-4 sm:mb-0 pr-0 sm:pr-4">
-              <label className="text-gray-600 font-light">Destination</label>
-              <input
-                type="text"
-                placeholder="Enter your Destination"
-                className="w-full mt-2 px-2 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500 bg-slate-100"
-              ></input>
-            </div>
-            <div className="w-full sm:w-1/2 pl-0 sm:pl-4">
-              <label className="text-gray-600 font-light">Vehicle type</label>
-              <input
-                type="text"
-                placeholder="Enter your Vehicle type"
-                className="w-full mt-2 px-2 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500 bg-slate-100"
-              ></input>
-            </div>
-          </div>
-          <div className="flex flex-wrap mt-4">
-            <div className="w-full sm:w-1/2 mb-4 sm:mb-0 pr-0 sm:pr-4">
-              <label className="text-gray-600 font-light">Vehicle Count</label>
-              <input
-                type="text"
-                placeholder="Enter your Vehicle Count"
-                className="w-full mt-2 px-2 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500 bg-slate-100"
-              ></input>
-            </div>
-            <div className="w-full sm:w-1/2 pl-0 sm:pl-4">
-              <label className="text-gray-600 font-light">Base fare</label>
-              <input
-                type="text"
-                placeholder="Enter your Base fare"
-                className="w-full mt-2 px-2 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500 bg-slate-100"
-              ></input>
-            </div>
-          </div>
-          <div className="flex flex-wrap mt-4">
-            <div className="w-full sm:w-1/2 mb-4 sm:mb-0 pr-0 sm:pr-4">
-              <label className="text-gray-600 font-light">
-                Additional charges
-              </label>
-              <input
-                type="text"
-                placeholder="Enter your Additional charges"
-                className="w-full mt-2 px-2 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500 bg-slate-100"
-              ></input>
-            </div>
-            <div className="w-full sm:w-1/2 pl-0 sm:pl-4">
-              <label className="text-gray-600 font-light">
-                Pricing Description
-              </label>
-              <input
-                type="text"
-                placeholder="Enter your Pricing Description"
-                className="w-full mt-2 px-2 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500 bg-slate-100"
-              ></input>
-            </div>
-          </div>
-          <div className="flex flex-wrap mt-4">
-            <div className="w-full sm:w-1/3 mb-4 sm:mb-0 pr-0 sm:pr-4">
-              <label className="text-gray-600 font-light">Day of week</label>
-              <input
-                type="text"
-                placeholder="Enter your Day of week "
-                className="w-full mt-2 px-2 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500 bg-slate-100"
-              ></input>
-            </div>
-            <div className="w-full sm:w-1/3 pl-0 sm:pl-4">
-              <label className="text-gray-600 font-light">Fleet time</label>
-              <input
-                type="text"
-                placeholder="Enter your Fleet time"
-                className="w-full mt-2 px-2 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500 bg-slate-100"
-              ></input>
-            </div>
-            <div className="w-full sm:w-1/3 pl-0 sm:pl-4">
-              <label className="text-gray-600 font-light">Arrive time</label>
-              <input
-                type="text"
-                placeholder="Enter arrive time"
-                className="w-full mt-2 px-2 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500 bg-slate-100"
-              ></input>
-            </div>
-          </div> */}
-
           <div className="flex justify-center mt-4">
-            <button className="w-full sm:w-1/5 lg:w-1/5 h-16 mt-2 mb-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            <button
+              onClick={handleSubmit}
+              className="w-full sm:w-1/5 lg:w-1/5 h-16 mt-2 mb-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
               SUBMIT
             </button>
           </div>

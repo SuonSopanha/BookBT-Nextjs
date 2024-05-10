@@ -2,13 +2,13 @@ const BookingRequest = () => {
   return (
     <div className="w-full">
       <div className="h-28"></div>
-      <div class="relative overflow-hidden">
-        <div class="relative bg-none px-2 pb-10 md:px-0">
-          <div class="mx-auto flex flex-col justify-center md:flex-row md:space-x-20 md:space-y-0 md:px-2 px-2">
-              <div class="relative w-full rounded-3xl bg-amber-50 sm:w-full md:w-4/5">
-                  <div class="pb-12">
-                    <div class="flex w-full items-center justify-center rounded-full bg-yellow-300 p-2">
-                        <p class="ml-2 text-xl sm:text-2xl font-bold text-indigo-900">
+      <div className="relative overflow-hidden">
+        <div className="relative bg-none px-2 pb-10 md:px-0">
+          <div className="mx-auto flex flex-col justify-center md:flex-row md:space-x-20 md:space-y-0 md:px-2 px-2">
+              <div className="relative w-full rounded-3xl bg-amber-50 sm:w-full md:w-4/5">
+                  <div className="pb-12">
+                    <div className="flex w-full items-center justify-center rounded-full bg-yellow-300 p-2">
+                        <p className="ml-2 text-xl sm:text-2xl font-bold text-indigo-900">
                           Booking Request
                         </p>
                     </div>

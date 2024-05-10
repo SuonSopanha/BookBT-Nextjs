@@ -1,3 +1,5 @@
+import { CldImage } from "next-cloudinary";
+
 const UserProfile = () => {
     return (
       <div>
@@ -13,7 +15,7 @@ const UserProfile = () => {
                     <img
                       width="28"
                       height="24"
-                      src="https://img.icons8.com/windows/32/FAB005/gender-neutral-user.png"
+                      src="https://res.cloudinary.com/dfevo0hzt/image/upload/v1715358279/BookingBT/k70qhxa2jj7tbbvjactt.png"
                       alt="gender-neutral-user"
                     />
                     <input

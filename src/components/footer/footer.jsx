@@ -4,10 +4,10 @@ const Footer = () => {
   return (
     <>
       <div>
-        <div className="h-20 w-full bg-sky-950"></div>
-        <div className="relative bg-sky-800">
+        <div className="h-20 w-full bg-gray-900"></div>
+        <div className="relative bg-black">
           <div className="mx-auto flex flex-col justify-center space-y-4 p-4 md:flex-row md:space-x-20 md:space-y-0">
-            <div className="relative -mt-24 rounded-lg bg-sky-900 text-white">
+            <div className="relative -mt-24 rounded-lg bg-gray-900 text-white shadow-lg">
               <div className="my-2 flex h-20 items-center justify-center">
                 <p className="text-4xl font-bold">TaxiBus Service</p>
               </div>
@@ -50,7 +50,7 @@ const Footer = () => {
 
             <div className="flex items-center justify-center">
               <div className="flex h-full items-center justify-center">
-                <div className="relative w-48 rounded-lg bg-sky-800 p-4 text-white">
+                <div className="relative w-48 rounded-lg bg-gray-900 p-4 text-white">
                   <div className="items-left flex flex-col space-y-4 font-medium">
                     <p>
                       <a href="#" className="hover:border-b-2">
@@ -82,7 +82,7 @@ const Footer = () => {
               </div>
 
               <div className="flex h-full items-center justify-center">
-                <div className="relative w-48 rounded-lg bg-sky-800 p-4 text-white">
+                <div className="relative w-48 rounded-lg bg-gray-900 p-4 text-white">
                   <div className="items-left flex flex-col space-y-4 font-medium">
                     <p>
                       <a href="#" className="hover:border-b-2">

@@ -1,6 +1,7 @@
-//Need to  fix
+
 
 const BookingForm = () => {
+
   return (
     <div className="w-full">
       <div className="h-28"></div>
@@ -116,6 +117,44 @@ const BookingForm = () => {
                           ></textarea>
                         </div>
                       
+
+                        <div className="spa h-full w-full">
+                          <div className="flex h-full w-full space-x-4 rounded-lg bg-gray-400 p-4">
+                            <div className="text-sm">
+                              <p>Only one seat</p>
+                              <p>Number of seats</p>
+                            </div>
+                            <div>
+                              <div className="flex items-center justify-center">
+                                <input
+                                  className="peer/published h-6 w-6"
+                                  type="radio"
+                                  name="status"
+                                />
+                              </div>
+                              <div className="flex h-full items-center">
+                                <input
+                                  type="text"
+                                  className="h-6 w-10 rounded-full border-2 border-gray-500 bg-white p-2 text-center align-middle font-medium"
+                                  placeholder="0"
+                                />
+                              </div>
+                            </div>
+                            <div className="w-32">
+                              <div className="text-sm">
+                                <p>Select your seats</p>
+                              </div>
+
+                  
+                            </div>
+                          </div>
+                          <div className="flex h-44 w-full items-center justify-center">
+                            <button className="relative mb-8 flex h-12 w-40 items-center justify-center overflow-hidden rounded-lg bg-gradient-to-r from-yellow-500 to-amber-200 text-sm font-medium text-black shadow-lg shadow-slate-500 hover:border-2 hover:border-zinc-400 hover:shadow-none">
+                              <a href="bookingRequest.html">Confirm Booking</a>
+                              <div className="absolute right-0 mt-12 h-20 w-20 translate-x-1/2 transform rounded-full bg-yellow-200 bg-opacity-80"></div>
+                            </button>
+                          </div>
+                        </div>
                       </div>
                       <div class="spa h-full w-full">
   <div class="  w-full rounded-lg shadow-lg bg-white p-4">

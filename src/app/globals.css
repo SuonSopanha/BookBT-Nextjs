@@ -2955,6 +2955,51 @@ video {
   }
 }
 
+/* For phones */
+@media (max-width: 767px) {
+  .md\:flex-row,
+  .md\:space-x-20,
+  .md\:space-y-0 {
+      /* Change to column layout for smaller screens */
+      flex-direction: column;
+      margin-right: 0;
+  }
+
+  .md\:w-1\/2 {
+      /* Take full width on smaller screens */
+      width: 100%;
+  }
+
+  .md\:px-28 {
+      /* Reduce padding on smaller screens */
+      padding-left: 20px;
+      padding-right: 20px;
+  }
+
+  .md\:justify-center {
+      /* Center items on smaller screens */
+      justify-content: center;
+  }
+}
+
+/* For iPads */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .md\:px-28 {
+      /* Adjust padding for iPads */
+      padding-left: 40px;
+      padding-right: 40px;
+  }
+}
+
+/* For laptops and larger screens */
+@media (min-width: 1024px) {
+  .md\:px-28 {
+      /* Keep default padding for laptops */
+      padding-left: 0;
+      padding-right: 0;
+  }
+}
+
 @media (min-width: 1024px) {
   .lg\:-mx-16 {
     margin-left: -4rem;

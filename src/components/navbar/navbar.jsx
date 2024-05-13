@@ -19,29 +19,30 @@ const Header = () => {
         className={`left-0 top-0 w-full h-fit bg-transparent p-4 md:px-6 lg:px-12 xl:px-24 z-50 text-white`}
       >
         <div className="container mx-auto">
-          <div className="flex items-center justify-between font-semibold">
-            <div className="hidden md:flex">
-              <div className="inline h-8 hover:border-b-2">
-                <a href="/" className="mx-4">
-                  Home
-                </a>
-              </div>
-              <span className="text-gray-400">|</span>
-              <div className="inline h-8 hover:border-b-2">
-                <a href="/bus/list" className="mx-4">Booking</a>
-              </div>
-              <span className="text-gray-400">|</span>
-              <div className="inline h-8 hover:border-b-2">
-                <a href="/bus/list" className="mx-4">
-                  Services
-                </a>
-              </div>
-              <span className="text-gray-400">|</span>
-              <div className="inline h-8 hover:border-b-2">
-                <a href="/user" className="mx-4">
-                  Account
-                </a>
-              </div>
+          <div className="flex items-center justify-between font-semibold"><div className="hidden md:flex">
+          <div className="inline h-8">  
+              <a href="/" className="mx-4 text-white hover:text-yellow-500 hover:text-lg hover:border-b-2 hover:border-yellow-500 transition-colors duration-300">
+                Home
+              </a>
+            </div>
+            <span className="text-gray-400">|</span>
+            <div className="inline h-8">
+              <a href="/bus/list" className="mx-4 text-white hover:text-yellow-500 hover:text-lg hover:border-b-2 hover:border-yellow-500 transition-colors duration-300">
+                Booking
+              </a>
+            </div>
+            <span className="text-gray-400">|</span>
+            <div className="inline h-8">
+              <a href="/bus/list" className="mx-4 text-white hover:text-yellow-500 hover:text-lg hover:border-b-2 hover:border-yellow-500 transition-colors duration-300">
+                Services
+              </a>
+            </div>
+            <span className="text-gray-400">|</span>
+            <div className="inline h-8">
+              <a href="/user" className="mx-4 text-white hover:text-yellow-500 hover:text-lg hover:border-b-2 hover:border-yellow-500 transition-colors duration-300">
+                Account
+              </a>
+            </div>
             </div>
             <div className="hidden items-center space-x-5 md:flex">
               <a href="#" className=" hover:text-yellow-500">

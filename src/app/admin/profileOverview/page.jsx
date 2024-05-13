@@ -111,11 +111,9 @@ const ProfileOverview = () => {
                           >
                             First Name
                           </label>
-                          <input
-                            type="text"
-                            name="username"
-                            className="focus:shadow-primary-outline dark:bg-slate-850 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
-                          />
+                          <span className="text-gray-700 block w-full bg-white px-3 py-2 rounded-lg border border-solid border-gray-300">
+                            Sayo
+                          </span>
                         </div>
                       </div>
                       <div className="w-full max-w-full px-3 shrink-0 md:w-6/12 md:flex-0">
@@ -126,11 +124,9 @@ const ProfileOverview = () => {
                           >
                             Last Name
                           </label>
-                          <input
-                            type="email"
-                            name="email"
-                            className="focus:shadow-primary-outline dark:bg-slate-850 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
-                          />
+                          <span className="text-gray-700 block w-full bg-white px-3 py-2 rounded-lg border border-solid border-gray-300">
+                            Kravits
+                          </span>
                         </div>
                       </div>
                       <div className="w-full max-w-full px-3 shrink-0 md:w-6/12 md:flex-0">
@@ -141,11 +137,9 @@ const ProfileOverview = () => {
                           >
                             Date of Birth
                           </label>
-                          <input
-                            type="text"
-                            name="first name"
-                            className="focus:shadow-primary-outline dark:bg-slate-850 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
-                          />
+                          <span className="text-gray-700 block w-full bg-white px-3 py-2 rounded-lg border border-solid border-gray-300">
+                            01/01/1990
+                          </span>
                         </div>
                       </div>
                       <div className="w-full max-w-full px-3 shrink-0 md:w-6/12 md:flex-0">
@@ -156,11 +150,9 @@ const ProfileOverview = () => {
                           >
                             Gender
                           </label>
-                          <input
-                            type="text"
-                            name="last name"
-                            className="focus:shadow-primary-outline dark:bg-slate-850 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
-                          />
+                          <span className="text-gray-700 block w-full bg-white px-3 py-2 rounded-lg border border-solid border-gray-300">
+                            Male
+                          </span>
                         </div>
                       </div>
 
@@ -172,11 +164,9 @@ const ProfileOverview = () => {
                           >
                             Company Name
                           </label>
-                          <input
-                            type="text"
-                            name="first name"
-                            className="focus:shadow-primary-outline dark:bg-slate-850 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
-                          />
+                          <span className="text-gray-700 block w-full bg-white px-3 py-2 rounded-lg border border-solid border-gray-300">
+        ABC Company
+      </span>
                         </div>
                       </div>
                       <div className="w-full max-w-full px-3 shrink-0 md:w-6/12 md:flex-0">
@@ -187,11 +177,9 @@ const ProfileOverview = () => {
                           >
                             Contact Number
                           </label>
-                          <input
-                            type="text"
-                            name="last name"
-                            className="focus:shadow-primary-outline dark:bg-slate-850 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
-                          />
+                          <span className="text-gray-700 block w-full bg-white px-3 py-2 rounded-lg border border-solid border-gray-300">
+        097 352 3945
+      </span>
                         </div>
                       </div>
 
@@ -203,11 +191,9 @@ const ProfileOverview = () => {
                           >
                             Email
                           </label>
-                          <input
-                            type="text"
-                            name="first name"
-                            className="focus:shadow-primary-outline dark:bg-slate-850 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
-                          />
+                          <span className="text-gray-700 block w-full bg-white px-3 py-2 rounded-lg border border-solid border-gray-300">
+        johndoe@example.com
+      </span>
                         </div>
                       </div>
                       <div className="w-full max-w-full px-3 shrink-0 md:w-6/12 md:flex-0">
@@ -218,11 +204,9 @@ const ProfileOverview = () => {
                           >
                             Address
                           </label>
-                          <input
-                            type="text"
-                            name="last name"
-                            className="focus:shadow-primary-outline dark:bg-slate-850 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
-                          />
+                          <span className="text-gray-700 block w-full bg-white px-3 py-2 rounded-lg border border-solid border-gray-300">
+        123 Main Street, City, Country
+      </span>
                         </div>
                       </div>
                     </div>
@@ -240,11 +224,9 @@ const ProfileOverview = () => {
                           >
                             Location
                           </label>
-                          <input
-                            type="text"
-                            name="first name"
-                            className="focus:shadow-primary-outline dark:bg-slate-850 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
-                          />
+                          <span className="text-gray-700 block w-full bg-white px-3 py-2 rounded-lg border border-solid border-gray-300">
+        Pnhom Penh
+      </span>
                         </div>
                       </div>
                       <div className="w-full max-w-full px-3 shrink-0 md:w-6/12 md:flex-0">
@@ -255,11 +237,9 @@ const ProfileOverview = () => {
                           >
                             Destination
                           </label>
-                          <input
-                            type="text"
-                            name="last name"
-                            className="focus:shadow-primary-outline dark:bg-slate-850 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
-                          />
+                          <span className="text-gray-700 block w-full bg-white px-3 py-2 rounded-lg border border-solid border-gray-300">
+        Svay Rieng
+      </span>
                         </div>
                       </div>
 
@@ -271,11 +251,9 @@ const ProfileOverview = () => {
                           >
                             Base Fare
                           </label>
-                          <input
-                            type="text"
-                            name="city"
-                            className="focus:shadow-primary-outline dark:bg-slate-850 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
-                          />
+                          <span className="text-gray-700 block w-full bg-white px-3 py-2 rounded-lg border border-solid border-gray-300">
+        $10
+      </span>
                         </div>
                       </div>
                       <div className="w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0">
@@ -286,11 +264,9 @@ const ProfileOverview = () => {
                           >
                             Additional Charge
                           </label>
-                          <input
-                            type="text"
-                            name="country"
-                            className="focus:shadow-primary-outline dark:bg-slate-850 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
-                          />
+                          <span className="text-gray-700 block w-full bg-white px-3 py-2 rounded-lg border border-solid border-gray-300">
+        $10
+      </span>
                         </div>
                       </div>
                       <div className="w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0">
@@ -301,11 +277,9 @@ const ProfileOverview = () => {
                           >
                             Solo Charge
                           </label>
-                          <input
-                            type="text"
-                            name="postal code"
-                            className="focus:shadow-primary-outline dark:bg-slate-850 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
-                          />
+                          <span className="text-gray-700 block w-full bg-white px-3 py-2 rounded-lg border border-solid border-gray-300">
+        $5
+      </span>
                         </div>
                       </div>
 
@@ -317,11 +291,9 @@ const ProfileOverview = () => {
                           >
                             Pricing Description
                           </label>
-                          <input
-                            type="text"
-                            name="address"
-                            className="focus:shadow-primary-outline dark:bg-slate-850 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
-                          />
+                          <span className="text-gray-700 block w-full bg-white px-3 py-2 rounded-lg border border-solid border-gray-300">
+        Standard pricing includes base fare, additional charge, and solo charge.
+      </span>
                         </div>
                       </div>
                     </div>
@@ -339,11 +311,9 @@ const ProfileOverview = () => {
                           >
                             Day of Week
                           </label>
-                          <input
-                            type="text"
-                            name="city"
-                            className="focus:shadow-primary-outline dark:bg-slate-850 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
-                          />
+                          <span className="text-gray-700 block w-full bg-white px-3 py-2 rounded-lg border border-solid border-gray-300">
+        Everyday
+      </span>
                         </div>
                       </div>
                       <div className="w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0">
@@ -354,11 +324,9 @@ const ProfileOverview = () => {
                           >
                             Flee Time
                           </label>
-                          <input
-                            type="text"
-                            name="country"
-                            className="focus:shadow-primary-outline dark:bg-slate-850 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
-                          />
+                          <span className="text-gray-700 block w-full bg-white px-3 py-2 rounded-lg border border-solid border-gray-300">
+        8:00 AM
+      </span>
                         </div>
                       </div>
                       <div className="w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0">
@@ -369,11 +337,9 @@ const ProfileOverview = () => {
                           >
                             Arrive Time
                           </label>
-                          <input
-                            type="text"
-                            name="postal code"
-                            className="focus:shadow-primary-outline dark:bg-slate-850 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
-                          />
+                          <span className="text-gray-700 block w-full bg-white px-3 py-2 rounded-lg border border-solid border-gray-300">
+        10:00 AM
+      </span>
                         </div>
                       </div>
                     </div>

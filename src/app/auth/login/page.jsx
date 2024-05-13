@@ -48,7 +48,7 @@ const Login = () => {
     <>
       <div className="min-h-screen py-40 bg-cover bg-no-repeat">
         <div className="container max-auto">
-          <div className="flex flex-col lg:flex-row w-10/12 lg:w-8/12 bg-white rounded-xl mx-auto shadow-lg overflow-hidden">
+          <div className="flex flex-col lg:flex-row w-10/12 lg:w-8/12 rounded-xl mx-auto shadow-lg overflow-hidden">
             <div
               className="w-full lg:w-1/2 flex flex-col items-center justify-center p-12 bg-no-repeat bg-center bg-cover"
               style={{
@@ -65,11 +65,11 @@ const Login = () => {
                 </p>
               </div>
             </div>
-            <div className="w-full lg:w-1/2 py-16 px-12">
-              <h2 className="text-3xl font-medium">Login</h2>
-              <p className="mt-4">Please login to your account to continue.</p>
+            <div className="w-full lg:w-1/2 py-16 px-12 bg-white">
+              <h2 className="text-3xl font-bold">Login</h2>
+              <p className="mt-4 text-xs">Please login to your account to continue.</p>
               <form onSubmit={handleLogin}>
-                <div className="mt-4">
+                <div className="mt-4 ">
                   <input
                     type="text"
                     placeholder="email"
@@ -78,7 +78,7 @@ const Login = () => {
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
-                <div className="mt-4">
+                <div className="mt-4 ">
                   <input
                     type="password"
                     placeholder="Password"
@@ -87,7 +87,7 @@ const Login = () => {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
-                {error && <div className="text-red-500 mt-2">{error}</div>}
+                {error && <div className="text-red-500 mt-2 text-xs">{error}</div>}
                 <div className="mt-4">
                   <button
                     type="submit"
@@ -97,8 +97,36 @@ const Login = () => {
                     {isSubmitting ? 'Logging in...' : 'Login'}
                   </button>
                 </div>
+
+                <div class="flex items-center mt-4">
+                  <div class="flex-grow border-t border-gray-400"></div>
+                  <span class="mx-2 text-xs text-gray-500">   OR   </span>
+                  <div class="flex-grow border-t border-gray-400"></div>
+                </div>
                 <div className="mt-4">
-                  <span className="ml-2">
+                <button
+                  type="submit"
+                  className="w-full border border-blue-500 hover:bg-blue-300 text-blue-500 text-sm py-2 px-4 rounded flex items-center justify-center space-x-2"
+                  disabled={isSubmitting}
+                >
+                  <svg
+                    className="h-5 w-5 fill-current"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 1a9 9 0 00-9 9c0 4.97 4.03 9 9 9s9-4.03 9-9a9 9 0 00-9-9zm0 16v-5h2.25l.34-2.5H10V8.62c0-.68.19-1.14 1.15-1.14h1.23V5.15A16.87 16.87 0 0010 5a3.22 3.22 0 00-3.44 3.45V8h-2v2.5h2V17h2z"
+                      clipRule="evenodd"
+                    ></path>
+                  </svg>
+                  <span>Login with Facebook</span>
+                </button>
+
+                </div>
+
+                <div className="mt-4 ">
+                  <span className="ml-2 text-xs">
                     Don't have an account?
                     <a href="/auth/signup" className="text-blue-500">
                       {" "}

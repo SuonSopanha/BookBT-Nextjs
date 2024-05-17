@@ -205,21 +205,21 @@ export default function Home() {
             </div>
           </form>
         </div>
-        <div className="mb-10 ml-10 mt-32 h-fit w-fit bg-gray-500 bg-opacity-80 py-5 pr-5 text-white">
+        <div className="mb-10 ml-10 mt-32 h-fit w-fit bg-gray-500 bg-opacity-50 py-5 pr-5 text-white">
           <div className="ml-8 flex py-5">
             <span className="w-2 bg-yellow-400"></span>
             <p className="w-40 bg-gray-600 pl-5 text-sm">
               Taxi and bus services
             </p>
-          </div>
-          <p className="ml-8 text-5xl font-medium">Your Gateway</p>
-          <p className="ml-8 text-5xl font-medium">to any Destination</p>
-          <p className="ml-8 mr-5 mt-5 text-sm">
+          </div >
+          <p className="ml-8 text-5xl font-bold">Your Gateway</p>
+          <p className="ml-8 text-5xl font-bold">to any Destination</p>
+          <p className="ml-8 mr-5 mt-5 text-sm font-semibold">
             Transportation is a vital aspect of modern society, facilitating the
             <br />
             movement of people from one place to another.
           </p>
-          <button className="relative mb-8 ml-8 mt-5 flex h-12 w-40 items-center justify-center overflow-hidden rounded-lg bg-gradient-to-r from-yellow-500 to-amber-200 text-sm font-medium text-black shadow-lg shadow-slate-500">
+          <button className="relative mb-8 ml-8 mt-5 flex h-12 w-40 items-center justify-center overflow-hidden rounded-lg bg-gradient-to-r from-yellow-500 to-amber-200 text-sm font-medium text-black shadow-lg shadow">
             <a href="#">Explore More</a>
             <div className="absolute right-0 mt-12 h-20 w-20 translate-x-1/2 transform rounded-full bg-white"></div>
           </button>

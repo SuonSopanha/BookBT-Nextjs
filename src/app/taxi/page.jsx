@@ -356,7 +356,7 @@ const TaxiDetail = () => {
                             <div className="text-blue-600">
                               <div className="flex items-center justify-center">
                                 <button className="h-10 w-32 rounded-xl border-2 border-zinc-600 hover:bg-yellow-300">
-                                  <p className="text-lg font-bold text-yellow-400 hover:text-white">
+                                  <p className="text-sm sm:text-lg font-bold text-yellow-400 hover:text-white">
                                     Booking
                                   </p>
                                 </button>

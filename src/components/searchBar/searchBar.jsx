@@ -44,10 +44,10 @@ const SearchBar = () => {
 
   return (
     <div className="search-bar mt-20 -mb-20">
-      <form className="max-w-xl mx-auto" onSubmit={handleSubmit}>
-        <div className="flex items-center justify-center">
+      <form className="max-w-xl mx-auto p-4 md:p-8" onSubmit={handleSubmit}>
+        <div className="flex flex-col md:flex-row items-center justify-center">
           <div className="bg-black bg-opacity-50 px-5 py-5 rounded-lg shadow-lg ">
-          <div className="flex items-center me-4 mb-5">
+          <div className="flex flex-col md:flex-row items-center mb-5 space-y-4 md:space-y-0 md:space-x-4">
               <input
                 id="yellow-radio"
                 type="radio"
@@ -112,19 +112,19 @@ const SearchBar = () => {
               </label>
             </div>
 
-            <div className="flex items-center">
+            <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-1">
               <input
                 type="text"
                 id="start-location"
                 value={startLocation}
                 onChange={(e) => setStartLocation(e.target.value)}
-                className="text-sm font-medium block w-64 p-2.5 text-white bg-gray-900 bg-opacity-50 border-2 border-yellow-300 rounded-s-lg focus:outline-none focus:border-yellow-500"
+                className="text-sm font-medium block w-64 p-2.5 sm:w-72 md:w-32 lg:w-64 text-white bg-gray-900 bg-opacity-50 border-2 border-yellow-300 rounded-s-lg focus:outline-none focus:border-yellow-500"
                 placeholder="Start Location"
                 required
               />
               <button
                 type="button"
-                className="p-2.5 text-sm font-medium bg-gray-900 bg-opacity-50 text-yellow-300 border-2 border-yellow-300 hover:bg-yellow-500 hover:bg-opacity-30 hover:text-yellow-600 focus:outline-none focus:bg-yellow-400 focus:bg-opacity-50 focus:border-yellow-600"
+                className="p-2.5 text-sm font-medium sm:w-72 md:w-16 lg:w-16 bg-gray-900 bg-opacity-50 text-yellow-300 border-2 border-yellow-300 hover:bg-yellow-500 hover:bg-opacity-30 hover:text-yellow-600 focus:outline-none focus:bg-yellow-400 focus:bg-opacity-50 focus:border-yellow-600"
               >
                 <svg
                   className="w-4 h-4 inline-block text-white"
@@ -146,7 +146,7 @@ const SearchBar = () => {
                 id="end-location"
                 value={endLocation}
                 onChange={(e) => setEndLocation(e.target.value)}
-                className="text-sm font-medium block w-64 p-2.5 text-white bg-gray-900 bg-opacity-50 border-2 border-yellow-300 rounded-e-lg focus:outline-none focus:border-yellow-500"
+                className="text-sm font-medium block w-64 p-2.5 sm:w-72 md:w-32 lg:w-64 text-white bg-gray-900 bg-opacity-50 border-2 border-yellow-300 rounded-e-lg focus:outline-none focus:border-yellow-500"
                 placeholder="End Location"
                 required
               />
@@ -155,7 +155,7 @@ const SearchBar = () => {
                 id="start-date"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
-                className="text-sm font-medium block p-2.5 text-white bg-gray-900 bg-opacity-50 border-2 border-yellow-300 rounded-s-lg ml-2 focus:outline-none focus:border-yellow-500"
+                className="text-sm font-medium block p-2.5 sm:w-72 md:w-36 lg:w-36 text-white bg-gray-900 bg-opacity-50 border-2 border-yellow-300 rounded-s-lg ml-2 focus:outline-none focus:border-yellow-500"
                 required
               />
               <input
@@ -163,7 +163,7 @@ const SearchBar = () => {
                 id="start-time"
                 value={startTime}
                 onChange={(e) => setStartTime(e.target.value)}
-                className="text-sm font-medium block p-2.5 text-white bg-gray-900 bg-opacity-50 border-2 border-yellow-300 rounded-e-lg  focus:outline-none focus:border-yellow-500"
+                className="text-sm font-medium block p-2.5 sm:w-72 md:w-24  lg:w-24 text-white bg-gray-900 bg-opacity-50 border-2 border-yellow-300 rounded-e-lg  focus:outline-none focus:border-yellow-500"
                 required
               />
               <button
@@ -175,14 +175,14 @@ const SearchBar = () => {
               </button>
             </div>
 
-            <div className="flex items-center mt-5 mx-5 ">
+            <div className="flex flex-col md:flex-row items-center mt-5 space-y-4 md:space-y-0 md:space-x-4">
               <span className="text-base font-medium text-gray-900 dark:text-gray-300 mr-5">
                 More options :
               </span>
               {Object.entries(options).map(([key, value]) => (
                 <label
                   key={key}
-                  className="mr-2 text-sm font-medium text-gray-900 dark:text-gray-300 flex items-center cursor-pointer bg-gray-500 bg-opacity-50 px-3 py-3 rounded-lg"
+                  className="mr-2 text-sm font-medium sm:w-64 md:w-32  lg:w-32 text-gray-900 dark:text-gray-300 flex items-center cursor-pointer bg-gray-500 bg-opacity-50 px-3 py-3 rounded-lg"
                 >
                   <input
                     type="checkbox"

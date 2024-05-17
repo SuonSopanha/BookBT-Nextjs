@@ -90,7 +90,7 @@ const ProfileOverview = () => {
                         </button>
                         <button
                           type="button"
-                          className="inline-block px-8 py-2 mb-4 ml-auto font-bold leading-normal text-center text-white align-middle transition-all ease-in bg-red-500 border-0 rounded-lg shadow-md cursor-pointer text-xs tracking-tight-rem hover:shadow-xs hover:-translate-y-px active:opacity-85"
+                          className="inline-block px-8 py-2 mb-4 ml-auto font-bold leading-normal text-center text-white   align-middle transition-all ease-in bg-gray-500 border-0 rounded-lg shadow-md cursor-pointer text-xs tracking-tight-rem hover:shadow-xs hover:-translate-y-px active:opacity-85"
                         >
                           Decline
                         </button>

@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-const DriveRegister = () => {
+const UpdateProfile = () => {
   const [imagePreview, setImagePreview] = useState(null);
 
   const handleFileChange = (event) => {
@@ -33,9 +33,8 @@ const DriveRegister = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data)
+        console.log(data);
         url = data.secure_url;
-        
       } else {
         console.error("Failed to upload image to Cloudinary");
       }
@@ -55,7 +54,7 @@ const DriveRegister = () => {
     <>
       <div className="bg-white  mx-auto px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 text-start">
         <h1 className="text-3xl text-gray-700 pt-20 pb-8">
-          Driver Information
+          User Information
         </h1>
         <hr className="-mx-4 sm:-mx-8 md:-mx-12 lg:-mx-16 xl:-mx-20" />
         <div className="py-8">
@@ -67,22 +66,51 @@ const DriveRegister = () => {
               Personal Information
             </span>
           </div>
-          <div className="flex flex-wrap">
+          <div className="flex flex-wrap m-8">
             <div className="w-full sm:w-1/2 mb-4 sm:mb-0 pr-0 sm:pr-4">
-              <label className="text-gray-600 font-light">First Name</label>
+              <label className="block text-gray-700 text-sm font-semibold mb-2">
+                Add Profile Pic
+              </label>
+              <label
+                htmlFor="profile-image"
+                className="w-32 h-32 flex flex-col items-center justify-center bg-slate-100 border-dashed border-2 border-gray-400 rounded-full cursor-pointer hover:border-blue-500 hover:bg-blue-300 h-32 relative"
+              >
+                <input
+                  id="profile-image"
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={handleFileChange}
+                ></input>
+                {!imagePreview && (
+                  <span className="text-gray-600 font-bold py-2 px-4 hover:text-blue-700">
+                    add +
+                  </span>
+                )}
+                {imagePreview && (
+                  <img
+                    src={imagePreview}
+                    className="w-full h-full object-fit rounded-full"
+                    alt="Preview"
+                  ></img>
+                )}
+              </label>
+            </div>
+          </div>
+          <div className="flex flex-wrap">
+            <div className="w-full sm:w-2/4 pl-0 sm:pl-4">
+              <label className="text-gray-600 font-light">Date of Birth</label>
               <input
-                type="text"
-                placeholder="Enter your name"
+                type="date"
                 className="w-full mt-2 px-2 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500 bg-slate-100"
               ></input>
             </div>
-            <div className="w-full sm:w-1/2 pl-0 sm:pl-4">
-              <label className="text-gray-600 font-light">Last Name</label>
-              <input
-                type="text"
-                placeholder="Enter your name"
-                className="w-full mt-2 px-2 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500 bg-slate-100"
-              ></input>
+            <div className="w-full sm:w-2/4 pl-0 sm:pl-4">
+              <label className="text-gray-600 font-light">Gender</label>
+              <select className="w-full mt-2 px-2 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500 bg-slate-100">
+                <option>Male</option>
+                <option>Female</option>
+              </select>
             </div>
           </div>
           <div className="flex flex-wrap mt-4">
@@ -94,22 +122,6 @@ const DriveRegister = () => {
                 className="w-full mt-2 px-2 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500 bg-slate-100"
               ></input>
             </div>
-            <div className="w-full sm:w-1/4 pl-0 sm:pl-4">
-              <label className="text-gray-600 font-light">Date of Birth</label>
-              <input
-                type="date"
-                className="w-full mt-2 px-2 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500 bg-slate-100"
-              ></input>
-            </div>
-            <div className="w-full sm:w-1/4 pl-0 sm:pl-4">
-              <label className="text-gray-600 font-light">Gender</label>
-              <select className="w-full mt-2 px-2 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500 bg-slate-100">
-                <option>Male</option>
-                <option>Female</option>
-              </select>
-            </div>
-          </div>
-          <div className="flex flex-wrap mt-4">
             <div className="w-full sm:w-1/2 mb-4 sm:mb-0 pr-0 sm:pr-4">
               <label className="text-gray-600 font-light">Address</label>
               <input
@@ -118,53 +130,14 @@ const DriveRegister = () => {
                 className="w-full mt-2 px-2 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500 bg-slate-100"
               ></input>
             </div>
-            <div className="w-full sm:w-1/2 pl-0 sm:pl-4">
-              <label className="text-gray-600 font-light">Email</label>
-              <input
-                type="text"
-                placeholder="Enter your Email"
-                className="w-full mt-2 px-2 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500 bg-slate-100"
-              ></input>
-            </div>
           </div>
 
-          <div className="flex flex-wrap mt-4">
-            <div className="w-full sm:w-1/2 mb-4 sm:mb-0 pr-0 sm:pr-4">
-              <label className="block text-gray-700 text-sm font-semibold mb-2">
-                Add Profile
-              </label>
-              <label
-                htmlFor="profile-image"
-                className="w-32 flex flex-col items-center justify-center bg-slate-100 border-dashed border-2 border-gray-400 rounded-full cursor-pointer hover:border-blue-500 hover:bg-blue-300 h-32 relative"
-              >
-                <input
-                  id="profile-image"
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  onChange={handleFileChange}
-                ></input>
-                {!imagePreview && (
-                  <span className="text-gray-600 font-bold py-2 px-4 hover:text-blue-700">
-                    +
-                  </span>
-                )}
-                {imagePreview && (
-                  <img
-                    src={imagePreview}
-                    className="w-full h-full object-cover rounded-full"
-                    alt="Preview"
-                  ></img>
-                )}
-              </label>
-            </div>
-          </div>
           <div className="flex justify-center mt-4">
             <button
               onClick={handleSubmit}
               className="w-full sm:w-1/5 lg:w-1/5 h-16 mt-2 mb-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             >
-              SUBMIT
+              Save
             </button>
           </div>
         </div>
@@ -173,4 +146,4 @@ const DriveRegister = () => {
   );
 };
 
-export default DriveRegister;
+export default UpdateProfile;

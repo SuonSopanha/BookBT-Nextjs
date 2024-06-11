@@ -3,23 +3,22 @@
 import { useState } from "react";
 
 const SearchBar = () => {
-  const [selectedService, setSelectedService] = useState("TXAI Service");
+  const [selectedService, setSelectedService] = useState("TAXI Service");
   const [startLocation, setStartLocation] = useState("");
   const [endLocation, setEndLocation] = useState("");
   const [startDate, setStartDate] = useState("");
   const [startTime, setStartTime] = useState("");
   const [options, setOptions] = useState({
-    option1: false,
-    option2: false,
-    option3: false,
-    option4: false,
-    option5: false,
+    Affordable: false,
+    Convienice: false,
+    HighRating: false,
+    Popular: false,
+    NearBy: false,
   });
 
   const handleServiceChange = (event) => {
     setSelectedService(event.target.value);
   };
-  
 
   const handleCheckboxChange = (event) => {
     const { name, checked } = event.target;
@@ -46,14 +45,14 @@ const SearchBar = () => {
     <div className="search-bar mt-20 -mb-20">
       <form className="max-w-xl mx-auto p-4 md:p-8" onSubmit={handleSubmit}>
         <div className="flex flex-col md:flex-row items-center justify-center">
-          <div className="bg-black bg-opacity-50 px-5 py-5 rounded-lg shadow-lg ">
-          <div className="flex flex-col md:flex-row items-center mb-5 space-y-4 md:space-y-0 md:space-x-4">
+          <div className="bg-black bg-opacity-50 px-5 py-5 rounded-lg shadow-lg">
+            <div className="flex flex-col md:flex-row items-center mb-5 space-y-4 md:space-y-0 md:space-x-4">
               <input
                 id="yellow-radio"
                 type="radio"
-                value="TXAI Service"
+                value="TAXI Service"
                 name="colored-radio"
-                checked={selectedService === "TXAI Service"}
+                checked={selectedService === "TAXI Service"}
                 onChange={handleServiceChange}
                 className="hidden"
               />
@@ -63,7 +62,7 @@ const SearchBar = () => {
               >
                 <div
                   className={`mx-5 w-6 h-6 border-2 border-yellow-300 rounded-full flex-shrink-0 mr-2 flex justify-center items-center ${
-                    selectedService === "TXAI Service"
+                    selectedService === "TAXI Service"
                       ? "bg-yellow-400"
                       : "bg-black"
                   }`}
@@ -71,12 +70,12 @@ const SearchBar = () => {
                   <div
                     id="custom-radio-yellow"
                     className={`w-3 h-3 rounded-full transition duration-200 ease-in-out ${
-                      selectedService === "TXAI Service" ? "" : "hidden"
+                      selectedService === "TAXI Service" ? "" : "hidden"
                     }`}
                   ></div>
                 </div>
                 <span className="text-sm font-medium text-gray-900 dark:text-gray-300">
-                  TXAI Service
+                  TAXI Service
                 </span>
               </label>
               <input
@@ -179,35 +178,141 @@ const SearchBar = () => {
               <span className="text-base font-medium text-gray-900 dark:text-gray-300 mr-5">
                 More options :
               </span>
-              {Object.entries(options).map(([key, value]) => (
-                <label
-                  key={key}
-                  className="mr-2 text-sm font-medium sm:w-64 md:w-32  lg:w-32 text-gray-900 dark:text-gray-300 flex items-center cursor-pointer bg-gray-500 bg-opacity-50 px-3 py-3 rounded-lg"
-                >
-                  <input
-                    type="checkbox"
-                    id={key}
-                    name={key}
-                    checked={value}
-                    onChange={handleCheckboxChange}
-                    className="hidden"
-                  />
-                  <div className="w-5 h-5 border-2 border-yellow-300 flex justify-center items-center mr-2">
-                    <svg
-                      className={`w-5 h-5 text-yellow-300 ${
-                        value ? "" : "hidden"
-                      }`}
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="currentColor"
-                        d="M1 13.5l2-2 4 4 8-8 2 2-10 10-6-6z"
-                      />
-                    </svg>
-                  </div>
-                  Option {key.substring(6)}
-                </label>
-              ))}
+              <label
+                htmlFor="Affordable"
+                className="relative mr-2 text-sm font-medium sm:w-64 md:w-32 lg:w-32 text-gray-900 dark:text-gray-300 flex items-center cursor-pointer bg-gray-500 bg-opacity-50 px-3 py-3 rounded-lg"
+              >
+                <input
+                  type="checkbox"
+                  id="Affordable"
+                  name="Affordable"
+                  checked={options.Affordable}
+                  onChange={handleCheckboxChange}
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                />
+                <div className="w-5 h-5 border-2 border-yellow-300 flex justify-center items-center mr-2">
+                  <svg
+                    className={`w-5 h-5 text-yellow-300 ${
+                      options.Affordable ? "" : "hidden"
+                    }`}
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M1 13.5l2-2 4 4 8-8 2 2-10 10-6-6z"
+                    />
+                  </svg>
+                </div>
+                Affordable
+              </label>
+              <label
+                htmlFor="Convienice"
+                className="relative mr-2 text-sm font-medium sm:w-64 md:w-32 lg:w-32 text-gray-900 dark:text-gray-300 flex items-center cursor-pointer bg-gray-500 bg-opacity-50 px-3 py-3 rounded-lg"
+              >
+                <input
+                  type="checkbox"
+                  id="Convienice"
+                  name="Convienice"
+                  checked={options.Convienice}
+                  onChange={handleCheckboxChange}
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                />
+                <div className="w-5 h-5 border-2 border-yellow-300 flex justify-center items-center mr-2">
+                  <svg
+                    className={`w-5 h-5 text-yellow-300 ${
+                      options.Convienice ? "" : "hidden"
+                    }`}
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M1 13.5l2-2 4 4 8-8 2 2-10 10-6-6z"
+                    />
+                  </svg>
+                </div>
+                Convienice
+              </label>
+              <label
+                htmlFor="HighRating"
+                className="relative mr-2 text-sm font-medium sm:w-64 md:w-32 lg:w-32 text-gray-900 dark:text-gray-300 flex items-center cursor-pointer bg-gray-500 bg-opacity-50 px-3 py-3 rounded-lg"
+              >
+                <input
+                  type="checkbox"
+                  id="HighRating"
+                  name="HighRating"
+                  checked={options.HighRating}
+                  onChange={handleCheckboxChange}
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                />
+                <div className="w-5 h-5 border-2 border-yellow-300 flex justify-center items-center mr-2">
+                  <svg
+                    className={`w-5 h-5 text-yellow-300 ${
+                      options.HighRating ? "" : "hidden"
+                    }`}
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M1 13.5l2-2 4 4 8-8 2 2-10 10-6-6z"
+                    />
+                  </svg>
+                </div>
+                High Rating
+              </label>
+              <label
+                htmlFor="Popular"
+                className="relative mr-2 text-sm font-medium sm:w-64 md:w-32 lg:w-32 text-gray-900 dark:text-gray-300 flex items-center cursor-pointer bg-gray-500 bg-opacity-50 px-3 py-3 rounded-lg"
+              >
+                <input
+                  type="checkbox"
+                  id="Popular"
+                  name="Popular"
+                  checked={options.Popular}
+                  onChange={handleCheckboxChange}
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                />
+                <div className="w-5 h-5 border-2 border-yellow-300 flex justify-center items-center mr-2">
+                  <svg
+                    className={`w-5 h-5 text-yellow-300 ${
+                      options.Popular ? "" : "hidden"
+                    }`}
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M1 13.5l2-2 4 4 8-8 2 2-10 10-6-6z"
+                    />
+                  </svg>
+                </div>
+                Popular
+              </label>
+              <label
+                htmlFor="NearBy"
+                className="relative mr-2 text-sm font-medium sm:w-64 md:w-32 lg:w-32 text-gray-900 dark:text-gray-300 flex items-center cursor-pointer bg-gray-500 bg-opacity-50 px-3 py-3 rounded-lg"
+              >
+                <input
+                  type="checkbox"
+                  id="NearBy"
+                  name="NearBy"
+                  checked={options.NearBy}
+                  onChange={handleCheckboxChange}
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                />
+                <div className="w-5 h-5 border-2 border-yellow-300 flex justify-center items-center mr-2">
+                  <svg
+                    className={`w-5 h-5 text-yellow-300 ${
+                      options.NearBy ? "" : "hidden"
+                    }`}
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M1 13.5l2-2 4 4 8-8 2 2-10 10-6-6z"
+                    />
+                  </svg>
+                </div>
+                Near By
+              </label>
             </div>
           </div>
         </div>

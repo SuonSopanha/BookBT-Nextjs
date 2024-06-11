@@ -1,7 +1,20 @@
+"use client";
+
 import Image from "next/image";
 import Counter from "@/components/buttons";
+import ReactStars from "react-rating-stars-component";
+import axios from "axios";
 
-export default function Home() {
+const fetchTopDrivers = async () => {
+  const response = await axios.get("http://localhost:8000/api/v1/top-drivers");
+  const data = response.data;
+  return data;
+};
+
+export default async function Home() {
+  const topDrivers = await fetchTopDrivers();
+  console.log(topDrivers);
+
   return (
     <div className="flex flex-col min-h-screen">
       <main className="min-h-screen">
@@ -211,7 +224,7 @@ export default function Home() {
             <p className="w-40 bg-gray-600 pl-5 text-sm">
               Taxi and bus services
             </p>
-          </div >
+          </div>
           <p className="ml-8 text-5xl font-bold">Your Gateway</p>
           <p className="ml-8 text-5xl font-bold">to any Destination</p>
           <p className="ml-8 mr-5 mt-5 text-sm font-semibold">
@@ -740,474 +753,63 @@ export default function Home() {
           </div>
 
           <div className="mx-auto mt-10 pl-96 pr-2 flex md:pl-48 md:pr-4 flex-row items-center justify-center space-x-4 space-y-4 overflow-scroll bg-white pb-10 md:flex-row md:space-x-20 md:space-y-0">
-            <div className="relative flex-shrink-0">
-              <img
-                src="https://www.shutterstock.com/image-photo/paris-france-june-16-2023-600nw-2318800323.jpg"
-                className="h-80 w-52 object-cover"
-              />
-              <div className="absolute bottom-0 flex h-20 w-full flex-col justify-center bg-slate-800 pl-2 pt-2 text-left">
-                <div className="flex">
+            {topDrivers.map((driver) => (
+              <div className="relative flex-shrink-0">
+                <img
+                  src={driver.photoURL}
+                  className="h-80 w-52 object-cover"
+                />
+                <div className="absolute bottom-0 flex h-20 w-full flex-col justify-center bg-slate-800 pl-2 pt-2 text-left">
                   <div className="flex">
-                    <img
-                      width="48"
-                      height="48"
-                      src="https://img.icons8.com/color/48/filled-star--v1.png"
-                      alt="filled-star--v1"
-                      className="-mt-5 h-5 w-5"
-                    />
-                    <img
-                      width="48"
-                      height="48"
-                      src="https://img.icons8.com/color/48/filled-star--v1.png"
-                      alt="filled-star--v1"
-                      className="-mt-5 h-5 w-5"
-                    />
-                    <img
-                      width="48"
-                      height="48"
-                      src="https://img.icons8.com/color/48/filled-star--v1.png"
-                      alt="filled-star--v1"
-                      className="-mt-5 h-5 w-5"
-                    />
-                    <img
-                      width="48"
-                      height="48"
-                      src="https://img.icons8.com/color/48/filled-star--v1.png"
-                      alt="filled-star--v1"
-                      className="-mt-5 h-5 w-5"
-                    />
-                    <img
-                      width="48"
-                      height="48"
-                      src="https://img.icons8.com/color/48/filled-star--v1.png"
-                      alt="filled-star--v1"
-                      className="-mt-5 h-5 w-5"
-                    />
+                    <div className="flex -mt-4">
+                      <ReactStars
+                        count={5}
+                        value={driver.averageRating}
+                        size={20}
+                        edit={false}
+                        isHalf={true}
+                        activeColor="#ffd700"
+                      />
+                    </div>
+                    <div className="-mt-9 ml-auto flex h-8 items-center justify-center space-x-1 bg-amber-300 p-1">
+                      <a href="#">
+                        <img
+                          width="20"
+                          height="20"
+                          src="https://img.icons8.com/ios-glyphs/30/facebook-new.png"
+                          alt="facebook-new"
+                        />
+                      </a>
+                      <a href="#">
+                        <img
+                          width="20"
+                          height="20"
+                          src="https://img.icons8.com/ios-glyphs/30/twitter--v1.png"
+                          alt="twitter--v1"
+                        />
+                      </a>
+                      <a href="#">
+                        <img
+                          width="20"
+                          height="20"
+                          src="https://img.icons8.com/material-outlined/24/instagram-new--v1.png"
+                          alt="instagram-new--v1"
+                        />
+                      </a>
+                    </div>
                   </div>
-                  <div className="-mt-9 ml-auto flex h-8 items-center justify-center space-x-1 bg-amber-300 p-1">
-                    <a href="#">
-                      <img
-                        width="20"
-                        height="20"
-                        src="https://img.icons8.com/ios-glyphs/30/facebook-new.png"
-                        alt="facebook-new"
-                      />
-                    </a>
-                    <a href="#">
-                      <img
-                        width="20"
-                        height="20"
-                        src="https://img.icons8.com/ios-glyphs/30/twitter--v1.png"
-                        alt="twitter--v1"
-                      />
-                    </a>
-                    <a href="#">
-                      <img
-                        width="20"
-                        height="20"
-                        src="https://img.icons8.com/material-outlined/24/instagram-new--v1.png"
-                        alt="instagram-new--v1"
-                      />
-                    </a>
+                  <p className="ml-2 font-medium text-white">
+                    {driver.firstName} {driver.lastName}
+                  </p>
+                  <div className="m-2 flex justify-between space-x-6 align-middle">
+                    <p className="text-sm text-white">Driver</p>
+                    <p className="pl-5 text-sm text-white">
+                      {driver.contactNumber}
+                    </p>
                   </div>
-                </div>
-                <p className="ml-2 font-medium text-white">Elon Musk</p>
-                <div className="ml-2 flex space-x-6 align-middle">
-                  <p className="text-sm text-white">Taxi driver</p>
-                  <p className="pl-5 text-sm text-white">099 999 9999</p>
                 </div>
               </div>
-            </div>
-            <div className="relative flex-shrink-0">
-              <img
-                src="https://www.shutterstock.com/image-photo/paris-france-june-16-2023-600nw-2318800323.jpg"
-                className="h-80 w-52 object-cover"
-              />
-              <div className="absolute bottom-0 flex h-20 w-full flex-col justify-center bg-slate-800 pl-2 pt-2 text-left">
-                <div className="flex">
-                  <div className="flex">
-                    <img
-                      width="48"
-                      height="48"
-                      src="https://img.icons8.com/color/48/filled-star--v1.png"
-                      alt="filled-star--v1"
-                      className="-mt-5 h-5 w-5"
-                    />
-                    <img
-                      width="48"
-                      height="48"
-                      src="https://img.icons8.com/color/48/filled-star--v1.png"
-                      alt="filled-star--v1"
-                      className="-mt-5 h-5 w-5"
-                    />
-                    <img
-                      width="48"
-                      height="48"
-                      src="https://img.icons8.com/color/48/filled-star--v1.png"
-                      alt="filled-star--v1"
-                      className="-mt-5 h-5 w-5"
-                    />
-                    <img
-                      width="48"
-                      height="48"
-                      src="https://img.icons8.com/color/48/filled-star--v1.png"
-                      alt="filled-star--v1"
-                      className="-mt-5 h-5 w-5"
-                    />
-                    <img
-                      width="48"
-                      height="48"
-                      src="https://img.icons8.com/color/48/filled-star--v1.png"
-                      alt="filled-star--v1"
-                      className="-mt-5 h-5 w-5"
-                    />
-                  </div>
-                  <div className="-mt-9 ml-auto flex h-8 items-center justify-center space-x-1 bg-amber-300 p-1">
-                    <a href="#">
-                      <img
-                        width="20"
-                        height="20"
-                        src="https://img.icons8.com/ios-glyphs/30/facebook-new.png"
-                        alt="facebook-new"
-                      />
-                    </a>
-                    <a href="#">
-                      <img
-                        width="20"
-                        height="20"
-                        src="https://img.icons8.com/ios-glyphs/30/twitter--v1.png"
-                        alt="twitter--v1"
-                      />
-                    </a>
-                    <a href="#">
-                      <img
-                        width="20"
-                        height="20"
-                        src="https://img.icons8.com/material-outlined/24/instagram-new--v1.png"
-                        alt="instagram-new--v1"
-                      />
-                    </a>
-                  </div>
-                </div>
-                <p className="ml-2 font-medium text-white">Elon Musk</p>
-                <div className="ml-2 flex space-x-6 align-middle">
-                  <p className="text-sm text-white">Taxi driver</p>
-                  <p className="pl-5 text-sm text-white">099 999 9999</p>
-                </div>
-              </div>
-            </div>
-            <div className="relative flex-shrink-0">
-              <img
-                src="https://www.shutterstock.com/image-photo/paris-france-june-16-2023-600nw-2318800323.jpg"
-                className="h-80 w-52 object-cover"
-              />
-              <div className="absolute bottom-0 flex h-20 w-full flex-col justify-center bg-slate-800 pl-2 pt-2 text-left">
-                <div className="flex">
-                  <div className="flex">
-                    <img
-                      width="48"
-                      height="48"
-                      src="https://img.icons8.com/color/48/filled-star--v1.png"
-                      alt="filled-star--v1"
-                      className="-mt-5 h-5 w-5"
-                    />
-                    <img
-                      width="48"
-                      height="48"
-                      src="https://img.icons8.com/color/48/filled-star--v1.png"
-                      alt="filled-star--v1"
-                      className="-mt-5 h-5 w-5"
-                    />
-                    <img
-                      width="48"
-                      height="48"
-                      src="https://img.icons8.com/color/48/filled-star--v1.png"
-                      alt="filled-star--v1"
-                      className="-mt-5 h-5 w-5"
-                    />
-                    <img
-                      width="48"
-                      height="48"
-                      src="https://img.icons8.com/color/48/filled-star--v1.png"
-                      alt="filled-star--v1"
-                      className="-mt-5 h-5 w-5"
-                    />
-                    <img
-                      width="48"
-                      height="48"
-                      src="https://img.icons8.com/color/48/filled-star--v1.png"
-                      alt="filled-star--v1"
-                      className="-mt-5 h-5 w-5"
-                    />
-                  </div>
-                  <div className="-mt-9 ml-auto flex h-8 items-center justify-center space-x-1 bg-amber-300 p-1">
-                    <a href="#">
-                      <img
-                        width="20"
-                        height="20"
-                        src="https://img.icons8.com/ios-glyphs/30/facebook-new.png"
-                        alt="facebook-new"
-                      />
-                    </a>
-                    <a href="#">
-                      <img
-                        width="20"
-                        height="20"
-                        src="https://img.icons8.com/ios-glyphs/30/twitter--v1.png"
-                        alt="twitter--v1"
-                      />
-                    </a>
-                    <a href="#">
-                      <img
-                        width="20"
-                        height="20"
-                        src="https://img.icons8.com/material-outlined/24/instagram-new--v1.png"
-                        alt="instagram-new--v1"
-                      />
-                    </a>
-                  </div>
-                </div>
-                <p className="ml-2 font-medium text-white">Elon Musk</p>
-                <div className="ml-2 flex space-x-6 align-middle">
-                  <p className="text-sm text-white">Taxi driver</p>
-                  <p className="pl-5 text-sm text-white">099 999 9999</p>
-                </div>
-              </div>
-            </div>
-            <div className="relative flex-shrink-0">
-              <img
-                src="https://www.shutterstock.com/image-photo/paris-france-june-16-2023-600nw-2318800323.jpg"
-                className="h-80 w-52 object-cover"
-              />
-              <div className="absolute bottom-0 flex h-20 w-full flex-col justify-center bg-slate-800 pl-2 pt-2 text-left">
-                <div className="flex">
-                  <div className="flex">
-                    <img
-                      width="48"
-                      height="48"
-                      src="https://img.icons8.com/color/48/filled-star--v1.png"
-                      alt="filled-star--v1"
-                      className="-mt-5 h-5 w-5"
-                    />
-                    <img
-                      width="48"
-                      height="48"
-                      src="https://img.icons8.com/color/48/filled-star--v1.png"
-                      alt="filled-star--v1"
-                      className="-mt-5 h-5 w-5"
-                    />
-                    <img
-                      width="48"
-                      height="48"
-                      src="https://img.icons8.com/color/48/filled-star--v1.png"
-                      alt="filled-star--v1"
-                      className="-mt-5 h-5 w-5"
-                    />
-                    <img
-                      width="48"
-                      height="48"
-                      src="https://img.icons8.com/color/48/filled-star--v1.png"
-                      alt="filled-star--v1"
-                      className="-mt-5 h-5 w-5"
-                    />
-                    <img
-                      width="48"
-                      height="48"
-                      src="https://img.icons8.com/color/48/filled-star--v1.png"
-                      alt="filled-star--v1"
-                      className="-mt-5 h-5 w-5"
-                    />
-                  </div>
-                  <div className="-mt-9 ml-auto flex h-8 items-center justify-center space-x-1 bg-amber-300 p-1">
-                    <a href="#">
-                      <img
-                        width="20"
-                        height="20"
-                        src="https://img.icons8.com/ios-glyphs/30/facebook-new.png"
-                        alt="facebook-new"
-                      />
-                    </a>
-                    <a href="#">
-                      <img
-                        width="20"
-                        height="20"
-                        src="https://img.icons8.com/ios-glyphs/30/twitter--v1.png"
-                        alt="twitter--v1"
-                      />
-                    </a>
-                    <a href="#">
-                      <img
-                        width="20"
-                        height="20"
-                        src="https://img.icons8.com/material-outlined/24/instagram-new--v1.png"
-                        alt="instagram-new--v1"
-                      />
-                    </a>
-                  </div>
-                </div>
-                <p className="ml-2 font-medium text-white">Elon Musk</p>
-                <div className="ml-2 flex space-x-6 align-middle">
-                  <p className="text-sm text-white">Taxi driver</p>
-                  <p className="pl-5 text-sm text-white">099 999 9999</p>
-                </div>
-              </div>
-            </div>
-            <div className="relative flex-shrink-0">
-              <img
-                src="https://www.shutterstock.com/image-photo/paris-france-june-16-2023-600nw-2318800323.jpg"
-                className="h-80 w-52 object-cover"
-              />
-              <div className="absolute bottom-0 flex h-20 w-full flex-col justify-center bg-slate-800 pl-2 pt-2 text-left">
-                <div className="flex">
-                  <div className="flex">
-                    <img
-                      width="48"
-                      height="48"
-                      src="https://img.icons8.com/color/48/filled-star--v1.png"
-                      alt="filled-star--v1"
-                      className="-mt-5 h-5 w-5"
-                    />
-                    <img
-                      width="48"
-                      height="48"
-                      src="https://img.icons8.com/color/48/filled-star--v1.png"
-                      alt="filled-star--v1"
-                      className="-mt-5 h-5 w-5"
-                    />
-                    <img
-                      width="48"
-                      height="48"
-                      src="https://img.icons8.com/color/48/filled-star--v1.png"
-                      alt="filled-star--v1"
-                      className="-mt-5 h-5 w-5"
-                    />
-                    <img
-                      width="48"
-                      height="48"
-                      src="https://img.icons8.com/color/48/filled-star--v1.png"
-                      alt="filled-star--v1"
-                      className="-mt-5 h-5 w-5"
-                    />
-                    <img
-                      width="48"
-                      height="48"
-                      src="https://img.icons8.com/color/48/filled-star--v1.png"
-                      alt="filled-star--v1"
-                      className="-mt-5 h-5 w-5"
-                    />
-                  </div>
-                  <div className="-mt-9 ml-auto flex h-8 items-center justify-center space-x-1 bg-amber-300 p-1">
-                    <a href="#">
-                      <img
-                        width="20"
-                        height="20"
-                        src="https://img.icons8.com/ios-glyphs/30/facebook-new.png"
-                        alt="facebook-new"
-                      />
-                    </a>
-                    <a href="#">
-                      <img
-                        width="20"
-                        height="20"
-                        src="https://img.icons8.com/ios-glyphs/30/twitter--v1.png"
-                        alt="twitter--v1"
-                      />
-                    </a>
-                    <a href="#">
-                      <img
-                        width="20"
-                        height="20"
-                        src="https://img.icons8.com/material-outlined/24/instagram-new--v1.png"
-                        alt="instagram-new--v1"
-                      />
-                    </a>
-                  </div>
-                </div>
-                <p className="ml-2 font-medium text-white">Elon Musk</p>
-                <div className="ml-2 flex space-x-6 align-middle">
-                  <p className="text-sm text-white">Taxi driver</p>
-                  <p className="pl-5 text-sm text-white">099 999 9999</p>
-                </div>
-              </div>
-            </div>
-            <div className="relative flex-shrink-0">
-              <img
-                src="https://www.shutterstock.com/image-photo/paris-france-june-16-2023-600nw-2318800323.jpg"
-                className="h-80 w-52 object-cover"
-              />
-              <div className="absolute bottom-0 flex h-20 w-full flex-col justify-center bg-slate-800 pl-2 pt-2 text-left">
-                <div className="flex">
-                  <div className="flex">
-                    <img
-                      width="48"
-                      height="48"
-                      src="https://img.icons8.com/color/48/filled-star--v1.png"
-                      alt="filled-star--v1"
-                      className="-mt-5 h-5 w-5"
-                    />
-                    <img
-                      width="48"
-                      height="48"
-                      src="https://img.icons8.com/color/48/filled-star--v1.png"
-                      alt="filled-star--v1"
-                      className="-mt-5 h-5 w-5"
-                    />
-                    <img
-                      width="48"
-                      height="48"
-                      src="https://img.icons8.com/color/48/filled-star--v1.png"
-                      alt="filled-star--v1"
-                      className="-mt-5 h-5 w-5"
-                    />
-                    <img
-                      width="48"
-                      height="48"
-                      src="https://img.icons8.com/color/48/filled-star--v1.png"
-                      alt="filled-star--v1"
-                      className="-mt-5 h-5 w-5"
-                    />
-                    <img
-                      width="48"
-                      height="48"
-                      src="https://img.icons8.com/color/48/filled-star--v1.png"
-                      alt="filled-star--v1"
-                      className="-mt-5 h-5 w-5"
-                    />
-                  </div>
-                  <div className="-mt-9 ml-auto flex h-8 items-center justify-center space-x-1 bg-amber-300 p-1">
-                    <a href="#">
-                      <img
-                        width="20"
-                        height="20"
-                        src="https://img.icons8.com/ios-glyphs/30/facebook-new.png"
-                        alt="facebook-new"
-                      />
-                    </a>
-                    <a href="#">
-                      <img
-                        width="20"
-                        height="20"
-                        src="https://img.icons8.com/ios-glyphs/30/twitter--v1.png"
-                        alt="twitter--v1"
-                      />
-                    </a>
-                    <a href="#">
-                      <img
-                        width="20"
-                        height="20"
-                        src="https://img.icons8.com/material-outlined/24/instagram-new--v1.png"
-                        alt="instagram-new--v1"
-                      />
-                    </a>
-                  </div>
-                </div>
-                <p className="ml-2 font-medium text-white">Elon Musk</p>
-                <div className="ml-2 flex space-x-6 align-middle">
-                  <p className="text-sm text-white">Taxi driver</p>
-                  <p className="pl-5 text-sm text-white">099 999 9999</p>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </main>

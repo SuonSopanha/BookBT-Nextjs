@@ -162,6 +162,16 @@ const Signup = () => {
                 </button>
 
                 </div>
+
+                <div className="mt-4 ">
+                  <span className="ml-2 text-xs">
+                    Already have an account?
+                    <a href="/auth/login" className="text-blue-500">
+                      {" "}
+                      Sign In
+                    </a>
+                  </span>
+                </div>
             </div>
             
           </div>

@@ -1,8 +1,17 @@
 "use client";
 import React, { useState } from "react";
+import axios from "axios";
 
 const DriveRegister = () => {
   const [imagePreview, setImagePreview] = useState(null);
+  const [imageURL, setImageURL] = useState(null);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [contactNumber, setContactNumber] = useState("");
+  const [dob, setDob] = useState("");
+  const [gender, setGender] = useState("male");
+  const [address, setAddress] = useState("");
+  const [email, setEmail] = useState("");
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -33,9 +42,8 @@ const DriveRegister = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data)
-        url = data.secure_url;
-        
+        setImageURL(data.secure_url);
+        return data.secure_url;
       } else {
         console.error("Failed to upload image to Cloudinary");
       }
@@ -46,14 +54,45 @@ const DriveRegister = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await handleFileUpload();
-    // Collect form data including the imageURL
-    console.log("imageURL:", url);
+    const uploadedImageURL = await handleFileUpload();
+
+    const profileData = {
+      firstName,
+      lastName,
+      contactNumber,
+      dateOfBirth : dob,
+      gender,
+      address,
+      email,
+      photoURL : uploadedImageURL,
+    };
+
+    console.log(profileData);
+
+    const token = sessionStorage.getItem('token');
+
+    try {
+      
+      const response = await axios.post("http://localhost:8000/api/v1/driver", profileData,{
+        headers: {
+          Authorization: "Bearer " + token 
+        },
+      });
+
+      if(response.data.message === "Driver created successfully") {
+
+        window.location.href = '/services/register';
+        
+      }
+
+    } catch (error) {
+      console.error("Error updating profile:", error);
+    }
   };
 
   return (
     <>
-      <div className="bg-white  mx-auto px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 text-start">
+      <div className="bg-white mx-auto px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 text-start">
         <h1 className="text-3xl text-gray-700 pt-20 pb-8">
           Driver Information
         </h1>
@@ -72,6 +111,8 @@ const DriveRegister = () => {
               <label className="text-gray-600 font-light">First Name</label>
               <input
                 type="text"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
                 placeholder="Enter your name"
                 className="w-full mt-2 px-2 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500 bg-slate-100"
               ></input>
@@ -80,6 +121,8 @@ const DriveRegister = () => {
               <label className="text-gray-600 font-light">Last Name</label>
               <input
                 type="text"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
                 placeholder="Enter your name"
                 className="w-full mt-2 px-2 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500 bg-slate-100"
               ></input>
@@ -90,6 +133,8 @@ const DriveRegister = () => {
               <label className="text-gray-600 font-light">Contact Number</label>
               <input
                 type="text"
+                value={contactNumber}
+                onChange={(e) => setContactNumber(e.target.value)}
                 placeholder="Enter your Contact Number"
                 className="w-full mt-2 px-2 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500 bg-slate-100"
               ></input>
@@ -98,14 +143,20 @@ const DriveRegister = () => {
               <label className="text-gray-600 font-light">Date of Birth</label>
               <input
                 type="date"
+                value={dob}
+                onChange={(e) => setDob(e.target.value)}
                 className="w-full mt-2 px-2 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500 bg-slate-100"
               ></input>
             </div>
             <div className="w-full sm:w-1/4 pl-0 sm:pl-4">
               <label className="text-gray-600 font-light">Gender</label>
-              <select className="w-full mt-2 px-2 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500 bg-slate-100">
-                <option>Male</option>
-                <option>Female</option>
+              <select
+                value={gender}
+                onChange={(e) => setGender(e.target.value)}
+                className="w-full mt-2 px-2 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500 bg-slate-100"
+              >
+                <option value="male">Male</option>
+                <option value="female">Female</option>
               </select>
             </div>
           </div>
@@ -114,6 +165,8 @@ const DriveRegister = () => {
               <label className="text-gray-600 font-light">Address</label>
               <input
                 type="text"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
                 placeholder="Enter your Address"
                 className="w-full mt-2 px-2 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500 bg-slate-100"
               ></input>
@@ -122,6 +175,8 @@ const DriveRegister = () => {
               <label className="text-gray-600 font-light">Email</label>
               <input
                 type="text"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your Email"
                 className="w-full mt-2 px-2 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500 bg-slate-100"
               ></input>

@@ -1,13 +1,12 @@
-"use client"
+"use client";
 
-import { useState } from 'react';
-import axios from 'axios';
-import { redirect } from 'next/navigation';
+import { useState } from "react";
+import axios from "axios";
+import { redirect } from "next/navigation";
 
 const Login = () => {
-
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -16,28 +15,34 @@ const Login = () => {
 
     try {
       setIsSubmitting(true);
-      const response = await axios.post('http://localhost:8000/api/v1/auth/login', {
-        email : email,
-        password,
-      });
-      const token = response.data.token;
-      localStorage.setItem('token', token); // Store the token in local storage 
-       // Redirect to the dashboard page upon successful login
-      window.location.href = '/user';
+      const response = await axios.post(
+        "http://localhost:8000/api/v1/auth/login",
+        {
+          email: email,
+          password,
+        }
+      );
+
+      if (response.data.success === true) {
+        const token = response.data.token;
+        sessionStorage.setItem("token", token); // Store the token in local storage
+        // Redirect to the dashboard page upon successful login
+        window.location.href = "/";
+      }
     } catch (error) {
       // Handle network errors or HTTP errors
       if (error.response) {
         // The request was made and the server responded with a status code
-        console.error('Server responded with error:', error.response.data);
+        console.error("Server responded with error:", error.response.data);
         setError(error.response.data.message); // Set error message from server response
       } else if (error.request) {
         // The request was made but no response was received
-        console.error('No response received:', error.request);
-        setError('An error occurred. Please try again later.');
+        console.error("No response received:", error.request);
+        setError("An error occurred. Please try again later.");
       } else {
         // Something else happened
-        console.error('Something else happened:', error);
-        setError('An error occurred. Please try again later.');
+        console.error("Something else happened:", error);
+        setError("An error occurred. Please try again later.");
       }
     } finally {
       setIsSubmitting(false);
@@ -67,7 +72,9 @@ const Login = () => {
             </div>
             <div className="w-full lg:w-1/2 py-16 px-12 bg-white">
               <h2 className="text-3xl font-bold">Login</h2>
-              <p className="mt-4 text-xs">Please login to your account to continue.</p>
+              <p className="mt-4 text-xs">
+                Please login to your account to continue.
+              </p>
               <form onSubmit={handleLogin}>
                 <div className="mt-4 ">
                   <input
@@ -87,42 +94,43 @@ const Login = () => {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
-                {error && <div className="text-red-500 mt-2 text-xs">{error}</div>}
+                {error && (
+                  <div className="text-red-500 mt-2 text-xs">{error}</div>
+                )}
                 <div className="mt-4">
                   <button
                     type="submit"
                     className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                     disabled={isSubmitting}
                   >
-                    {isSubmitting ? 'Logging in...' : 'Login'}
+                    {isSubmitting ? "Logging in..." : "Login"}
                   </button>
                 </div>
 
                 <div class="flex items-center mt-4">
                   <div class="flex-grow border-t border-gray-400"></div>
-                  <span class="mx-2 text-xs text-gray-500">   OR   </span>
+                  <span class="mx-2 text-xs text-gray-500"> OR </span>
                   <div class="flex-grow border-t border-gray-400"></div>
                 </div>
                 <div className="mt-4">
-                <button
-                  type="submit"
-                  className="w-full border border-blue-500 hover:bg-blue-300 text-blue-500 text-sm py-2 px-4 rounded flex items-center justify-center space-x-2"
-                  disabled={isSubmitting}
-                >
-                  <svg
-                    className="h-5 w-5 fill-current"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
+                  <button
+                    type="submit"
+                    className="w-full border border-blue-500 hover:bg-blue-300 text-blue-500 text-sm py-2 px-4 rounded flex items-center justify-center space-x-2"
+                    disabled={isSubmitting}
                   >
-                    <path
-                      fillRule="evenodd"
-                      d="M10 1a9 9 0 00-9 9c0 4.97 4.03 9 9 9s9-4.03 9-9a9 9 0 00-9-9zm0 16v-5h2.25l.34-2.5H10V8.62c0-.68.19-1.14 1.15-1.14h1.23V5.15A16.87 16.87 0 0010 5a3.22 3.22 0 00-3.44 3.45V8h-2v2.5h2V17h2z"
-                      clipRule="evenodd"
-                    ></path>
-                  </svg>
-                  <span>Login with Facebook</span>
-                </button>
-
+                    <svg
+                      className="h-5 w-5 fill-current"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10 1a9 9 0 00-9 9c0 4.97 4.03 9 9 9s9-4.03 9-9a9 9 0 00-9-9zm0 16v-5h2.25l.34-2.5H10V8.62c0-.68.19-1.14 1.15-1.14h1.23V5.15A16.87 16.87 0 0010 5a3.22 3.22 0 00-3.44 3.45V8h-2v2.5h2V17h2z"
+                        clipRule="evenodd"
+                      ></path>
+                    </svg>
+                    <span>Login with Facebook</span>
+                  </button>
                 </div>
 
                 <div className="mt-4 ">

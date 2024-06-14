@@ -3,22 +3,24 @@ import { useState, useEffect } from "react";
 import SearchButton from "./searchButton";
 import SearchBar from "../searchBar/searchBar";
 
-
 const Header = () => {
   const [open, setOpen] = useState(false);
-  const [language, setLanguage] = useState('EN');
+  const [language, setLanguage] = useState("EN");
 
   const toggleMenu = () => {
-    console.log("clicked")
+    console.log("clicked");
     setOpen(!open);
   };
 
   const toggleLanguage = () => {
-    setLanguage((prevLanguage) => (prevLanguage === 'EN' ? 'KH' : 'EN'));
+    setLanguage((prevLanguage) => (prevLanguage === "EN" ? "KH" : "EN"));
+  };
+
+  const handleNotification = () => {
+    window.location.href = "/user/notificationList";
   };
 
   return (
-
     <>
       <header className="antialiased bg-white bg-opacity-80 dark-mode:bg-gray-900">
         <div className="w-full text-gray-700 dark-mode:text-gray-200 dark-mode:bg-gray-800">
@@ -28,7 +30,9 @@ const Header = () => {
                 href="/"
                 className="text-lg font-extrabold tracking-tight uppercase rounded-lg focus:outline-none focus:shadow-outline transform transition-all hover:scale-105 "
               >
-                <span className=" dark:text-yellow-400 hover:text-yellow-500 ">BookingBT</span>
+                <span className=" dark:text-yellow-400 hover:text-yellow-500 ">
+                  BookingBT
+                </span>
               </a>
               <button
                 className="rounded-lg md:hidden focus:outline-none focus:shadow-outline"
@@ -55,7 +59,11 @@ const Header = () => {
                 </svg>
               </button>
             </div>
-            <div className={`flex-col flex-grow ${open ? 'flex' : 'hidden'} md:flex md:flex-row`}>
+            <div
+              className={`flex-col flex-grow ${
+                open ? "flex" : "hidden"
+              } md:flex md:flex-row`}
+            >
               <nav className="flex flex-col md:flex-row md:mr-auto ">
                 <a
                   href="/"
@@ -64,7 +72,6 @@ const Header = () => {
                   Home
                 </a>
                 <button
-
                   onClick={() => toggleMenu()}
                   className="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-orange-400 focus:text-orange-400 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:shadow-outline"
                 >
@@ -84,7 +91,6 @@ const Header = () => {
                 </a>
               </nav>
               <div className="flex flex-col md:flex-row md:ml-auto">
-
                 <button
                   className="flex items-center px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-orange-400 focus:text-orange-400 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:shadow-outline"
                   id="search"
@@ -127,28 +133,36 @@ const Header = () => {
                   <span>{language}</span>
                 </button>
 
+                <button onClick={handleNotification} className="flex items-center px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-orange-400 focus:text-orange-400 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:shadow-outline">
+                  <svg
+                    className="w-6 h-6 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M12 22c1.1 0 2-.9 2-2H10c0 1.1.9 2 2 2zM18.29 17H5.71c-.4 0-.73-.29-.83-.67L4 16.7V8.99c0-3.07 2.13-5.64 5-6.32V2c0-.55.45-1 1-1s1 .45 1 1v.68c2.87.68 5 3.25 5 6.32v7.71l-.88.63c-.1.38-.43.67-.83.67z" />
+                  </svg>
+                </button>
 
-                <button
-                  className="px-4 py-2  border-2  border-orange-400 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-orange-400 focus:text-orange-400 hover:bg-gray-100 focus:bg-gray-100 focus:outline-bgray-100 focus:shadow-outline"
-                >
-                  <a href="/auth/login">
-                    Login
-                  </a>
+                <button className="px-4 py-2  border-2  border-orange-400 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-orange-400 focus:text-orange-400 hover:bg-gray-100 focus:bg-gray-100 focus:outline-bgray-100 focus:shadow-outline">
+                  <a href="/auth/login">Login</a>
                 </button>
               </div>
             </div>
           </div>
         </div>
       </header>
-      <div className={`left-0 top-16 h-full w-full -mt-12 ${open ? "block" : "hidden"
+      <div
+        className={`left-0 top-16 h-full w-full -mt-12 ${
+          open ? "block" : "hidden"
         }`}
       >
         <SearchBar />
       </div>
     </>
-
-
-
   );
 };
 

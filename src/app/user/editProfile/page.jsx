@@ -73,7 +73,7 @@ const EditProfile = () => {
               </label>
               <label
                 htmlFor="profile-image"
-                className="w-32 h-32 flex flex-col items-center justify-center bg-slate-100 border-dashed border-2 border-gray-400 rounded-full cursor-pointer hover:border-blue-500 hover:bg-blue-300 h-32 relative"
+                className="w-32 flex flex-col items-center justify-center bg-slate-100 border-dashed border-2 border-gray-400 rounded-full cursor-pointer hover:border-blue-500 hover:bg-blue-300 h-32 relative"
               >
                 <input
                   id="profile-image"

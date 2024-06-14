@@ -31,11 +31,15 @@ const Signup = () => {
         password,
         confirm_password: confirmPassword
       });
+
   
-      console.log(response.data);
+      if(response.data.success === true) {
+        sessionStorage.setItem('token', response.data.token);
+         window.location.href = '/user/updateProfile';
+      }
   
       // Redirect to the login page after successful signup
-      window.location.href = '/auth/login';
+     
     } catch (error) {
       // Handle network errors or HTTP errors
       if (error.response) {

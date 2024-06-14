@@ -1,4 +1,46 @@
-const UserProfile = () => {
+"use client";
+
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+const UserProfile =  () => {
+  const [token, setToken] = useState({});
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedToken = sessionStorage.getItem("token");
+      setToken(storedToken);
+    }
+  }, []);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (token) {
+        try {
+          const response = await axios.get(
+            "http://localhost:8000/api/v1/user/",
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
+          setUser(response.data.user);
+        } catch (error) {
+          console.error("Error fetching user:", error);
+        }
+      }
+    };
+
+    fetchUser();
+  }, [token]);
+
+  if (!user) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div>
       <div className="relative mt-20">
@@ -6,8 +48,13 @@ const UserProfile = () => {
           <div className="mx-auto flex flex-col justify-center space-y-4 p-4 md:flex-row md:space-x-5 md:space-y-0">
             <div className="relative rounded-lg bg-white">
               <div className="flex h-60 w-full items-center justify-center rounded-t-lg bg-slate-600 object-cover text-center align-middle font-medium text-slate-300">
-                <a href="#">Add Profile</a>
+                <img
+                  src={user.photoURL}
+                  className="w-full h-full rounded-t-lg"
+                  alt="userProfile"
+                />
               </div>
+
               <div className="m-4 border-b-2 border-zinc-400 pb-12">
                 <div className="ml-0.5 flex items-center mt-3">
                   <img
@@ -16,11 +63,9 @@ const UserProfile = () => {
                     src="https://img.icons8.com/material-outlined/24/FAB005/user--v2.png"
                     alt="gender-neutral-user"
                   />
-                  <input
-                    type="text"
-                    placeholder="Your name"
-                    className="ml-2 font-medium hover:border-b-2 focus:bg-none focus:outline-none"
-                  />
+                  <div className="ml-2 font-medium hover:border-b-2 focus:bg-none focus:outline-none">
+                    {user.fullName}
+                  </div>
                 </div>
                 <div className="ml-1 flex items-center mt-3">
                   <img
@@ -29,11 +74,9 @@ const UserProfile = () => {
                     src="https://img.icons8.com/material-outlined/24/FAB005/home--v2.png"
                     alt="home--v2"
                   />
-                  <input
-                    type="text"
-                    placeholder="Email address"
-                    className="ml-3 font-medium hover:border-b-2 focus:bg-none focus:outline-none"
-                  />
+                  <div className="ml-3 font-medium hover:border-b-2 focus:bg-none focus:outline-none">
+                    {user.email}
+                  </div>
                 </div>
                 <div className="ml-1 flex items-center mt-3">
                   <img
@@ -42,13 +85,12 @@ const UserProfile = () => {
                     src="https://img.icons8.com/material-outlined/24/FAB005/iphone.png"
                     alt="iphone"
                   />
-                  <input
-                    type="text"
-                    placeholder="Phone number"
-                    className="ml-3 font-medium hover:border-b-2 focus:bg-none focus:outline-none"
-                  />
+                  <div className="ml-3 font-medium hover:border-b-2 focus:bg-none focus:outline-none">
+                    {user.phoneNumber}
+                  </div>
                 </div>
               </div>
+
               <a href="#History">
                 {" "}
                 <button
@@ -67,6 +109,9 @@ const UserProfile = () => {
                   <div className="absolute right-0 mt-12 h-20 w-20 translate-x-1/2 transform rounded-full bg-yellow-500"></div>
                 </button>
                 <button
+                  onClick={() => {
+                    window.location.href = "/auth/driveRegister"
+                  }}
                   id="searchBook"
                   className="relative mt-5 flex h-12 w-40 items-center justify-center overflow-hidden rounded-lg bg-gradient-to-r from-yellow-500 to-amber-200 text-sm font-medium text-black shadow-lg shadow-slate-500 hover:border-2 hover:border-gray-950"
                 >

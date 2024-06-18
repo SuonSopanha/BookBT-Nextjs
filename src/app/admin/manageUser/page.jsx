@@ -4,32 +4,32 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 
 const RequestTable = () => {
-  const [Driver, setDriver] = useState([]);
+  const [User, setUser] = useState([]);
 
   useEffect(() => {
-    const fetchDriverRequest = async () => {
+    const fetchUserRequest = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8000/api/v1/un-approve"
+          "http://localhost:8000/api/v1/all-users"
         );
         const data = response.data;
-        setDriver(data);
+        setUser(data);
       } catch (error) {
         console.log(error);
       }
     };
 
-    fetchDriverRequest();
+    fetchUserRequest();
   }, []);
 
-  console.log(Driver);
+  console.log(User);
 
   return (
     <div>
       <main className="flex h-full overflow-hidden pt-8">
         <div className="flex-grow p-4">
           <div className="w-full px-6 py-6 mx-auto">
-            <div className="relative flex flex-col flex-auto min-w-0 p-4 mx-6 mb-4 overflow-hidden break-words bg-white border-0 dark:bg-slate-850 dark:shadow-dark-xl shadow-3xl rounded-2xl bg-clip-border">
+          <div className="relative flex flex-col flex-auto min-w-0 p-4 mx-6 mb-4 overflow-hidden break-words bg-white border-0 dark:bg-slate-850 dark:shadow-dark-xl shadow-3xl rounded-2xl bg-clip-border">
               <div className="flex flex-wrap -mx-3">
                 <div className="flex-none w-auto max-w-full px-3">
                   <div className="relative inline-flex items-center justify-center text-white transition-all duration-200 ease-in-out text-base h-19 w-19 rounded-xl">
@@ -92,7 +92,7 @@ const RequestTable = () => {
               <div className="flex-none w-full max-w-full px-3">
                 <div className="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
                   <div className="p-6 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
-                    <h6 class>Driver Request</h6>
+                    <h6 class>User</h6>
                   </div>
                   <div className="flex-auto px-0 pt-0 pb-2">
                     <div className="p-0 overflow-x-auto">
@@ -100,16 +100,16 @@ const RequestTable = () => {
                         <thead className="align-bottom">
                           <tr>
                             <th className="px-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 text-xxs border-b-solid tracking-none whitespace-nowrap  opacity-70">
-                              Driver
+                              User
                             </th>
                             <th className="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 text-xxs border-b-solid tracking-none whitespace-nowrap  opacity-70">
-                              Service
+                              Address
                             </th>
                             <th className="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 text-xxs border-b-solid tracking-none whitespace-nowrap  opacity-70">
-                              Vehicle
+                              Phone
                             </th>
                             <th className="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 text-xxs border-b-solid tracking-none whitespace-nowrap  opacity-70">
-                              Request Register
+                              Register At
                             </th>
                             <th className="px-6 py-3 font-semibold capitalize align-middle bg-transparent border-b border-collapse border-solid shadow-none dark:border-white/40 tracking-none whitespace-nowrap  opacity-70">
                               Action
@@ -117,13 +117,13 @@ const RequestTable = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          {Driver.map((Driver) => (
+                          {User.map((User) => (
                             <tr>
                               <td className="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                                 <div className="flex px-2 py-1">
                                   <div>
                                     <img
-                                      src={Driver.photoURL}
+                                      src={User.photoURL}
                                       className="inline-flex items-center justify-center mr-4 text-sm text-white transition-all duration-200 ease-in-out h-9 w-9 rounded-xl"
                                       alt="user1"
                                     />
@@ -132,31 +132,29 @@ const RequestTable = () => {
                                     <h6 className="mb-0 text-sm leading-normal">
                                       {" "}
                                       <a href="adminTaxiProfileVeiw.html">
-                                        {Driver.firstName} {Driver.lastName}
+                                        {User.fullName}
                                       </a>
                                     </h6>
                                     <p className="mb-0 text-xs leading-tight dark:opacity-80 ">
-                                      {Driver.email}
+                                      {User.email}
                                     </p>
                                   </div>
                                 </div>
                               </td>
                               <td className="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                                 <p className="mb-0 text-xs font-semibold leading-tight dark:opacity-80">
-                                  {Driver.services[0].location}
+                                  {User.address}
                                 </p>
-                                <p className="mb-0 text-xs leading-tight dark:opacity-80 ">
-                                  {Driver.services[0].destination}
-                                </p>
+
                               </td>
                               <td className="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                                <span className="bg-gradient-to-tl from-emerald-500 to-teal-400 px-4 text-xs rounded-1.8 py-2 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">
-                                  {Driver.services[0].category}
-                                </span>
+                              <p className="mb-0 text-xs font-semibold leading-tight dark:opacity-80">
+                                  {User.phoneNumber}
+                                </p>
                               </td>
                               <td className="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                                 <span className="text-xs font-semibold leading-tight dark:opacity-80 ">
-                                  {Driver.createdAt.slice(0, 10)}
+                                  {User.createdAt.slice(0, 10)}
                                 </span>
                               </td>
                               <td className="p-1 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent text-center space-x-5">
@@ -165,14 +163,14 @@ const RequestTable = () => {
                                   className="text-xs font-semibold leading-tight dark:opacity-80 text-white bg-green-500 py-2 px-4"
                                 >
                                   {" "}
-                                  Accept{" "}
+                                  Suspend{" "}
                                 </a>
                                 <a
                                   href="javascript:;"
                                   className="text-xs font-semibold leading-tight dark:opacity-80 text-white bg-red-500 py-2 px-4"
                                 >
                                   {" "}
-                                  Decline{" "}
+                                  Ban{" "}
                                 </a>
                               </td>
                             </tr>

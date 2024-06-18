@@ -26,8 +26,12 @@ const Login = () => {
       if (response.data.success === true) {
         const token = response.data.token;
         sessionStorage.setItem("token", token); // Store the token in local storage
-        // Redirect to the dashboard page upon successful login
-        window.location.href = "/";
+        // Redirect to the dashboard page upon successful login'
+        if (response.data.user.role === "admin") {
+          window.location.href = "/admin";
+        } else {
+          window.location.href = "/";
+        }
       }
     } catch (error) {
       // Handle network errors or HTTP errors

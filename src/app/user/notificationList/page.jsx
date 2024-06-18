@@ -1,12 +1,10 @@
-"use client"
+"use client";
 
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-
-
 const NotificationPage = () => {
-  const [notification,setNotification] = useState([]);
+  const [notification, setNotification] = useState([]);
 
   const [token, setToken] = useState({});
   useEffect(() => {
@@ -16,10 +14,9 @@ const NotificationPage = () => {
     }
   }, []);
 
-
   useEffect(() => {
     const fetchNoti = async () => {
-      if (token){
+      if (token) {
         try {
           const response = await axios.get(
             "http://localhost:8000/api/v1/notification/",
@@ -38,12 +35,10 @@ const NotificationPage = () => {
     };
 
     fetchNoti();
+  }, [token]);
 
-  },[token]);
-
-
-  if(!notification){
-    return <div>Loading....</div>
+  if (!notification) {
+    return <div>Loading....</div>;
   }
 
   console.log(notification);
@@ -63,16 +58,34 @@ const NotificationPage = () => {
                 </div>
                 <div className="mt-8 pt-4 text-zinc-600">
                   {notification.map((notification) => (
-                    <div key={notification.id} className="mb-8 border-t-4 border-yellow-400 px-4 md:px-16 pt-4">
+                    <div
+                      key={notification.id}
+                      className="mb-8 border-t-4 border-yellow-400 px-4 md:px-16 pt-4"
+                    >
                       <div className="flex w-full">
                         <div className="flex w-full">
-                          <div className="ml-2 font-bold">
-                            <p className="text-xs sm:text-base">{notification.notificationType.replace('_', ' ')}</p>
-                          </div>
+                          <button
+                            onClick={() => {
+                              window.location.href =
+                                "http://localhost:3000/booking/request/" +
+                                notification.bookingId;
+                            }}
+                            className="ml-2 font-bold"
+                          >
+                            <p className="text-xs sm:text-base hover:text-lg">
+                              {notification.notificationType.replace("_", " ")}
+                            </p>
+                          </button>
                         </div>
                         <div className="flex w-full items-center justify-end italic">
-                          <p className="text-xs sm:text-base mr-2 sm:mr-0">Date:</p>
-                          <p className="ml-2 text-xs sm:text-base font-medium">{new Date(notification.notificationDate).toLocaleDateString()}</p>
+                          <p className="text-xs sm:text-base mr-2 sm:mr-0">
+                            Date:
+                          </p>
+                          <p className="ml-2 text-xs sm:text-base font-medium">
+                            {new Date(
+                              notification.notificationDate
+                            ).toLocaleDateString()}
+                          </p>
                         </div>
                       </div>
                       <div className="flex w-full mt-2 px-2 pb-4">
@@ -80,7 +93,9 @@ const NotificationPage = () => {
                           <p className="text-xs sm:text-base">Message:</p>
                         </div>
                         <div className="ml-2">
-                          <p className="text-xs sm:text-base">{notification.notificationMessage}</p>
+                          <p className="text-xs sm:text-base">
+                            {notification.notificationMessage}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -88,29 +103,35 @@ const NotificationPage = () => {
                 </div>
 
                 <div className="mt-8 pt-4 text-zinc-600">
-                 
-                    <div  className="mb-8 border-t-4 border-yellow-400 px-4 md:px-16 pt-4">
+                  <div className="mb-8 border-t-4 border-yellow-400 px-4 md:px-16 pt-4">
+                    <div className="flex w-full">
                       <div className="flex w-full">
-                        <div className="flex w-full">
-                          <div className="ml-2 font-bold">
-                            <p className="text-xs sm:text-base">Account Created</p>
-                          </div>
-                        </div>
-                        <div className="flex w-full items-center justify-end italic">
-                          <p className="text-xs sm:text-base mr-2 sm:mr-0">Date:</p>
-                          <p className="ml-2 text-xs sm:text-base font-medium">06/12/2024</p>
+                        <div className="ml-2 font-bold">
+                          <p className="text-xs sm:text-base">
+                            Account Created
+                          </p>
                         </div>
                       </div>
-                      <div className="flex w-full mt-2 px-2 pb-4">
-                        <div>
-                          <p className="text-xs sm:text-base">Message:</p>
-                        </div>
-                        <div className="ml-2">
-                          <p className="text-xs sm:text-base">You Account have been created successfully</p>
-                        </div>
+                      <div className="flex w-full items-center justify-end italic">
+                        <p className="text-xs sm:text-base mr-2 sm:mr-0">
+                          Date:
+                        </p>
+                        <p className="ml-2 text-xs sm:text-base font-medium">
+                          06/12/2024
+                        </p>
                       </div>
                     </div>
-                  
+                    <div className="flex w-full mt-2 px-2 pb-4">
+                      <div>
+                        <p className="text-xs sm:text-base">Message:</p>
+                      </div>
+                      <div className="ml-2">
+                        <p className="text-xs sm:text-base">
+                          You Account have been created successfully
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div className="flex w-full px-4 md:px-16">
                   <div className="flex w-52 py-8 font-medium">

@@ -1,10 +1,113 @@
+"use client";
+
+import axios from "axios";
+import { useState, useEffect } from "react";
+import LineChart from "@/components/Chart/lineChart";
+
+const getStatistics = async () => {
+  try {
+    const response = await axios.get(
+      "http://localhost:8000/api/v1/getStatistics"
+    );
+    const data = response.data;
+    console.log(data);
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 const AdminDashboard = () => {
+  const [statistic, setStatistic] = useState({});
+  const [chartData, setChartData] = useState({ months: [], counts: [] });
+
+  useEffect(() => {
+    const fetchStat = async () => {
+      try {
+        const stat = await getStatistics();
+        setStatistic(stat);
+
+        const months = stat.monthlyBookings.map((entry) => entry.month);
+        const counts = stat.monthlyBookings.map((entry) =>
+          parseInt(entry.count, 10)
+        );
+
+        setChartData({ months, counts });
+
+        console.log(chartData); 
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchStat();
+  }, []);
+  console.log(statistic);
   return (
     <div>
-      <main class="flex h-full overflow-hidden pt-20 -z-10">
-
+      <main class="flex h-full overflow-hidden pt-8 -z-10">
         <div class="flex-grow p-4 ">
           <div class="w-full px-6 py-6 mx-auto">
+            <div className="relative flex flex-col flex-auto min-w-0 p-4 mx-6 mb-4 overflow-hidden break-words bg-white border-0 dark:bg-slate-850 dark:shadow-dark-xl shadow-3xl rounded-2xl bg-clip-border">
+              <div className="flex flex-wrap -mx-3">
+                <div className="flex-none w-auto max-w-full px-3">
+                  <div className="relative inline-flex items-center justify-center text-white transition-all duration-200 ease-in-out text-base h-19 w-19 rounded-xl">
+                    <img
+                      src="https://img.freepik.com/free-psd/3d-icon-social-media-app_23-2150049569.jpg?size=626&ext=jpg&ga=GA1.1.48835190.1718728664&semt=ais_user"
+                      alt="profile_image"
+                      className="w-16 h-16 shadow-2xl rounded-xl"
+                    />
+                  </div>
+                </div>
+                <div className="flex-none w-auto max-w-full px-3 my-auto">
+                  <div className="h-full">
+                    <h5 className="mb-1">AdminDashboard</h5>
+                  </div>
+                </div>
+              </div>
+              <div class="flex w-full md:max-w-xl mx-4 mb-2 rounded shadow mt-4">
+                <a
+                  href="/admin"
+                  aria-current="false"
+                  class="w-full flex justify-center font-medium rounded-l px-5 py-2 border bg-white text-gray-800 border-gray-200 hover:bg-gray-100"
+                >
+                  Overview
+                </a>
+
+                <a
+                  href="/admin/reqeustTable"
+                  aria-current="page"
+                  class="w-full flex justify-center font-medium px-5 py-2 border-t border-b bg-white text-gray-800 border-gray-200 hover:bg-gray-100"
+                >
+                  Request
+                </a>
+
+                <a
+                  href="/admin/manageDriver"
+                  aria-current="false"
+                  class="w-full flex items-center gap-x-2 justify-center font-medium rounded-r px-5 py-2 border bg-white text-gray-800 border-gray-200 hover:bg-gray-100"
+                >
+                  Driver
+                </a>
+
+                <a
+                  href="/admin/manageUser"
+                  aria-current="false"
+                  class="w-full flex items-center gap-x-2 justify-center font-medium rounded-r px-5 py-2 border bg-white text-gray-800 border-gray-200 hover:bg-gray-100"
+                >
+                  User
+                </a>
+
+                <a
+                  href="#"
+                  aria-current="false"
+                  class="w-full flex items-center gap-x-2 justify-center font-medium rounded-r px-5 py-2 border bg-white text-gray-800 border-gray-200 hover:bg-gray-100"
+                >
+                  Report
+                </a>
+              </div>
+            </div>
+
             <div class="flex flex-wrap -mx-3">
               <div class="w-full max-w-full px-3 mb-6 sm:w-1/2 sm:flex-none xl:mb-0 xl:w-1/4">
                 <div class="relative flex flex-col min-w-0 break-words bg-white shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
@@ -15,13 +118,9 @@ const AdminDashboard = () => {
                           <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:opacity-60">
                             Today's Booking
                           </p>
-                          <h5 class="mb-2 font-bold">$53,000</h5>
-                          <p class="mb-0 dark:opacity-60">
-                            <span class="text-sm font-bold leading-normal text-emerald-500">
-                              +55%
-                            </span>
-                            since yesterday
-                          </p>
+                          <h5 class="mb-2 font-bold">
+                            {statistic?.todayBookings}
+                          </h5>
                         </div>
                       </div>
                       <div class="px-3 text-right basis-1/3">
@@ -41,15 +140,11 @@ const AdminDashboard = () => {
                       <div class="flex-none w-2/3 max-w-full px-3">
                         <div>
                           <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:opacity-60">
-                            Today's TRAFFIC
+                            User
                           </p>
-                          <h5 class="mb-2 font-bold">2,300</h5>
-                          <p class="mb-0 dark:opacity-60">
-                            <span class="text-sm font-bold leading-normal text-emerald-500">
-                              +3%
-                            </span>
-                            since last week
-                          </p>
+                          <h5 class="mb-2 font-bold">
+                            {statistic?.totalUsers}
+                          </h5>
                         </div>
                       </div>
                       <div class="px-3 text-right basis-1/3">
@@ -69,15 +164,11 @@ const AdminDashboard = () => {
                       <div class="flex-none w-2/3 max-w-full px-3">
                         <div>
                           <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:opacity-60">
-                            New taxi
+                            New Driver
                           </p>
-                          <h5 class="mb-2 font-bold">+3,462</h5>
-                          <p class="mb-0 dark:opacity-60">
-                            <span class="text-sm font-bold leading-normal text-red-600">
-                              -2%
-                            </span>
-                            since last quarter
-                          </p>
+                          <h5 class="mb-2 font-bold">
+                            {statistic?.newDriversInWeek}
+                          </h5>
                         </div>
                       </div>
                       <div class="px-3 text-right basis-1/3">
@@ -97,15 +188,11 @@ const AdminDashboard = () => {
                       <div class="flex-none w-2/3 max-w-full px-3">
                         <div>
                           <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:opacity-60">
-                            new user
+                            New User
                           </p>
-                          <h5 class="mb-2 font-bold">$103,430</h5>
-                          <p class="mb-0 dark:opacity-60">
-                            <span class="text-sm font-bold leading-normal text-emerald-500">
-                              +5%
-                            </span>
-                            than last month
-                          </p>
+                          <h5 class="mb-2 font-bold">
+                            {statistic?.newUsersInWeek}
+                          </h5>
                         </div>
                       </div>
                       <div class="px-3 text-right basis-1/3">
@@ -131,7 +218,7 @@ const AdminDashboard = () => {
                   </div>
                   <div class="flex-auto p-4">
                     <div>
-                      <canvas id="chart-line" height="300"></canvas>
+                      <LineChart data={chartData} />
                     </div>
                   </div>
                 </div>

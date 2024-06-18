@@ -22,7 +22,7 @@ const BookingReciept = () => {
   const { id } = useParams();
 
   const [reciept, setRecipt] = useState();
-
+  const token = sessionStorage.getItem("token");
   useEffect(() => {
     const fetchReciept = async () => {
       const data = await getRecipt(id);
@@ -35,6 +35,88 @@ const BookingReciept = () => {
   if (!reciept) {
     return <h1>Loading</h1>;
   }
+
+  const handleAccept = async () => {
+    try {
+      const response = await axios.put(
+        "http://localhost:8000/api/v1/booking-status/" + id,
+        { bookingStatus: "confirmed" },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      if (response.data.message === "Booking updated successfully") {
+        try {
+          const notification = await axios.post(
+            "http://localhost:8000/api/v1/notification",
+            {
+              UserID: reciept.userId,
+              driverId: null,
+              bookingId: id,
+              notificationType: "ride_accepted",
+              notificationMessage: "driver have accept the ride",
+              notificationStatus: "sent",
+              notificationDate: new Date(Date.now()),
+            },
+            {
+              headers: {
+                Authorization: "Bearer " + token,
+              },
+            }
+          );
+
+          window.location.reload();
+        } catch (err) {
+          console.log(err);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleDecline = async () => {
+    try {
+      const response = await axios.put(
+        "http://localhost:8000/api/v1/booking-status/" + id,
+        { bookingStatus: "canceled" },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      if (response.data.message === "Booking updated successfully") {
+        try {
+          const notification = await axios.post(
+            "http://localhost:8000/api/v1/notification",
+            {
+              UserID: reciept.userId,
+              driverId: null,
+              bookingId: id,
+              notificationType: "ride_canceled",
+              notificationMessage: "driver have decline the ride",
+              notificationStatus: "sent",
+              notificationDate: new Date(Date.now()),
+            },
+            {
+              headers: {
+                Authorization: "Bearer " + token,
+              },
+            }
+          );
+
+          window.location.reload();
+        } catch (err) {
+          console.log(err);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   console.log(reciept);
   return (
@@ -249,30 +331,41 @@ const BookingReciept = () => {
                   </div>
                   {reciept.bookingStatus === "pending" && (
                     <p className="text-xs font-light ml-16">
-                      Your booking is currently pending and waiting for the
-                      driver to confirm the ride.
+                      this booking is currently pending and waiting for you to
+                      confirm the ride.
                     </p>
                   )}
 
                   <div className="flex w-full px-4 md:px-16">
                     <div className="flex w-52 py-8 font-medium">
                       <button className="relative mb-8 mt-5 flex h-8 w-28 sm:h-12 sm:w-40 items-center justify-center overflow-hidden rounded-lg bg-gradient-to-r from-yellow-500 to-amber-200 text-xl font-medium text-black shadow-lg shadow-slate-500 hover:border-2 hover:border-zinc-400 hover:shadow-none">
-                        <a href="homePage.html">Back</a>
+                        <a href="/notificationList">Back</a>
                         <div className="absolute right-0 mt-12 h-20 w-20 translate-x-1/2 transform rounded-full bg-yellow-200 bg-opacity-80"></div>
                       </button>
                     </div>
-                    <div className="flex w-52 py-8 font-medium">
-                      <button className="relative mb-8 mt-5 flex h-8 w-28 sm:h-12 sm:w-40 items-center justify-center overflow-hidden rounded-lg bg-gradient-to-r from-yellow-500 to-amber-200 text-xl font-medium text-black shadow-lg shadow-slate-500 hover:border-2 hover:border-zinc-400 hover:shadow-none">
-                        <a href="homePage.html">Accept</a>
-                        <div className="absolute right-0 mt-12 h-20 w-20 translate-x-1/2 transform rounded-full bg-yellow-200 bg-opacity-80"></div>
-                      </button>
-                    </div>
-                    <div className="flex w-52 py-8 font-medium">
-                      <button className="relative mb-8 mt-5 flex h-8 w-28 sm:h-12 sm:w-40 items-center justify-center overflow-hidden rounded-lg bg-gradient-to-r from-yellow-500 to-amber-200 text-xl font-medium text-black shadow-lg shadow-slate-500 hover:border-2 hover:border-zinc-400 hover:shadow-none">
-                        <a href="homePage.html">Decline</a>
-                        <div className="absolute right-0 mt-12 h-20 w-20 translate-x-1/2 transform rounded-full bg-yellow-200 bg-opacity-80"></div>
-                      </button>
-                    </div>
+                    {reciept.bookingStatus === "pending" && (
+                      <div className="flex w-52 py-8 font-medium">
+                        <button
+                          onClick={handleAccept}
+                          className="relative mb-8 mt-5 flex h-8 w-28 sm:h-12 sm:w-40 items-center justify-center overflow-hidden rounded-lg bg-gradient-to-r from-yellow-500 to-amber-200 text-xl font-medium text-black shadow-lg shadow-slate-500 hover:border-2 hover:border-zinc-400 hover:shadow-none"
+                        >
+                          <a>Accept</a>
+                          <div className="absolute right-0 mt-12 h-20 w-20 translate-x-1/2 transform rounded-full bg-yellow-200 bg-opacity-80"></div>
+                        </button>
+                      </div>
+                    )}
+
+                    {reciept.bookingStatus === "pending" && (
+                      <div className="flex w-52 py-8 font-medium">
+                        <button
+                          onClick={handleDecline}
+                          className="relative mb-8 mt-5 flex h-8 w-28 sm:h-12 sm:w-40 items-center justify-center overflow-hidden rounded-lg bg-gradient-to-r from-yellow-500 to-amber-200 text-xl font-medium text-black shadow-lg shadow-slate-500 hover:border-2 hover:border-zinc-400 hover:shadow-none"
+                        >
+                          <a>Decline</a>
+                          <div className="absolute right-0 mt-12 h-20 w-20 translate-x-1/2 transform rounded-full bg-yellow-200 bg-opacity-80"></div>
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

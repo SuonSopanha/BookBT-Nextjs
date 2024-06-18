@@ -22,7 +22,7 @@ const BookingReciept = () => {
   const { id } = useParams();
 
   const [reciept, setRecipt] = useState();
-
+  const token = sessionStorage.getItem("token");
   useEffect(() => {
     const fetchReciept = async () => {
       const data = await getRecipt(id);
@@ -35,6 +35,45 @@ const BookingReciept = () => {
   if (!reciept) {
     return <h1>Loading</h1>;
   }
+
+  const handleCancel = async () => {
+    try {
+      const response = await axios.put(
+        "http://localhost:8000/api/v1/booking-status/" + id,
+        { bookingStatus: "canceled" },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      if (response.data.message === "Booking updated successfully") {
+        try {
+          const notification = await axios.post(
+            "http://localhost:8000/api/v1/notification",
+            {
+              driverId : reciept.driverId,
+              bookingId : id,
+              notificationType : "ride_canceled",
+              notificationMessage : "user have canceled the ride",
+              notificationStatus : "sent",
+              notificationDate : new Date(Date.now()),
+            },
+            {
+              headers: {
+                Authorization: "Bearer " + token,
+              },
+            }
+          );
+          window.location.reload();
+        } catch (err) {
+          console.log(err);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   console.log(reciept);
   return (
@@ -154,7 +193,7 @@ const BookingReciept = () => {
                       </div>
                       <div className="flex w-full items-center justify-end">
                         <p className="ml-0 sm:ml-2 font-medium text-xs sm:text-base">
-                          {reciept.pickupTime.slice(0,5)}
+                          {reciept.pickupTime.slice(0, 5)}
                         </p>
                       </div>
                     </div>
@@ -237,7 +276,9 @@ const BookingReciept = () => {
                   </div>
                   <div className="flex w-full px-2 pt-4">
                     <div className="flex items-center">
-                      <p className="text-xs sm:text-base ml-16">Booking Status:</p>
+                      <p className="text-xs sm:text-base ml-16">
+                        Booking Status:
+                      </p>
                     </div>
                     <div className="ml-4 font-bold">
                       <p className="text-xs sm:text-base text-green-600">
@@ -255,7 +296,16 @@ const BookingReciept = () => {
                   <div className="flex w-full px-4 md:px-16">
                     <div className="flex w-52 py-8 font-medium">
                       <button className="relative mb-8 mt-5 flex h-8 w-28 sm:h-12 sm:w-40 items-center justify-center overflow-hidden rounded-lg bg-gradient-to-r from-yellow-500 to-amber-200 text-xl font-medium text-black shadow-lg shadow-slate-500 hover:border-2 hover:border-zinc-400 hover:shadow-none">
-                        <a href="homePage.html">Back</a>
+                        <a href="/">Back</a>
+                        <div className="absolute right-0 mt-12 h-20 w-20 translate-x-1/2 transform rounded-full bg-yellow-200 bg-opacity-80"></div>
+                      </button>
+                    </div>
+                    <div className="flex w-52 py-8 font-medium">
+                      <button
+                        onClick={handleCancel}
+                        className="relative mb-8 mt-5 flex h-8 w-28 sm:h-12 sm:w-40 items-center justify-center overflow-hidden rounded-lg bg-gradient-to-r from-yellow-500 to-amber-200 text-xl font-medium text-black shadow-lg shadow-slate-500 hover:border-2 hover:border-zinc-400 hover:shadow-none"
+                      >
+                        <a>Cancel Booking</a>
                         <div className="absolute right-0 mt-12 h-20 w-20 translate-x-1/2 transform rounded-full bg-yellow-200 bg-opacity-80"></div>
                       </button>
                     </div>

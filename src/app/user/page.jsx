@@ -3,9 +3,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const UserProfile =  () => {
+const UserProfile = () => {
   const [token, setToken] = useState({});
   const [user, setUser] = useState({});
+  const [isDriver, setIsDriver] = useState(false);
+  const [myBooking, setMyBooking] = useState([]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -27,6 +29,18 @@ const UserProfile =  () => {
             }
           );
 
+          const myBooking = await axios.get(
+            "http://localhost:8000/api/v1/my-booking",
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
+          console.log(myBooking.data);
+          setMyBooking(myBooking.data);
+
           setUser(response.data.user);
         } catch (error) {
           console.error("Error fetching user:", error);
@@ -40,6 +54,7 @@ const UserProfile =  () => {
   if (!user) {
     return <div>Loading...</div>;
   }
+
 
   return (
     <div>
@@ -91,15 +106,6 @@ const UserProfile =  () => {
                 </div>
               </div>
 
-              <a href="#History">
-                {" "}
-                <button
-                  id="toggleTables"
-                  className="ml-12 font-bold  text-gray-500  hover:text-yellow-500"
-                >
-                  View Booking History
-                </button>
-              </a>
               <div className="m-4 flex flex-col space-y-2 items-center justify-center">
                 <button
                   id="searchBook"
@@ -110,7 +116,7 @@ const UserProfile =  () => {
                 </button>
                 <button
                   onClick={() => {
-                    window.location.href = "/auth/driveRegister"
+                    window.location.href = "/auth/driveRegister";
                   }}
                   id="searchBook"
                   className="relative mt-5 flex h-12 w-40 items-center justify-center overflow-hidden rounded-lg bg-gradient-to-r from-yellow-500 to-amber-200 text-sm font-medium text-black shadow-lg shadow-slate-500 hover:border-2 hover:border-gray-950"
@@ -189,7 +195,7 @@ const UserProfile =  () => {
                     id="Text"
                     className="mb-1 ml-8 mt-5 text-xl font-bold text-zinc-600"
                   >
-                    Following Taxi
+                    Recent Booking
                   </p>
                 </div>
                 <div
@@ -225,22 +231,31 @@ const UserProfile =  () => {
                   >
                     <thead className="text-left">
                       <tr className="bg-blue-900 w-1/4 text-white">
-                        <th className="p-3">Name</th>
                         <th className="p-3">Route</th>
-                        <th className="p-3">Scheduled</th>
+                        <th className="p-3">Seat</th>
                         <th className="p-3">Price</th>
+                        <th className="p-3">Status</th>
                       </tr>
                     </thead>
                     <tbody
                       className="divide-y divide-gray-200"
                       id="table-body-MainTable"
                     >
-                      <tr>
-                        <td className="p-3">None</td>
-                      </tr>
-                      <tr>
-                        <td className="p-3">None</td>
-                      </tr>
+                      {myBooking &&
+                        myBooking.map((booking) => (
+                          <tr>
+                            <td className="p-3">
+                              <button onClick={() => {
+                                window.location.href = "http://localhost:3000/booking/reciept/" + booking.id
+                              }}>
+                                {booking.service.location} {booking.service.destination}
+                              </button>
+                            </td>
+                            <td className="p-3">{booking.seatAmount}</td>
+                            <td className="p-3">{booking.totalFare}</td>
+                            <td className="p-3">{booking.bookingStatus}</td>
+                          </tr>
+                        ))}
                     </tbody>
                   </table>
                 </div>

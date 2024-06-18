@@ -9,9 +9,7 @@ const RequestTable = () => {
   useEffect(() => {
     const fetchDriverRequest = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:8000/api/v1/un-approve"
-        );
+        const response = await axios.get("http://localhost:8000/api/v1/driver");
         const data = response.data;
         setDriver(data);
       } catch (error) {
@@ -143,15 +141,15 @@ const RequestTable = () => {
                               </td>
                               <td className="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                                 <p className="mb-0 text-xs font-semibold leading-tight dark:opacity-80">
-                                  {Driver.services[0].location}
+                                  Phnom Penh
                                 </p>
                                 <p className="mb-0 text-xs leading-tight dark:opacity-80 ">
-                                  {Driver.services[0].destination}
+                                  Takeo
                                 </p>
                               </td>
                               <td className="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                                 <span className="bg-gradient-to-tl from-emerald-500 to-teal-400 px-4 text-xs rounded-1.8 py-2 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">
-                                  {Driver.services[0].category}
+                                  Bus
                                 </span>
                               </td>
                               <td className="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
@@ -162,17 +160,17 @@ const RequestTable = () => {
                               <td className="p-1 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent text-center space-x-5">
                                 <a
                                   href="javascript:;"
-                                  className="text-xs font-semibold leading-tight dark:opacity-80 text-white bg-green-500 py-2 px-4"
+                                  className="text-xs font-semibold leading-tight dark:opacity-80 text-white bg-blue-500 py-2 px-4"
                                 >
                                   {" "}
-                                  Accept{" "}
+                                  View{" "}
                                 </a>
                                 <a
                                   href="javascript:;"
                                   className="text-xs font-semibold leading-tight dark:opacity-80 text-white bg-red-500 py-2 px-4"
                                 >
                                   {" "}
-                                  Decline{" "}
+                                  Suspend{" "}
                                 </a>
                               </td>
                             </tr>

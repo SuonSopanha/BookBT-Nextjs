@@ -1,76 +1,109 @@
+"use client";
+import { useState, useEffect } from "react";
+
+import { useParams } from "next/navigation";
+import axios from "axios";
+
+const fetchDriver = async (id) =>{
+  try {
+    const response = await axios.get(
+      "http://localhost:8000/api/v1/driver-details/" + id
+    );
+    const data = response.data;
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error(error);
+    return []
+  }
+}
+
 const ProfileOverview = () => {
+
+  const { id } = useParams();
+  console.log(id);
+
+  const [Driver,setDriver] = useState({});
+
+  useEffect(() => {
+    const fetchedDriver = async() => {
+      const data = await fetchDriver(id);
+      setDriver(data);
+    }
+
+    fetchedDriver();
+
+  },[])
+
+  console.log(Driver);
+  const {driver,service,schedule,pricing} = Driver;
+  console.log(driver)
+
+  if(!Driver){
+    <h1>Loading...</h1>
+  }
   return (
     <div>
       <main className="flex h-full overflow-hidden pt-16">
-
         <div className="flex-grow p-4 ">
           <div className="relative w-full mx-auto mt-6">
-            <div className="relative flex flex-col flex-auto min-w-0 p-4 mx-6 overflow-hidden break-words bg-white border-0 dark:bg-slate-850 dark:shadow-dark-xl shadow-3xl rounded-2xl bg-clip-border">
+          <div className="relative flex flex-col flex-auto min-w-0 p-4 mx-6 mb-4 overflow-hidden break-words bg-white border-0 dark:bg-slate-850 dark:shadow-dark-xl shadow-3xl rounded-2xl bg-clip-border">
               <div className="flex flex-wrap -mx-3">
                 <div className="flex-none w-auto max-w-full px-3">
                   <div className="relative inline-flex items-center justify-center text-white transition-all duration-200 ease-in-out text-base h-19 w-19 rounded-xl">
                     <img
-                      src="https://source.unsplash.com/random/100x100?sig=1"
+                      src="https://img.freepik.com/free-psd/3d-icon-social-media-app_23-2150049569.jpg?size=626&ext=jpg&ga=GA1.1.48835190.1718728664&semt=ais_user"
                       alt="profile_image"
-                      className="w-full shadow-2xl rounded-xl"
+                      className="w-16 h-16 shadow-2xl rounded-xl"
                     />
                   </div>
                 </div>
                 <div className="flex-none w-auto max-w-full px-3 my-auto">
                   <div className="h-full">
-                    <h5 className="mb-1">Sayo Kravits</h5>
-                    <p className="mb-0 font-semibold leading-normal dark:opacity-60 text-sm">
-                      Public Relations
-                    </p>
+                    <h5 className="mb-1">AdminDashboard</h5>
                   </div>
                 </div>
-                <div className="w-full max-w-full px-3 mx-auto mt-4 sm:my-auto sm:mr-0 md:w-1/2 md:flex-none lg:w-4/12">
-                  <div className="relative right-0">
-                    <ul
-                      className="relative flex flex-wrap p-1 list-none bg-gray-50 rounded-xl"
-                      nav-pills
-                      role="tablist"
-                    >
-                      <li className="z-30 flex-auto text-center">
-                        <a
-                          className="z-30 flex items-center justify-center w-full px-0 py-1 mb-0 transition-all ease-in-out border-0 rounded-lg bg-inherit text-slate-700"
-                          nav-link
-                          active
-                          href="javascript:;"
-                          role="tab"
-                          aria-selected="true"
-                        >
-                          <i className="ni ni-app"></i>
-                          <span className="ml-2">App</span>
-                        </a>
-                      </li>
-                      <li className="z-30 flex-auto text-center">
-                        <a
-                          className="z-30 flex items-center justify-center w-full px-0 py-1 mb-0 transition-all ease-in-out border-0 rounded-lg bg-inherit text-slate-700"
-                          nav-link
-                          href="javascript:;"
-                          role="tab"
-                          aria-selected="false"
-                        >
-                          <i className="ni ni-email-83"></i>
-                          <span className="ml-2">Messages</span>
-                        </a>
-                      </li>
-                      <li className="z-30 flex-auto text-center">
-                        <a
-                          className="z-30 flex items-center justify-center w-full px-0 py-1 mb-0 transition-colors ease-in-out border-0 rounded-lg bg-inherit text-slate-700"
-                          nav-link
-                          href="javascript:;"
-                          role="tab"
-                          aria-selected="false"
-                        >
-                          <i className="ni ni-settings-gear-65"></i>
-                          <span className="ml-2">Settings</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
+              </div>
+              <div class="flex w-full md:max-w-xl mx-4 mb-2 rounded shadow mt-4">
+                <a
+                  href="/admin"
+                  aria-current="false"
+                  class="w-full flex justify-center font-medium rounded-l px-5 py-2 border bg-white text-gray-800 border-gray-200 hover:bg-gray-100"
+                >
+                  Overview
+                </a>
+
+                <a
+                  href="/admin/reqeustTable"
+                  aria-current="page"
+                  class="w-full flex justify-center font-medium px-5 py-2 border-t border-b bg-white text-gray-800 border-gray-200 hover:bg-gray-100"
+                >
+                  Request
+                </a>
+
+                <a
+                  href="/admin/manageDriver"
+                  aria-current="false"
+                  class="w-full flex items-center gap-x-2 justify-center font-medium rounded-r px-5 py-2 border bg-white text-gray-800 border-gray-200 hover:bg-gray-100"
+                >
+                  Driver
+                </a>
+
+                <a
+                  href="/admin/manageUser"
+                  aria-current="false"
+                  class="w-full flex items-center gap-x-2 justify-center font-medium rounded-r px-5 py-2 border bg-white text-gray-800 border-gray-200 hover:bg-gray-100"
+                >
+                  User
+                </a>
+
+                <a
+                  href="#"
+                  aria-current="false"
+                  class="w-full flex items-center gap-x-2 justify-center font-medium rounded-r px-5 py-2 border bg-white text-gray-800 border-gray-200 hover:bg-gray-100"
+                >
+                  Report
+                </a>
               </div>
             </div>
           </div>
@@ -112,7 +145,7 @@ const ProfileOverview = () => {
                             First Name
                           </label>
                           <span className="text-gray-700 block w-full bg-white px-3 py-2 rounded-lg border border-solid border-gray-300">
-                            Sayo
+                            {driver?.firstName}
                           </span>
                         </div>
                       </div>
@@ -125,7 +158,7 @@ const ProfileOverview = () => {
                             Last Name
                           </label>
                           <span className="text-gray-700 block w-full bg-white px-3 py-2 rounded-lg border border-solid border-gray-300">
-                            Kravits
+                            {driver?.lastName}
                           </span>
                         </div>
                       </div>
@@ -138,7 +171,7 @@ const ProfileOverview = () => {
                             Date of Birth
                           </label>
                           <span className="text-gray-700 block w-full bg-white px-3 py-2 rounded-lg border border-solid border-gray-300">
-                            01/01/1990
+                            {driver?.dateOfBirth.slice(0,10)}
                           </span>
                         </div>
                       </div>
@@ -151,24 +184,11 @@ const ProfileOverview = () => {
                             Gender
                           </label>
                           <span className="text-gray-700 block w-full bg-white px-3 py-2 rounded-lg border border-solid border-gray-300">
-                            Male
+                            {driver?.gender}
                           </span>
                         </div>
                       </div>
 
-                      <div className="w-full max-w-full px-3 shrink-0 md:w-6/12 md:flex-0">
-                        <div className="mb-4">
-                          <label
-                            for="first name"
-                            className="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 /80"
-                          >
-                            Company Name
-                          </label>
-                          <span className="text-gray-700 block w-full bg-white px-3 py-2 rounded-lg border border-solid border-gray-300">
-        ABC Company
-      </span>
-                        </div>
-                      </div>
                       <div className="w-full max-w-full px-3 shrink-0 md:w-6/12 md:flex-0">
                         <div className="mb-4">
                           <label
@@ -178,8 +198,8 @@ const ProfileOverview = () => {
                             Contact Number
                           </label>
                           <span className="text-gray-700 block w-full bg-white px-3 py-2 rounded-lg border border-solid border-gray-300">
-        097 352 3945
-      </span>
+                            {driver?.contactNumber}
+                          </span>
                         </div>
                       </div>
 
@@ -192,8 +212,8 @@ const ProfileOverview = () => {
                             Email
                           </label>
                           <span className="text-gray-700 block w-full bg-white px-3 py-2 rounded-lg border border-solid border-gray-300">
-        johndoe@example.com
-      </span>
+                            {driver?.email}
+                          </span>
                         </div>
                       </div>
                       <div className="w-full max-w-full px-3 shrink-0 md:w-6/12 md:flex-0">
@@ -205,8 +225,8 @@ const ProfileOverview = () => {
                             Address
                           </label>
                           <span className="text-gray-700 block w-full bg-white px-3 py-2 rounded-lg border border-solid border-gray-300">
-        123 Main Street, City, Country
-      </span>
+                            {driver?.address}
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -225,8 +245,8 @@ const ProfileOverview = () => {
                             Location
                           </label>
                           <span className="text-gray-700 block w-full bg-white px-3 py-2 rounded-lg border border-solid border-gray-300">
-        Pnhom Penh
-      </span>
+                            {service?.location}
+                          </span>
                         </div>
                       </div>
                       <div className="w-full max-w-full px-3 shrink-0 md:w-6/12 md:flex-0">
@@ -238,8 +258,8 @@ const ProfileOverview = () => {
                             Destination
                           </label>
                           <span className="text-gray-700 block w-full bg-white px-3 py-2 rounded-lg border border-solid border-gray-300">
-        Svay Rieng
-      </span>
+                            {service?.destination}
+                          </span>
                         </div>
                       </div>
 
@@ -252,8 +272,8 @@ const ProfileOverview = () => {
                             Base Fare
                           </label>
                           <span className="text-gray-700 block w-full bg-white px-3 py-2 rounded-lg border border-solid border-gray-300">
-        $10
-      </span>
+                            {pricing?.baseFare } {pricing?.currencyType}
+                          </span>
                         </div>
                       </div>
                       <div className="w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0">
@@ -265,8 +285,8 @@ const ProfileOverview = () => {
                             Additional Charge
                           </label>
                           <span className="text-gray-700 block w-full bg-white px-3 py-2 rounded-lg border border-solid border-gray-300">
-        $10
-      </span>
+                          {pricing?.additionalCharge } {pricing?.currencyType}
+                          </span>
                         </div>
                       </div>
                       <div className="w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0">
@@ -278,8 +298,8 @@ const ProfileOverview = () => {
                             Solo Charge
                           </label>
                           <span className="text-gray-700 block w-full bg-white px-3 py-2 rounded-lg border border-solid border-gray-300">
-        $5
-      </span>
+                          {pricing?.soloCharge } {pricing?.currencyType}
+                          </span>
                         </div>
                       </div>
 
@@ -292,8 +312,8 @@ const ProfileOverview = () => {
                             Pricing Description
                           </label>
                           <span className="text-gray-700 block w-full bg-white px-3 py-2 rounded-lg border border-solid border-gray-300">
-        Standard pricing includes base fare, additional charge, and solo charge.
-      </span>
+                           {pricing?.description}
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -312,8 +332,8 @@ const ProfileOverview = () => {
                             Day of Week
                           </label>
                           <span className="text-gray-700 block w-full bg-white px-3 py-2 rounded-lg border border-solid border-gray-300">
-        Everyday
-      </span>
+                            {schedule?.dayOfWeek}
+                          </span>
                         </div>
                       </div>
                       <div className="w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0">
@@ -325,8 +345,8 @@ const ProfileOverview = () => {
                             Flee Time
                           </label>
                           <span className="text-gray-700 block w-full bg-white px-3 py-2 rounded-lg border border-solid border-gray-300">
-        8:00 AM
-      </span>
+                            {schedule?.departureTime}
+                          </span>
                         </div>
                       </div>
                       <div className="w-full max-w-full px-3 shrink-0 md:w-4/12 md:flex-0">
@@ -338,8 +358,8 @@ const ProfileOverview = () => {
                             Arrive Time
                           </label>
                           <span className="text-gray-700 block w-full bg-white px-3 py-2 rounded-lg border border-solid border-gray-300">
-        10:00 AM
-      </span>
+                            {schedule?.arrivalTime}
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -350,7 +370,7 @@ const ProfileOverview = () => {
                 <div className="relative flex flex-col min-w-0 break-words bg-white border-0 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
                   <img
                     className="w-full rounded-t-2xl"
-                    src="https://source.unsplash.com/random/200x100?sig=2"
+                    src={service?.vehiclePictureURL[0]}
                     alt="profile cover image"
                   />
 
@@ -362,19 +382,13 @@ const ProfileOverview = () => {
                             <span className="leading-normal text-sm opacity-80">
                               Vehicle Type
                             </span>
-                            <span className="font-bold text-lg">SUV</span>
-                          </div>
-                          <div className="flex text-center items-center justify-between space-x-5">
-                            <span className="leading-normal text-sm opacity-80">
-                              Brand
-                            </span>
-                            <span className="font-bold text-lg">Masza</span>
+                            <span className="font-bold text-lg">{service?.vehicleType}</span>
                           </div>
                           <div className="flex text-center items-center justify-between space-x-5">
                             <span className="leading-normal text-sm opacity-80">
                               Seats
                             </span>
-                            <span className="font-bold text-lg">22</span>
+                            <span className="font-bold text-lg">{service?.maxSeat}</span>
                           </div>
                         </div>
                       </div>
@@ -406,9 +420,7 @@ const ProfileOverview = () => {
                 <div className="flex flex-wrap items-center -mx-3 lg:justify-between">
                   <div className="w-full max-w-full px-3 mt-0 mb-6 shrink-0 lg:mb-0 lg:w-1/2 lg:flex-none">
                     <div className="leading-normal text-center text-sm text-slate-500 lg:text-left">
-                      ©
-                      2024
-                      made with <i className="fa fa-heart"></i> by
+                      © 2024 made with <i className="fa fa-heart"></i> by
                       <a
                         href="https://www.creative-tim.com"
                         className="font-semibold dark:text-white text-slate-700"

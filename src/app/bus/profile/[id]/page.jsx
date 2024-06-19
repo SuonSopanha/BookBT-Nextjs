@@ -1,5 +1,93 @@
+"use client";
+import { useState, useEffect } from "react";
+import { useParams } from "next/navigation";
+import axios from "axios";
 
 const BusProfile = () => {
+  const { id } = useParams();
+  const [driver, setDriver] = useState({});
+  const [services, setServices] = useState([]);
+  const [booking, setBooking] = useState([]);
+
+  const [currentPage, setCurrentPage] = useState(1); // Add state for current page
+  const bookingsPerPage = 5; // Set bookings per page
+
+  const token = sessionStorage.getItem("token");
+  const getDriver = async (id) => {
+    try {
+      const response = await axios.get(
+        "http://localhost:8000/api/v1/driver/" + id,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+
+      return response.data;
+    } catch (e) {
+      console.log("Error getting driver");
+    }
+  };
+
+  const getServices = async (id) => {
+    try {
+      const response = await axios.get(
+        "http://localhost:8000/api/v1/driverService",
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+
+      return response.data;
+    } catch (e) {
+      console.log("Error getting driver");
+    }
+  };
+
+  const getBooking = async (id) => {
+    try {
+      const response = await axios.get(
+        "http://localhost:8000/api/v1/driver-booking/" + id,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+
+      return response.data;
+    } catch (e) {
+      console.log("Error getting driver");
+    }
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const driver = await getDriver(id);
+      setDriver(driver);
+      const services = await getServices(id);
+      setServices(services);
+      const booking = await getBooking(id);
+      setBooking(booking);
+    };
+
+    fetchData();
+  }, [id]);
+
+  // Calculate the current bookings to display
+  const indexOfLastBooking = currentPage * bookingsPerPage;
+  const indexOfFirstBooking = indexOfLastBooking - bookingsPerPage;
+  const currentBookings = booking.slice(
+    indexOfFirstBooking,
+    indexOfLastBooking
+  );
+
+  // Function to change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <div>
       <div className="relative">
@@ -8,13 +96,13 @@ const BusProfile = () => {
             <div className="relative rounded-lg bg-white">
               <div className="flex bg-slate-600 h-auto w-full items-center justify-center rounded-t-lg bg-slate-fw-full0 object-cover text-center align-middle font-medium text-slate-300">
                 <img
-                  src="https://yt3.googleusercontent.com/zVhrm9pQEmydw5480JJkMVXdft3hSOnf1KvleiJsQIDS9PRVk_xTlc6e1wPHvaeEsCtYa9IJYg=s900-c-k-c0x00ffffff-no-rj"
+                  src={driver?.photoURL}
                   className="h-80 w-full rounded-t-lg object-cover"
                 />
               </div>
               <div className="top-fw-full m-4 text-xl font-bold text-black">
                 <div className="w-48 bg-slate-fw-full0 hover:border-b-2 focus:bg-Add focus:outline-Add">
-                  Your Name
+                  {driver?.firstName} {driver?.lastName}
                 </div>
               </div>
               <div className="m-4 border-b-2 border-zinc-400 pb-12">
@@ -26,7 +114,7 @@ const BusProfile = () => {
                     alt="gender-neutral-user"
                   />
                   <div className="ml-2 font-medium hover:border-b-2 focus:bg-Add focus:outline-Add">
-                    Taxi or Bus Driver
+                    {driver?.email}
                   </div>
                 </div>
                 <div className="ml-1 flex items-center">
@@ -37,7 +125,7 @@ const BusProfile = () => {
                     alt="home--v2"
                   />
                   <div className="ml-3 font-medium hover:border-b-2 focus:bg-Add focus:outline-Add">
-                    Address
+                    {driver?.address}
                   </div>
                 </div>
                 <div className="ml-1 flex items-center">
@@ -48,7 +136,7 @@ const BusProfile = () => {
                     alt="iphone"
                   />
                   <div className="ml-3 font-medium hover:border-b-2 focus:bg-Add focus:outline-Add">
-                    Phone number
+                    {driver?.contactNumber}
                   </div>
                 </div>
               </div>
@@ -60,10 +148,17 @@ const BusProfile = () => {
                   </button>
                 </a>
               </div>
-              <div className="m-8 flex items-center justify-center">
+              <div className="m-2 flex items-center justify-center">
                 <button className="h-10 w-32 rounded-xl border-2 border-zinc-fw-full0 hover:bg-yellow-300">
                   <p className="text-lg font-bold text-yellow-400 hover:text-white">
-                    Edit
+                    Edit Profile
+                  </p>
+                </button>
+              </div>
+              <div className="m-2 flex items-center justify-center">
+                <button className="h-10 w-32 rounded-xl border-2 border-zinc-fw-full0 hover:bg-yellow-300">
+                  <p className="text-sm font-bold text-yellow-400 hover:text-white">
+                    Add New Service
                   </p>
                 </button>
               </div>
@@ -82,32 +177,47 @@ const BusProfile = () => {
                     <table className="bg-white w-full table-fixed text-sm shadow-md rounded-lg overflow-hidden">
                       <thead className="bg-blue-900 text-white">
                         <tr>
-                          <th className="p-3">ID</th>
                           <th className="p-3">Location</th>
                           <th className="p-3">Destination</th>
-                          <th className="p-3">Flee Time</th>
+                          <th className="p-3">Vehicle</th>
                           <th className="p-3">Max Seat</th>
-                          <th className="p-3">Category</th>
+                          <th className="p-3">Action</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-gray-200">
                         {/* Example rows - replace these with dynamic data */}
-                        <tr className="hover:bg-slate-100">
-                          <td className="p-3 text-center">1</td>
-                          <td className="p-3 text-center">Location 1</td>
-                          <td className="p-3 text-center">Destination 1</td>
-                          <td className="p-3 text-center">10:00 AM</td>
-                          <td className="p-3 text-center">30</td>
-                          <td className="p-3 text-center">Category 1</td>
-                        </tr>
-                        <tr className="hover:bg-slate-100">
-                          <td className="p-3 text-center">2</td>
-                          <td className="p-3 text-center">Location 2</td>
-                          <td className="p-3 text-center">Destination 2</td>
-                          <td className="p-3 text-center">11:00 AM</td>
-                          <td className="p-3 text-center">25</td>
-                          <td className="p-3 text-center">Category 2</td>
-                        </tr>
+                        {services.map((service) => (
+                          <tr key={service.id} className="hover:bg-slate-100">
+                            <td className="p-3 text-center">
+                              {service.location}
+                            </td>
+                            <td className="p-3 text-center">
+                              {service.destination}
+                            </td>
+                            <td className="p-3 text-center">
+                              {service.category}
+                            </td>
+                            <td className="p-3 text-center">
+                              {service.maxSeat}
+                            </td>
+                            <td className="p-3 text-center flex">
+                              <button
+                                onClick={() => {
+                                  window.location.href =
+                                    "http://localhost:3000/services/detail/" +
+                                    service.id;
+                                }}
+                                className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-700"
+                              >
+                                View
+                              </button>
+                              <button className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-700">
+                                Edit
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+
                         {/* Add more rows as needed */}
                       </tbody>
                     </table>
@@ -134,32 +244,62 @@ const BusProfile = () => {
                       </thead>
                       <tbody className="divide-y divide-gray-200">
                         {/* Example rows - replace these with dynamic data */}
-                        <tr className="hover:bg-slate-100">
-                          <td className="p-3 text-center">User 1</td>
-                          <td className="p-3 text-center">Service 1 Service 2</td>
-                          <td className="p-3 text-center">2024-06-14 12:00</td>
-                          <td className="p-3 text-center">Confirmed</td>
-                          <td className="p-3 text-center">
-                            <button className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-700">
-                              View
-                            </button>
-                          </td>
-                        </tr>
-                        <tr className="hover:bg-slate-100">
-                          <td className="p-3 text-center">User 2</td>
-                          <td className="p-3 text-center">Service 2 Service 2</td>
-                          <td className="p-3 text-center">2024-06-15 12:00</td>
-                          <td className="p-3 text-center">Confirmed</td>
-                          <td className="p-3 text-center">
-                            <button className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-700">
-                              View
-                            </button>
-                          </td>
-                        </tr>
+
+                        {currentBookings.map((booking) => (
+                          <tr className="hover:bg-slate-100">
+                            <td className="p-3 text-center">
+                              {booking.user.fullName}
+                            </td>
+                            <td className="p-3 text-center">
+                              {booking.service.location}{" "}
+                              {booking.service.destination}
+                            </td>
+                            <td className="p-3 text-center">
+                              {booking.bookingDate.slice(0, 10)}{" "}
+                              {booking.pickupTime.slice(0, 5)}
+                            </td>
+                            <td className="p-3 text-center">
+                              {booking.bookingStatus}
+                            </td>
+                            <td className="p-3 text-center">
+                              <button
+                                onClick={() => {
+                                  window.location.href =
+                                    "http://localhost:3000/booking/request/" +
+                                    booking.id;
+                                }}
+                                className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-700"
+                              >
+                                View
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+
                         {/* Add more rows as needed */}
                       </tbody>
                     </table>
                   </div>
+                </div>
+                {/* Pagination */}
+                <div className="flex justify-center mt-4">
+                  {[
+                    ...Array(
+                      Math.ceil(booking.length / bookingsPerPage)
+                    ).keys(),
+                  ].map((number) => (
+                    <button
+                      key={number}
+                      onClick={() => paginate(number + 1)}
+                      className={`px-4 py-2 mx-1 border rounded ${
+                        currentPage === number + 1
+                          ? "bg-blue-500 text-white"
+                          : "bg-white text-blue-500 border-blue-500"
+                      }`}
+                    >
+                      {number + 1}
+                    </button>
+                  ))}
                 </div>
               </div>
             </div>

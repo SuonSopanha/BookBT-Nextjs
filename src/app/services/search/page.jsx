@@ -118,6 +118,17 @@ const TaxiList = () => {
                             {service.schedule.departureTime.slice(0, 5)}
                           </p>
                         </div>
+                        <div className="mb-4 mt-2 flex items-center">
+                          <img
+                            width="24"
+                            height="24"
+                            src="https://img.icons8.com/windows/32/money--v1.png"
+                            alt="clock--v1"
+                          />
+                          <p className="ml-2 font-medium">
+                            {service.pricing.baseFare} {service.pricing.currencyType}
+                          </p>
+                        </div>
                         <div className="flex">
                           <ReactStars
                             classNames="text-center"

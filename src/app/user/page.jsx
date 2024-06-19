@@ -4,32 +4,29 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const UserProfile = () => {
-  const [token, setToken] = useState({});
   const [user, setUser] = useState({});
   const [isDriver, setIsDriver] = useState(false);
   const [myBooking, setMyBooking] = useState([]);
+  const [Driver, setDriver] = useState({});
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const storedToken = sessionStorage.getItem("token");
-      setToken(storedToken);
-    }
-  }, []);
+  const token = sessionStorage.getItem("token");
 
   useEffect(() => {
     const fetchUser = async () => {
-      if (token) {
-        try {
-          const response = await axios.get(
-            "http://localhost:8000/api/v1/user/",
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
+      try {
+        // Log the token to verify it
+        // Fetch user data
+        const userResponse = await axios.get(
+          "http://localhost:8000/api/v1/user/userInfo",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
-          const myBooking = await axios.get(
+        try {
+          const bookingResponse = await axios.get(
             "http://localhost:8000/api/v1/my-booking",
             {
               headers: {
@@ -38,23 +35,72 @@ const UserProfile = () => {
             }
           );
 
-          console.log(myBooking.data);
-          setMyBooking(myBooking.data);
-
-          setUser(response.data.user);
+          if (
+            bookingResponse.data.message === "No bookings found for this user"
+          ) {
+            setMyBooking([]);
+          } else {
+            setMyBooking(bookingResponse.data);
+          }
         } catch (error) {
-          console.error("Error fetching user:", error);
+          console.log(error);
         }
+
+        // Set state with fetched data
+        setUser(userResponse.data.user);
+      } catch (error) {
+        console.error("Error fetching user or booking data:", error);
+
+        // AxiosError specific details
+        if (error.response) {
+          // Server responded with a status other than 2xx
+          console.error("Response data:", error.response.data);
+          console.error("Response status:", error.response.status);
+          console.error("Response headers:", error.response.headers);
+        } else if (error.request) {
+          // Request was made but no response received
+          console.error("Request data:", error.request);
+        } else {
+          // Something happened in setting up the request
+          console.error("Error message:", error.message);
+        }
+
+        // Optional: Provide feedback to the user
+        alert("An error occurred while fetching data. Please try again later.");
       }
     };
 
     fetchUser();
-  }, [token]);
+  }, []);
+
+  useEffect(() => {
+    const checkDriver = async () => {
+      try {
+        const isDriver = await axios.get(
+          "http://localhost:8000/api/v1/ifDriver",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        setIsDriver(isDriver.data.isDriver);
+
+        if (isDriver.data.isDriver) {
+          setDriver(isDriver.data.driver);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    checkDriver();
+  }, []);
 
   if (!user) {
     return <div>Loading...</div>;
   }
-
 
   return (
     <div>
@@ -114,20 +160,39 @@ const UserProfile = () => {
                   <a href="#">Edit Profile</a>
                   <div className="absolute right-0 mt-12 h-20 w-20 translate-x-1/2 transform rounded-full bg-yellow-500"></div>
                 </button>
-                <button
-                  onClick={() => {
-                    window.location.href = "/auth/driveRegister";
-                  }}
-                  id="searchBook"
-                  className="relative mt-5 flex h-12 w-40 items-center justify-center overflow-hidden rounded-lg bg-gradient-to-r from-yellow-500 to-amber-200 text-sm font-medium text-black shadow-lg shadow-slate-500 hover:border-2 hover:border-gray-950"
-                >
-                  <div className="flex flex-col">
-                    <a className="text-md font-semibold">Join Us</a>
-                    <p className="text-xs">As Driver</p>
-                  </div>
+                {!isDriver && (
+                  <button
+                    onClick={() => {
+                      window.location.href = "/auth/driveRegister";
+                    }}
+                    id="searchBook"
+                    className="relative mt-5 flex h-12 w-40 items-center justify-center overflow-hidden rounded-lg bg-gradient-to-r from-yellow-500 to-amber-200 text-sm font-medium text-black shadow-lg shadow-slate-500 hover:border-2 hover:border-gray-950"
+                  >
+                    <div className="flex flex-col">
+                      <a className="text-md font-semibold">Join Us</a>
+                      <p className="text-xs">As Driver</p>
+                    </div>
 
-                  <div className="absolute right-0 mt-12 h-20 w-20 translate-x-1/2 transform rounded-full bg-yellow-500"></div>
-                </button>
+                    <div className="absolute right-0 mt-12 h-20 w-20 translate-x-1/2 transform rounded-full bg-yellow-500"></div>
+                  </button>
+                )}
+
+                {isDriver && (
+                  <button
+                    onClick={() => {
+                      window.location.href = "/bus/profile/" + Driver.id;
+                    }}
+                    id="searchBook"
+                    className="relative mt-5 flex h-12 w-40 items-center justify-center overflow-hidden rounded-lg bg-gradient-to-r from-yellow-500 to-amber-200 text-sm font-medium text-black shadow-lg shadow-slate-500 hover:border-2 hover:border-gray-950"
+                  >
+                    <div className="flex flex-col">
+                      <a className="text-md font-semibold">Driver</a>
+                      <p className="text-xs">Profile</p>
+                    </div>
+
+                    <div className="absolute right-0 mt-12 h-20 w-20 translate-x-1/2 transform rounded-full bg-yellow-500"></div>
+                  </button>
+                )}
               </div>
             </div>
 
@@ -245,10 +310,15 @@ const UserProfile = () => {
                         myBooking.map((booking) => (
                           <tr>
                             <td className="p-3">
-                              <button onClick={() => {
-                                window.location.href = "http://localhost:3000/booking/reciept/" + booking.id
-                              }}>
-                                {booking.service.location} {booking.service.destination}
+                              <button
+                                onClick={() => {
+                                  window.location.href =
+                                    "http://localhost:3000/booking/reciept/" +
+                                    booking.id;
+                                }}
+                              >
+                                {booking.service.location}{" "}
+                                {booking.service.destination}
                               </button>
                             </td>
                             <td className="p-3">{booking.seatAmount}</td>

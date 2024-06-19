@@ -18,12 +18,16 @@ const fetchDriver = async (id) =>{
   }
 }
 
+
+
+
 const ProfileOverview = () => {
 
   const { id } = useParams();
   console.log(id);
 
   const [Driver,setDriver] = useState({});
+  const token = sessionStorage.getItem("token");
 
   useEffect(() => {
     const fetchedDriver = async() => {
@@ -35,9 +39,42 @@ const ProfileOverview = () => {
 
   },[])
 
-  console.log(Driver);
+
+  const handleApproved = async (id) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:8000/api/v1/approve-driver/${id}`
+      );
+      console.log(response.data);
+      if (response.data.message === "Driver updated successfully") {
+        window.location.href = 'http://localhost:3000/admin/reqeustTable'
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
+  const handleDecline = async (id) => {
+    try {
+      console.log("Token:", token); // Log the token to verify it
+      const response = await axios.delete(
+        `http://localhost:8000/api/v1/driver/${id}`,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      console.log(response.data);
+      if (response.data.message === "Driver deleted successfully") {
+        window.location.href = 'http://localhost:3000/admin/reqeustTable'
+      }
+    } catch (error) {
+      console.log("Error:", error.response); // Log the error response
+    }
+  };
+
   const {driver,service,schedule,pricing} = Driver;
-  console.log(driver)
 
   if(!Driver){
     <h1>Loading...</h1>
@@ -116,12 +153,14 @@ const ProfileOverview = () => {
                       <p className="mb-0 /80">Driver and Service Info</p>
                       <div>
                         <button
+                          onClick={() => handleApproved(driver?.id)}
                           type="button"
                           className="inline-block px-8 py-2 mb-4 ml-auto font-bold leading-normal text-center text-white align-middle transition-all ease-in bg-blue-500 border-0 rounded-lg shadow-md cursor-pointer text-xs tracking-tight-rem hover:shadow-xs hover:-translate-y-px active:opacity-85"
                         >
                           Accept
                         </button>
                         <button
+                          onClick={() => handleDecline(driver?.id)}
                           type="button"
                           className="inline-block px-8 py-2 mb-4 ml-auto font-bold leading-normal text-center text-white   align-middle transition-all ease-in bg-gray-500 border-0 rounded-lg shadow-md cursor-pointer text-xs tracking-tight-rem hover:shadow-xs hover:-translate-y-px active:opacity-85"
                         >

@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 
 const RequestTable = () => {
   const [Driver, setDriver] = useState([]);
+  const token = sessionStorage.getItem("token");
 
   useEffect(() => {
     const fetchDriverRequest = async () => {
@@ -23,6 +24,40 @@ const RequestTable = () => {
   }, []);
 
   console.log(Driver);
+
+  const handleApproved = async (id) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:8000/api/v1/approve-driver/${id}`
+      );
+      console.log(response.data);
+      if (response.data.message === "Driver updated successfully") {
+        window.location.reload();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleDecline = async (id) => {
+    try {
+      console.log("Token:", token); // Log the token to verify it
+      const response = await axios.delete(
+        `http://localhost:8000/api/v1/driver/${id}`,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      console.log(response.data);
+      if (response.data.message === "Driver deleted successfully") {
+        window.location.reload();
+      }
+    } catch (error) {
+      console.log("Error:", error.response); // Log the error response
+    }
+  };
 
   return (
     <div>
@@ -131,7 +166,7 @@ const RequestTable = () => {
                                   <div className="flex flex-col justify-center">
                                     <h6 className="mb-0 text-sm leading-normal">
                                       {" "}
-                                      <a href="adminTaxiProfileVeiw.html">
+                                      <a href={`/admin/profileOverview/${Driver.id}`}>
                                         {Driver.firstName} {Driver.lastName}
                                       </a>
                                     </h6>
@@ -160,20 +195,20 @@ const RequestTable = () => {
                                 </span>
                               </td>
                               <td className="p-1 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent text-center space-x-5">
-                                <a
-                                  href="javascript:;"
+                                <button
+                                  onClick={() => handleApproved(Driver.id)}
                                   className="text-xs font-semibold leading-tight dark:opacity-80 text-white bg-green-500 py-2 px-4"
                                 >
                                   {" "}
                                   Accept{" "}
-                                </a>
-                                <a
-                                  href="javascript:;"
+                                </button>
+                                <button
+                                  onClick={() => handleDecline(Driver.id)}
                                   className="text-xs font-semibold leading-tight dark:opacity-80 text-white bg-red-500 py-2 px-4"
                                 >
                                   {" "}
                                   Decline{" "}
-                                </a>
+                                </button>
                               </td>
                             </tr>
                           ))}

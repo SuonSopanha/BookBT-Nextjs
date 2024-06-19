@@ -6,7 +6,6 @@ import Link from "next/link";
 import ReactStars from "react-rating-stars-component";
 import axios from "axios";
 
-
 const getServices = async (id) => {
   try {
     const response = await axios.get(
@@ -24,6 +23,8 @@ const getServices = async (id) => {
 const BusDetail = () => {
   const { id } = useParams();
   const [serviceDetail, setServiceDetail] = useState(null);
+  const [feedback, setFeedback] = useState("");
+  const [rating, setRating] = useState(0);
 
   console.log(id);
   useEffect(() => {
@@ -39,6 +40,11 @@ const BusDetail = () => {
     return <div>Loading...</div>;
   }
 
+  const handleRateDriver = async () => {
+    console.log(rating);
+    console.log(feedback);
+  };
+
   console.log(serviceDetail);
 
   const { service, driver, schedule, pricing } = serviceDetail;
@@ -53,7 +59,9 @@ const BusDetail = () => {
                 className="h-80 w-full rounded-t-lg object-cover"
               ></img>
               <div className="absolute top-60 h-24 w-48 pl-4 pt-12">
-                <p className="text-xl font-bold text-white">{driver.firstName} {driver.lastName}</p>
+                <p className="text-xl font-bold text-white">
+                  {driver.firstName} {driver.lastName}
+                </p>
               </div>
               <div className="m-4 border-b-2 border-zinc-400 pb-12">
                 <div className="ml-0.5 flex items-center">
@@ -63,7 +71,9 @@ const BusDetail = () => {
                     src="https://img.icons8.com/windows/32/FAB005/gender-neutral-user.png"
                     alt="gender-neutral-user"
                   ></img>
-                  <p className="ml-2 font-medium text-zinc-600">{driver.firstName} {driver.lastName}</p>
+                  <p className="ml-2 font-medium text-zinc-600">
+                    {driver.firstName} {driver.lastName}
+                  </p>
                 </div>
                 <div className="ml-1 flex items-center">
                   <img
@@ -72,7 +82,9 @@ const BusDetail = () => {
                     src="https://img.icons8.com/material-outlined/24/FAB005/home--v2.png"
                     alt="home--v2"
                   ></img>
-                  <p className="ml-2 font-medium text-zinc-600">{driver.email}</p>
+                  <p className="ml-2 font-medium text-zinc-600">
+                    {driver.email}
+                  </p>
                 </div>
                 <div className="ml-1 flex items-center">
                   <img
@@ -143,7 +155,9 @@ const BusDetail = () => {
                       type="button"
                       className="mb-4 h-10 w-full rounded-lg border-2 border-blue-700 bg-gray-200 text-center font-medium text-gray-700"
                     >
-                      <p>{service.location} - {service.destination}</p>
+                      <p>
+                        {service.location} - {service.destination}
+                      </p>
                     </button>
                     <p>
                       <strong>Category:</strong> {service.category}
@@ -166,11 +180,10 @@ const BusDetail = () => {
                     </p>
 
                     <button
-                      
                       id="searchBook"
                       className="relative mt-5 flex h-12 w-40 items-center justify-center overflow-hidden rounded-lg bg-gradient-to-r from-yellow-500 to-amber-200 text-sm font-medium text-black shadow-lg shadow-slate-500 hover:border-2 hover:border-gray-950"
                     >
-                      <a href={"/booking/form/" + service.id} >Book Now</a>
+                      <a href={"/booking/form/" + service.id}>Book Now</a>
                       <div className="absolute right-0 mt-12 h-20 w-20 translate-x-1/2 transform rounded-full bg-yellow-500"></div>
                     </button>
                   </div>
@@ -180,23 +193,6 @@ const BusDetail = () => {
                   <h1 className="text-3xl font-bold mb-6 border-b-2 pb-2">
                     Service Details
                   </h1>
-
-                  <div className="mb-8">
-                    <h2 className="text-2xl font-semibold mb-4 text-gray-700">
-                     Avaiable Schedule
-                    </h2>
-                    <ul className="list-disc pl-5 space-y-2">
-                      {schedule.map((sch) => (
-                        <li key={sch.id} className="text-gray-600">
-                          <span className="font-medium text-gray-800">
-                            {sch.dayOfWeek}:
-                          </span>{" "}
-                          {sch.departureTime.slice(0, 5)} -{" "}
-                          {sch.arrivalTime.slice(0, 5)}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
 
                   <div className="mb-8">
                     <h2 className="text-2xl font-semibold mb-4 text-gray-700">
@@ -229,6 +225,23 @@ const BusDetail = () => {
                       </p>
                     </div>
                   </div>
+
+                  <div className="mb-8">
+                    <h2 className="text-2xl font-semibold mb-4 text-gray-700">
+                      Avaiable Schedule
+                    </h2>
+                    <ul className="list-disc pl-5 space-y-2">
+                      {schedule.map((sch) => (
+                        <li key={sch.id} className="text-gray-600">
+                          <span className="font-medium text-gray-800">
+                            {sch.dayOfWeek}:
+                          </span>{" "}
+                          {sch.departureTime.slice(0, 5)} -{" "}
+                          {sch.arrivalTime.slice(0, 5)}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
@@ -238,53 +251,34 @@ const BusDetail = () => {
             <div>
               <p className="pl-4 font-medium text-white">7 comments</p>
             </div>
-            <div className="ml-8 mt-2 flex items-center">
-              <img
-                width="30"
-                height="30"
-                src="https://img.icons8.com/material-outlined/24/FAB005/filled-star.png"
-                alt="filled-star"
-              />
-              <img
-                width="30"
-                height="30"
-                src="https://img.icons8.com/material-outlined/24/FAB005/filled-star.png"
-                alt="filled-star"
-              />
-              <img
-                width="30"
-                height="30"
-                src="https://img.icons8.com/material-outlined/24/FAB005/filled-star.png"
-                alt="filled-star"
-              />
-              <img
-                width="30"
-                height="30"
-                src="https://img.icons8.com/material-outlined/24/FAB005/filled-star.png"
-                alt="filled-star"
-              />
-              <img
-                width="30"
-                height="30"
-                src="https://img.icons8.com/material-outlined/24/FFFF/filled-star.png"
-                alt="filled-star"
-              />
-            </div>
+            <ReactStars
+              classNames="text-center"
+              count={5}
+              value={rating}
+              onChange={(newRating) => setRating(newRating)}
+              size={28}
+              edit={true}
+              isHalf={true}
+              activeColor="#ffd700"
+            />
             <div className="mx-auto flex w-full items-center justify-start py-4 pl-4">
-              <form>
-                <div className="flex space-x-4">
-                  <input
-                    type="text"
-                    className="h-10 w-96 rounded-lg border border-gray-400 bg-gray-100 p-3 font-medium leading-normal placeholder-gray-400 placeholder:text-white focus:bg-white focus:outline-none"
-                    placeholder="Add comment..."
-                  />
-                  <Link href="#" className="flex items-center justify-center">
-                    <button className="h-10 w-20 rounded-lg bg-blue-600 font-medium text-teal-50 hover:bg-yellow-200 hover:text-white">
-                      Post
-                    </button>
-                  </Link>
-                </div>
-              </form>
+              <div className="flex space-x-4">
+                <input
+                  type="text"
+                  value={feedback}
+                  onChange={(e) => setFeedback(e.target.value)}
+                  className="h-10 w-96 rounded-lg border border-gray-400 bg-gray-100 p-3 font-medium leading-normal placeholder-gray-400 placeholder:text-white focus:bg-white focus:outline-none"
+                  placeholder="Add comment..."
+                />
+                <Link href="#" className="flex items-center justify-center">
+                  <button
+                    onClick={handleRateDriver}
+                    className="h-10 w-20 rounded-lg bg-blue-600 font-medium text-teal-50 hover:bg-yellow-200 hover:text-white"
+                  >
+                    Post
+                  </button>
+                </Link>
+              </div>
             </div>
             <div className="flex items-center p-4 pl-4">
               <img

@@ -23,19 +23,19 @@ const Table = () => {
         <tr className="text-slate-700">
           <th
             className={`p-3 cursor-pointer ${
+              activeTab === "Route" ? "bg-blue-900 text-white" : ""
+            }`}
+            onClick={() => toggleTableVisibility("Route")}
+          >
+            Service
+          </th>
+          <th
+            className={`p-3 cursor-pointer ${
               activeTab === "Scheduled" ? "bg-blue-900 text-white" : ""
             }`}
             onClick={() => toggleTableVisibility("Scheduled")}
           >
             Scheduled
-          </th>
-          <th
-            className={`p-3 cursor-pointer ${
-              activeTab === "Route" ? "bg-blue-900 text-white" : ""
-            }`}
-            onClick={() => toggleTableVisibility("Route")}
-          >
-            Route
           </th>
           <th
             className={`p-3 cursor-pointer ${
@@ -194,7 +194,7 @@ const Table = () => {
         id="Route"
       >
         <tr className="bg-blue-900 text-white">
-          <th className="p-3">Time</th>
+          <th className="p-3">Category</th>
           <th className="p-3" colspan="2">
             Location
           </th>
@@ -203,7 +203,7 @@ const Table = () => {
           </th>
         </tr>
         <tr className="text-center">
-          <td className="p-3">08:00 AM</td>
+          <td className="p-3">Bus</td>
           <td className="p-3" colspan="2">
             Pnom Penh
           </td>
@@ -248,9 +248,7 @@ const Table = () => {
             Type
           </th>
         </tr>
-        <tr>
-            
-        </tr>
+        <tr></tr>
       </tbody>
 
       <tbody

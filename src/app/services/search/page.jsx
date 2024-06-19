@@ -1,21 +1,52 @@
 "use client";
 import axios from "axios";
 import ReactStars from "react-rating-stars-component";
+import { useSearchParams } from "next/navigation";
+import { useState, useEffect } from "react";
 
-const getAllServices = async () => {
-  try {
-    const response = await axios.get("http://localhost:8000/api/v1/service/");
-    const data = response.data;
-    return data;
-  } catch (error) {
-    return [];
-  }
-};
+const TaxiList = () => {
+  const [searchService, setSearchService] = useState([]);
+  const searchParams = useSearchParams();
 
-const BusList = async () => {
-  const serviceList = await getAllServices();
+  // Retrieve individual query parameters
+  const selectedService = searchParams.get("selectedService");
+  const startLocation = searchParams.get("startLocation");
+  const endLocation = searchParams.get("endLocation");
+  const startDate = searchParams.get("startDate");
+  const startTime = searchParams.get("startTime");
+  const Affordable = searchParams.get("Affordable");
+  const HighRating = searchParams.get("HighRating");
+  const Popular = searchParams.get("Popular");
+  const NearBy = searchParams.get("NearBy");
 
-  console.log(serviceList);
+  useEffect(() => {
+    const fetchService = async () => {
+      try {
+        const response = await axios.post(
+          "http://localhost:8000/api/v1/service-search",
+          {
+            selectedService,
+            startLocation,
+            endLocation,
+            startDate,
+            startTime,
+            Affordable,
+            Popular,
+            NearBy,
+            HighRating,
+          }
+        );
+
+        console.log(response.data);
+        setSearchService(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchService();
+  });
+
   return (
     <>
       <div className="mt-36 h-fit"></div>
@@ -38,7 +69,7 @@ const BusList = async () => {
           </div>
         </div>
         <div className="relative bg-white pt-2">
-          {serviceList.map((service) => (
+          {searchService.map((service) => (
             <div className="flex h-full items-center justify-center bg-white p-10">
               <div className="border-t-2 border-yellow-500">
                 <div className="md:max-w-fixed flex flex-col items-center rounded-lg md:flex-row dark:bg-white">
@@ -113,7 +144,7 @@ const BusList = async () => {
                           <a>
                             <button
                               onClick={() => {
-                                window.location.href = service.service.id;
+                                window.location.href = "http://localhost:3000/bus/" + service.service.id;
                               }}
                               className="h-10 w-28 rounded-3xl border-2 border-black bg-amber-200 text-sm font-medium hover:border-amber-200"
                             >
@@ -207,4 +238,4 @@ const BusList = async () => {
   );
 };
 
-export default BusList;
+export default TaxiList;

@@ -5,14 +5,11 @@ import { useState, useEffect } from "react";
 
 const RequestTable = () => {
   const [Driver, setDriver] = useState([]);
-  const token = sessionStorage.getItem("token");
 
   useEffect(() => {
     const fetchDriverRequest = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:8000/api/v1/un-approve"
-        );
+        const response = await axios.get("http://localhost:8000/api/v1/driver");
         const data = response.data;
         setDriver(data);
       } catch (error) {
@@ -23,41 +20,13 @@ const RequestTable = () => {
     fetchDriverRequest();
   }, []);
 
-  console.log(Driver);
+  const handleView = (id) => {
+    window.location.href = "http://localhost:3000/admin/profileOverview/" + id;
+  }
 
-  const handleApproved = async (id) => {
-    try {
-      const response = await axios.put(
-        `http://localhost:8000/api/v1/approve-driver/${id}`
-      );
-      console.log(response.data);
-      if (response.data.message === "Driver updated successfully") {
-        window.location.reload();
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleDecline = async (id) => {
-    try {
-      console.log("Token:", token); // Log the token to verify it
-      const response = await axios.delete(
-        `http://localhost:8000/api/v1/driver/${id}`,
-        {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        }
-      );
-      console.log(response.data);
-      if (response.data.message === "Driver deleted successfully") {
-        window.location.reload();
-      }
-    } catch (error) {
-      console.log("Error:", error.response); // Log the error response
-    }
-  };
+  const handleSuspend = (id) => {
+    
+  }
 
   return (
     <div>
@@ -138,10 +107,10 @@ const RequestTable = () => {
                               Driver
                             </th>
                             <th className="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 text-xxs border-b-solid tracking-none whitespace-nowrap  opacity-70">
-                              Service
+                              Address
                             </th>
                             <th className="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 text-xxs border-b-solid tracking-none whitespace-nowrap  opacity-70">
-                              Vehicle
+                              contactNumber
                             </th>
                             <th className="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 text-xxs border-b-solid tracking-none whitespace-nowrap  opacity-70">
                               Request Register
@@ -166,7 +135,7 @@ const RequestTable = () => {
                                   <div className="flex flex-col justify-center">
                                     <h6 className="mb-0 text-sm leading-normal">
                                       {" "}
-                                      <a href={`/admin/profileOverview/${Driver.id}`}>
+                                      <a href="adminTaxiProfileVeiw.html">
                                         {Driver.firstName} {Driver.lastName}
                                       </a>
                                     </h6>
@@ -178,16 +147,13 @@ const RequestTable = () => {
                               </td>
                               <td className="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                                 <p className="mb-0 text-xs font-semibold leading-tight dark:opacity-80">
-                                  {Driver.services[0].location}
-                                </p>
-                                <p className="mb-0 text-xs leading-tight dark:opacity-80 ">
-                                  {Driver.services[0].destination}
+                                  {Driver.address}
                                 </p>
                               </td>
                               <td className="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                                <span className="bg-gradient-to-tl from-emerald-500 to-teal-400 px-4 text-xs rounded-1.8 py-2 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">
-                                  {Driver.services[0].category}
-                                </span>
+                                <p className="mb-0 text-xs font-semibold leading-tight dark:opacity-80">
+                                  {Driver.contactNumber}
+                                </p>
                               </td>
                               <td className="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                                 <span className="text-xs font-semibold leading-tight dark:opacity-80 ">
@@ -196,18 +162,18 @@ const RequestTable = () => {
                               </td>
                               <td className="p-1 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent text-center space-x-5">
                                 <button
-                                  onClick={() => handleApproved(Driver.id)}
-                                  className="text-xs font-semibold leading-tight dark:opacity-80 text-white bg-green-500 py-2 px-4"
+                                  onClick={() => handleView(Driver.id)}
+                                  className="text-xs font-semibold leading-tight dark:opacity-80 text-white bg-blue-500 py-2 px-4"
                                 >
                                   {" "}
-                                  Accept{" "}
+                                  View{" "}
                                 </button>
                                 <button
-                                  onClick={() => handleDecline(Driver.id)}
+
                                   className="text-xs font-semibold leading-tight dark:opacity-80 text-white bg-red-500 py-2 px-4"
                                 >
                                   {" "}
-                                  Decline{" "}
+                                  Suspend{" "}
                                 </button>
                               </td>
                             </tr>

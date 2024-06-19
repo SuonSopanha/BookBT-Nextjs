@@ -1,16 +1,14 @@
-"use client";
-
 import { useState } from "react";
+import Link from "next/link";
 
 const SearchBar = () => {
-  const [selectedService, setSelectedService] = useState("TAXI Service");
+  const [selectedService, setSelectedService] = useState("taxi");
   const [startLocation, setStartLocation] = useState("");
   const [endLocation, setEndLocation] = useState("");
   const [startDate, setStartDate] = useState("");
   const [startTime, setStartTime] = useState("");
   const [options, setOptions] = useState({
     Affordable: false,
-    Convienice: false,
     HighRating: false,
     Popular: false,
     NearBy: false,
@@ -50,9 +48,9 @@ const SearchBar = () => {
               <input
                 id="yellow-radio"
                 type="radio"
-                value="TAXI Service"
+                value="taxi"
                 name="colored-radio"
-                checked={selectedService === "TAXI Service"}
+                checked={selectedService === "taxi"}
                 onChange={handleServiceChange}
                 className="hidden"
               />
@@ -62,7 +60,7 @@ const SearchBar = () => {
               >
                 <div
                   className={`mx-5 w-6 h-6 border-2 border-yellow-300 rounded-full flex-shrink-0 mr-2 flex justify-center items-center ${
-                    selectedService === "TAXI Service"
+                    selectedService === "taxi"
                       ? "bg-yellow-400"
                       : "bg-black"
                   }`}
@@ -70,7 +68,7 @@ const SearchBar = () => {
                   <div
                     id="custom-radio-yellow"
                     className={`w-3 h-3 rounded-full transition duration-200 ease-in-out ${
-                      selectedService === "TAXI Service" ? "" : "hidden"
+                      selectedService === "taxi" ? "" : "hidden"
                     }`}
                   ></div>
                 </div>
@@ -81,9 +79,9 @@ const SearchBar = () => {
               <input
                 id="red-radio"
                 type="radio"
-                value="BUS Service"
+                value="bus"
                 name="colored-radio"
-                checked={selectedService === "BUS Service"}
+                checked={selectedService === "bus"}
                 onChange={handleServiceChange}
                 className="hidden"
               />
@@ -93,7 +91,7 @@ const SearchBar = () => {
               >
                 <div
                   className={`mx-5 w-6 h-6 border-2 border-yellow-300 rounded-full flex-shrink-0 mr-2 flex justify-center items-center ${
-                    selectedService === "BUS Service"
+                    selectedService === "bus"
                       ? "bg-yellow-400"
                       : "bg-black"
                   }`}
@@ -101,7 +99,7 @@ const SearchBar = () => {
                   <div
                     id="custom-radio-red"
                     className={`w-3 h-3 rounded-full transition duration-200 ease-in-out ${
-                      selectedService === "BUS Service" ? "" : "hidden"
+                      selectedService === "bus" ? "" : "hidden"
                     }`}
                   ></div>
                 </div>
@@ -165,13 +163,30 @@ const SearchBar = () => {
                 className="text-sm font-medium block p-2.5 sm:w-72 md:w-24  lg:w-24 text-white bg-gray-900 bg-opacity-50 border-2 border-yellow-300 rounded-e-lg  focus:outline-none focus:border-yellow-500"
                 required
               />
-              <button
-                type="submit"
-                className="ml-5 p-3 text-sm font-medium text-white bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-lg shadow-md hover:from-yellow-500 hover:to-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 transform transition-transform hover:scale-105 relative overflow-hidden w-36"
+              <Link
+                href={{
+                  pathname: "/services/search",
+                  query: {
+                    selectedService,
+                    startLocation,
+                    endLocation,
+                    startDate,
+                    startTime,
+                    Affordable: options.Affordable || false,
+                    HighRating: options.HighRating || false,
+                    Popular: options.Popular || false,
+                    NearBy: options.NearBy || false,
+                  },
+                }}
               >
-                <span className="relative z-10">Search</span>
-                <span className="absolute top-0 left-0 w-full h-full bg-yellow-500 opacity-0 mix-blend-multiply hover:opacity-50 transition-opacity duration-300"></span>
-              </button>
+                <button
+                  type="submit"
+                  className="ml-5 p-3 text-sm font-medium text-white bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-lg shadow-md hover:from-yellow-500 hover:to-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 transform transition-transform hover:scale-105 relative overflow-hidden w-36"
+                >
+                  <span className="relative z-10">Search</span>
+                  <span className="absolute top-0 left-0 w-full h-full bg-yellow-500 opacity-0 mix-blend-multiply hover:opacity-50 transition-opacity duration-300"></span>
+                </button>
+              </Link>
             </div>
 
             <div className="flex flex-col md:flex-row items-center mt-5 space-y-4 md:space-y-0 md:space-x-4">
@@ -204,33 +219,6 @@ const SearchBar = () => {
                   </svg>
                 </div>
                 Affordable
-              </label>
-              <label
-                htmlFor="Convienice"
-                className="relative mr-2 text-sm font-medium sm:w-64 md:w-32 lg:w-32 text-gray-900 dark:text-gray-300 flex items-center cursor-pointer bg-gray-500 bg-opacity-50 px-3 py-3 rounded-lg"
-              >
-                <input
-                  type="checkbox"
-                  id="Convienice"
-                  name="Convienice"
-                  checked={options.Convienice}
-                  onChange={handleCheckboxChange}
-                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                />
-                <div className="w-5 h-5 border-2 border-yellow-300 flex justify-center items-center mr-2">
-                  <svg
-                    className={`w-5 h-5 text-yellow-300 ${
-                      options.Convienice ? "" : "hidden"
-                    }`}
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M1 13.5l2-2 4 4 8-8 2 2-10 10-6-6z"
-                    />
-                  </svg>
-                </div>
-                Convienice
               </label>
               <label
                 htmlFor="HighRating"

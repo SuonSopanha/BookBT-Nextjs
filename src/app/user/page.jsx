@@ -308,7 +308,7 @@ const UserProfile = () => {
                     >
                       {myBooking &&
                         myBooking.map((booking) => (
-                          <tr>
+                          <tr key={booking.service.id}>
                             <td className="p-3">
                               <button
                                 onClick={() => {

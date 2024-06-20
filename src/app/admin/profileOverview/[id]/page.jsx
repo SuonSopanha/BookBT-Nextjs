@@ -47,7 +47,7 @@ const ProfileOverview = () => {
       );
       console.log(response.data);
       if (response.data.message === "Driver updated successfully") {
-        window.location.href = 'http://localhost:3000/admin/reqeustTable'
+        window.location.href = '/admin/reqeustTable'
       }
     } catch (error) {
       console.log(error);
@@ -67,7 +67,7 @@ const ProfileOverview = () => {
       );
       console.log(response.data);
       if (response.data.message === "Driver deleted successfully") {
-        window.location.href = 'http://localhost:3000/admin/reqeustTable'
+        window.location.href = '/admin/reqeustTable'
       }
     } catch (error) {
       console.log("Error:", error.response); // Log the error response

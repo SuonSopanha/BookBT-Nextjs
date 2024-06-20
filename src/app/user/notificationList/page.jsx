@@ -67,7 +67,7 @@ const NotificationPage = () => {
                           <button
                             onClick={() => {
                               window.location.href =
-                                "http://localhost:3000/booking/request/" +
+                                "/booking/request/" +
                                 notification.bookingId;
                             }}
                             className="ml-2 font-bold"

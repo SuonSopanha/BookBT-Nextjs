@@ -21,7 +21,7 @@ const RequestTable = () => {
   }, []);
 
   const handleView = (id) => {
-    window.location.href = "http://localhost:3000/admin/profileOverview/" + id;
+    window.location.href = "/admin/profileOverview/" + id;
   }
 
   const handleSuspend = (id) => {

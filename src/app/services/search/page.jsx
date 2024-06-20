@@ -2,7 +2,7 @@
 import axios from "axios";
 import ReactStars from "react-rating-stars-component";
 import { useSearchParams } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect,Suspense  } from "react";
 
 const TaxiList = () => {
   const [searchService, setSearchService] = useState([]);

@@ -89,7 +89,7 @@ const Signup = () => {
             <div className="w-full lg:w-1/2 py-16 px-12 bg-white">
               <h2 className="text-3xl font-medium">Register</h2>
               <p className="mt-4 text-xs">
-                Create your account. It's free and only takes a minute.
+                Create your account. It is free and only takes a minute.
               </p>
               <form id="registrationForm" onSubmit={handleSignup}>
 

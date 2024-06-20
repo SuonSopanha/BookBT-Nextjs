@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 
 const RequestTable = () => {
   const [Driver, setDriver] = useState([]);
-  const token = sessionStorage.getItem("token");
+
 
   useEffect(() => {
     const fetchDriverRequest = async () => {
@@ -41,6 +41,7 @@ const RequestTable = () => {
 
   const handleDecline = async (id) => {
     try {
+      const token = sessionStorage.getItem("token");
       console.log("Token:", token); // Log the token to verify it
       const response = await axios.delete(
         `http://localhost:8000/api/v1/driver/${id}`,

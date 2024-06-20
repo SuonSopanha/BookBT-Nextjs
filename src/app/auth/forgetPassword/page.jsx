@@ -23,7 +23,7 @@ const ForgetPassword = () => {
               </h1>
               <div>
                 <p className="text-white">
-                  Please enter your email address below, and we'll guide you
+                  Please enter your email address below, and we ll guide you
                   through the process of resetting your password.
                 </p>
               </div>

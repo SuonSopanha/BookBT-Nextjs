@@ -244,7 +244,7 @@ const BookingForm = () => {
                                   scheduleItem.dayOfWeek === dayOfWeek
                               )
                               .map((filteredSchedule) => (
-                                <option value={filteredSchedule.departureTime}>
+                                <option key={filteredSchedule.id} value={filteredSchedule.departureTime}>
                                   {filteredSchedule.departureTime.slice(0, 5)}
                                 </option>
                               ))}

@@ -20,7 +20,7 @@ const ResetPassword = () => {
               </h1>
               <div>
                 <p className="text-white">
-                  Forgot your password? we're here to help you recover access to
+                  Forgot your password? we are here to help you recover access to
                   your account.
                 </p>
               </div>

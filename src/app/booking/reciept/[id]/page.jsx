@@ -52,12 +52,12 @@ const BookingReciept = () => {
           const notification = await axios.post(
             "http://localhost:8000/api/v1/notification",
             {
-              driverId : reciept.driverId,
-              bookingId : id,
-              notificationType : "ride_canceled",
-              notificationMessage : "user have canceled the ride",
-              notificationStatus : "sent",
-              notificationDate : new Date(Date.now()),
+              driverId: reciept.driverId,
+              bookingId: id,
+              notificationType: "ride_canceled",
+              notificationMessage: "user have canceled the ride",
+              notificationStatus: "sent",
+              notificationDate: new Date(Date.now()),
             },
             {
               headers: {
@@ -300,15 +300,17 @@ const BookingReciept = () => {
                         <div className="absolute right-0 mt-12 h-20 w-20 translate-x-1/2 transform rounded-full bg-yellow-200 bg-opacity-80"></div>
                       </button>
                     </div>
-                    <div className="flex w-52 py-8 font-medium">
-                      <button
-                        onClick={handleCancel}
-                        className="relative mb-8 mt-5 flex h-8 w-28 sm:h-12 sm:w-40 items-center justify-center overflow-hidden rounded-lg bg-gradient-to-r from-yellow-500 to-amber-200 text-xl font-medium text-black shadow-lg shadow-slate-500 hover:border-2 hover:border-zinc-400 hover:shadow-none"
-                      >
-                        <a>Cancel Booking</a>
-                        <div className="absolute right-0 mt-12 h-20 w-20 translate-x-1/2 transform rounded-full bg-yellow-200 bg-opacity-80"></div>
-                      </button>
-                    </div>
+                    {reciept.bookingStatus === "pending" && (
+                      <div className="flex w-52 py-8 font-medium">
+                        <button
+                          onClick={handleCancel}
+                          className="relative mb-8 mt-5 flex h-8 w-28 sm:h-12 sm:w-40 items-center justify-center overflow-hidden rounded-lg bg-gradient-to-r from-yellow-500 to-amber-200 text-xl font-medium text-black shadow-lg shadow-slate-500 hover:border-2 hover:border-zinc-400 hover:shadow-none"
+                        >
+                          <a>Cancel Booking</a>
+                          <div className="absolute right-0 mt-12 h-20 w-20 translate-x-1/2 transform rounded-full bg-yellow-200 bg-opacity-80"></div>
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

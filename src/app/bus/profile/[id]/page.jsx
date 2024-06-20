@@ -80,7 +80,7 @@ const BusProfile = () => {
   // Calculate the current bookings to display
   const indexOfLastBooking = currentPage * bookingsPerPage;
   const indexOfFirstBooking = indexOfLastBooking - bookingsPerPage;
-  const currentBookings = booking.slice(
+  const currentBookings = booking?.slice(
     indexOfFirstBooking,
     indexOfLastBooking
   );
@@ -149,14 +149,26 @@ const BusProfile = () => {
                 </a>
               </div>
               <div className="m-2 flex items-center justify-center">
-                <button className="h-10 w-32 rounded-xl border-2 border-zinc-fw-full0 hover:bg-yellow-300">
+                <button
+                  onClick={() => {
+                    window.location.href =
+                      "/user/editProfile";
+                  }}
+                  className="h-10 w-32 rounded-xl border-2 border-zinc-fw-full0 hover:bg-yellow-300"
+                >
                   <p className="text-lg font-bold text-yellow-400 hover:text-white">
                     Edit Profile
                   </p>
                 </button>
               </div>
               <div className="m-2 flex items-center justify-center">
-                <button className="h-10 w-32 rounded-xl border-2 border-zinc-fw-full0 hover:bg-yellow-300">
+                <button
+                  onClick={() => {
+                    window.location.href =
+                      "/services/register";
+                  }}
+                  className="h-10 w-32 rounded-xl border-2 border-zinc-fw-full0 hover:bg-yellow-300"
+                >
                   <p className="text-sm font-bold text-yellow-400 hover:text-white">
                     Add New Service
                   </p>
@@ -204,14 +216,21 @@ const BusProfile = () => {
                               <button
                                 onClick={() => {
                                   window.location.href =
-                                    "http://localhost:3000/services/detail/" +
+                                    "/services/detail/" +
                                     service.id;
                                 }}
                                 className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-700"
                               >
                                 View
                               </button>
-                              <button className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-700">
+                              <button
+                                onClick={() => {
+                                  window.location.href =
+                                    "/services/edit/" +
+                                    service.id;
+                                }}
+                                className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-700"
+                              >
                                 Edit
                               </button>
                             </td>
@@ -265,7 +284,7 @@ const BusProfile = () => {
                               <button
                                 onClick={() => {
                                   window.location.href =
-                                    "http://localhost:3000/booking/request/" +
+                                    "/booking/request/" +
                                     booking.id;
                                 }}
                                 className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-700"

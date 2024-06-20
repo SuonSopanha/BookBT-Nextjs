@@ -4,6 +4,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import LineChart from "@/components/Chart/lineChart";
 
+
 const getStatistics = async () => {
   try {
     const response = await axios.get(
@@ -18,10 +19,45 @@ const getStatistics = async () => {
 };
 
 const AdminDashboard = () => {
+  const app_url = process.env.APP_URL;
+  const [user, setUser] = useState({});
   const [statistic, setStatistic] = useState({});
   const [chartData, setChartData] = useState({ months: [], counts: [] });
+  const [loading,setLoading] = useState(true);
 
+  
   useEffect(() => {
+    const fetchUser = async () => {
+      setLoading(true);
+      const token = sessionStorage.getItem('token');
+      try {
+        // Log the token to verify it
+        // Fetch user data
+        const userResponse = await axios.get(
+          "http://localhost:8000/api/v1/user/userInfo",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log(userResponse.data.user);
+        setUser(userResponse.data.user);
+
+        if (userResponse.data.user.role !== "admin") {
+          window.location.href = "/";
+        }
+        
+        
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+      } finally{
+
+      }
+
+      // Set state with fetched data
+    };
     const fetchStat = async () => {
       try {
         const stat = await getStatistics();
@@ -34,15 +70,20 @@ const AdminDashboard = () => {
 
         setChartData({ months, counts });
 
-        console.log(chartData); 
+        console.log(chartData);
       } catch (error) {
         console.log(error);
       }
     };
 
+    fetchUser();
     fetchStat();
+
   }, []);
-  console.log(statistic);
+
+  if(loading){
+      return <dv>Loading...</dv>
+  }
   return (
     <div>
       <main class="flex h-full overflow-hidden pt-8 -z-10">
@@ -262,273 +303,7 @@ const AdminDashboard = () => {
               </div>
             </div>
 
-            <div class="flex flex-wrap mt-6 -mx-3">
-              <div class="w-full max-w-full px-3 mt-0 mb-6 lg:mb-0 lg:w-7/12 lg:flex-none">
-                <div class="relative flex flex-col min-w-0 break-words bg-white border-0 border-solid shadow-xl border-black-125 rounded-2xl bg-clip-border">
-                  <div class="p-4 pb-0 mb-0 rounded-t-4">
-                    <div class="flex justify-between">
-                      <h6 class="mb-2">Book by Province</h6>
-                    </div>
-                  </div>
-                  <div class="overflow-x-auto">
-                    <table class="items-center w-full mb-4 align-top border-collapse border-gray-200 dark:border-white/40">
-                      <tbody>
-                        <tr>
-                          <td class="p-2 align-middle bg-transparent border-b w-3/10 whitespace-nowrap dark:border-white/40">
-                            <div class="flex items-center px-2 py-1">
-                              <div>
-                                <img
-                                  src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FPhnom_Penh&psig=AOvVaw1cT9KuJ-edHZ1Vag-4KhFp&ust=1708849260573000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCMDW7NzFw4QDFQAAAAAdAAAAABAE"
-                                  alt="Province flag"
-                                />
-                              </div>
-                              <div class="ml-6">
-                                <p class="mb-0 text-xs font-semibold leading-tight dark:opacity-60">
-                                  Province:
-                                </p>
-                                <h6 class="mb-0 text-sm leading-normal">
-                                  Takeo
-                                </h6>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">
-                            <div class="text-center">
-                              <p class="mb-0 text-xs font-semibold leading-tight dark:opacity-60">
-                                Book:
-                              </p>
-                              <h6 class="mb-0 text-sm leading-normal">2500</h6>
-                            </div>
-                          </td>
-                          <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">
-                            <div class="text-center">
-                              <p class="mb-0 text-xs font-semibold leading-tight dark:opacity-60">
-                                Travel:
-                              </p>
-                              <h6 class="mb-0 text-sm leading-normal">
-                                230,900
-                              </h6>
-                            </div>
-                          </td>
-                          <td class="p-2 text-sm leading-normal align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">
-                            <div class="flex-1 text-center">
-                              <p class="mb-0 text-xs font-semibold leading-tight dark:opacity-60">
-                                Passenger:
-                              </p>
-                              <h6 class="mb-0 text-sm leading-normal">29.9%</h6>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="p-2 align-middle bg-transparent border-b w-3/10 whitespace-nowrap dark:border-white/40">
-                            <div class="flex items-center px-2 py-1">
-                              <div>
-                                <img
-                                  src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FPhnom_Penh&psig=AOvVaw1cT9KuJ-edHZ1Vag-4KhFp&ust=1708849260573000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCMDW7NzFw4QDFQAAAAAdAAAAABAE"
-                                  alt="Province flag"
-                                />
-                              </div>
-                              <div class="ml-6">
-                                <p class="mb-0 text-xs font-semibold leading-tight dark:opacity-60">
-                                  Province:
-                                </p>
-                                <h6 class="mb-0 text-sm leading-normal">
-                                  Pursat
-                                </h6>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">
-                            <div class="text-center">
-                              <p class="mb-0 text-xs font-semibold leading-tight dark:opacity-60">
-                                Booking
-                              </p>
-                              <h6 class="mb-0 text-sm leading-normal">3.900</h6>
-                            </div>
-                          </td>
-                          <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">
-                            <div class="text-center">
-                              <p class="mb-0 text-xs font-semibold leading-tight dark:opacity-60">
-                                Traffic:
-                              </p>
-                              <h6 class="mb-0 text-sm leading-normal">
-                                $440,000
-                              </h6>
-                            </div>
-                          </td>
-                          <td class="p-2 text-sm leading-normal align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">
-                            <div class="flex-1 text-center">
-                              <p class="mb-0 text-xs font-semibold leading-tight dark:opacity-60">
-                                Passenger:
-                              </p>
-                              <h6 class="mb-0 text-sm leading-normal">
-                                40.22%
-                              </h6>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="p-2 align-middle bg-transparent border-b w-3/10 whitespace-nowrap dark:border-white/40">
-                            <div class="flex items-center px-2 py-1">
-                              <div>
-                                <img
-                                  src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FPhnom_Penh&psig=AOvVaw1cT9KuJ-edHZ1Vag-4KhFp&ust=1708849260573000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCMDW7NzFw4QDFQAAAAAdAAAAABAE"
-                                  alt="Province flag"
-                                />
-                              </div>
-                              <div class="ml-6">
-                                <p class="mb-0 text-xs font-semibold leading-tight dark:opacity-60">
-                                  Province:
-                                </p>
-                                <h6 class="mb-0 text-sm leading-normal">
-                                  Phnom Penh
-                                </h6>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">
-                            <div class="text-center">
-                              <p class="mb-0 text-xs font-semibold leading-tight dark:opacity-60">
-                                Booking:
-                              </p>
-                              <h6 class="mb-0 text-sm leading-normal">1.400</h6>
-                            </div>
-                          </td>
-                          <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">
-                            <div class="text-center">
-                              <p class="mb-0 text-xs font-semibold leading-tight dark:opacity-60">
-                                Traffic:
-                              </p>
-                              <h6 class="mb-0 text-sm leading-normal">
-                                $190,700
-                              </h6>
-                            </div>
-                          </td>
-                          <td class="p-2 text-sm leading-normal align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">
-                            <div class="flex-1 text-center">
-                              <p class="mb-0 text-xs font-semibold leading-tight dark:opacity-60">
-                                Passenger:
-                              </p>
-                              <h6 class="mb-0 text-sm leading-normal">
-                                23.44%
-                              </h6>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="p-2 align-middle bg-transparent border-0 w-3/10 whitespace-nowrap">
-                            <div class="flex items-center px-2 py-1">
-                              <div>
-                                <img
-                                  src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fnomadicboys.com%2Fhow-many-days-in-phnom-penh%2F&psig=AOvVaw1cT9KuJ-edHZ1Vag-4KhFp&ust=1708849260573000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCMDW7NzFw4QDFQAAAAAdAAAAABAI"
-                                  alt="Province flag"
-                                />
-                              </div>
-                              <div class="ml-6">
-                                <p class="mb-0 text-xs font-semibold leading-tight dark:opacity-60">
-                                  Province:
-                                </p>
-                                <h6 class="mb-0 text-sm leading-normal">
-                                  Takeo
-                                </h6>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="p-2 align-middle bg-transparent border-0 whitespace-nowrap">
-                            <div class="text-center">
-                              <p class="mb-0 text-xs font-semibold leading-tight dark:opacity-60">
-                                Booking:
-                              </p>
-                              <h6 class="mb-0 text-sm leading-normal">562</h6>
-                            </div>
-                          </td>
-                          <td class="p-2 align-middle bg-transparent border-0 whitespace-nowrap">
-                            <div class="text-center">
-                              <p class="mb-0 text-xs font-semibold leading-tight dark:opacity-60">
-                                Traffic:
-                              </p>
-                              <h6 class="mb-0 text-sm leading-normal">
-                                $143,960
-                              </h6>
-                            </div>
-                          </td>
-                          <td class="p-2 text-sm leading-normal align-middle bg-transparent border-0 whitespace-nowrap">
-                            <div class="flex-1 text-center">
-                              <p class="mb-0 text-xs font-semibold leading-tight dark:opacity-60">
-                                Passenger:
-                              </p>
-                              <h6 class="mb-0 text-sm leading-normal">
-                                32.14%
-                              </h6>
-                            </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
 
-            <footer class="pt-4">
-              <div class="w-full px-6 mx-auto">
-                <div class="flex flex-wrap items-center -mx-3 lg:justify-between">
-                  <div class="w-full max-w-full px-3 mt-0 mb-6 shrink-0 lg:mb-0 lg:w-1/2 lg:flex-none">
-                    <div class="text-sm leading-normal text-center text-slate-500 lg:text-left">
-                      2024 made with <i class="fa fa-heart"></i> by
-                      <a
-                        href="https://www.creative-tim.com"
-                        class="font-semibold text-slate-700 dark:text-white"
-                        target="_blank"
-                      >
-                        Creative Tim
-                      </a>
-                      for a better web.
-                    </div>
-                  </div>
-                  <div class="w-full max-w-full px-3 mt-0 shrink-0 lg:w-1/2 lg:flex-none">
-                    <ul class="flex flex-wrap justify-center pl-0 mb-0 list-none lg:justify-end">
-                      <li class="nav-item">
-                        <a
-                          href="https://www.creative-tim.com"
-                          class="block px-4 pt-0 pb-1 text-sm font-normal transition-colors ease-in-out text-slate-500"
-                          target="_blank"
-                        >
-                          Creative Tim
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a
-                          href="https://www.creative-tim.com/presentation"
-                          class="block px-4 pt-0 pb-1 text-sm font-normal transition-colors ease-in-out text-slate-500"
-                          target="_blank"
-                        >
-                          About Us
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a
-                          href="https://creative-tim.com/blog"
-                          class="block px-4 pt-0 pb-1 text-sm font-normal transition-colors ease-in-out text-slate-500"
-                          target="_blank"
-                        >
-                          Blog
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a
-                          href="https://www.creative-tim.com/license"
-                          class="block px-4 pt-0 pb-1 pr-0 text-sm font-normal transition-colors ease-in-out text-slate-500"
-                          target="_blank"
-                        >
-                          License
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </footer>
           </div>
         </div>
       </main>

@@ -129,7 +129,7 @@ const BookingForm = () => {
 
           if(notificationResponse.data.message === "Notification created successfully"){
             console.log(notificationResponse);
-            window.location.href = "http://localhost:3000/booking/reciept/" +  response.data.booking.id
+            window.location.href = "/booking/reciept/" +  response.data.booking.id
           }
 
 

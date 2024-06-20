@@ -41,7 +41,7 @@ const BookingReciept = () => {
       const response = await axios.put(
         "http://localhost:8000/api/v1/booking-status/" + id,
         { bookingStatus: "confirmed" },
-        {
+        { 
           headers: {
             Authorization: "Bearer " + token,
           },

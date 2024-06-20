@@ -144,7 +144,7 @@ const TaxiList = () => {
                           <a>
                             <button
                               onClick={() => {
-                                window.location.href = "http://localhost:3000/bus/" + service.service.id;
+                                window.location.href = "/bus/" + service.service.id;
                               }}
                               className="h-10 w-28 rounded-3xl border-2 border-black bg-amber-200 text-sm font-medium hover:border-amber-200"
                             >

@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import { useState, useEffect } from "react";
+import Image from "next/image";
 
 const RequestTable = () => {
   const [User, setUser] = useState([]);
@@ -33,7 +34,7 @@ const RequestTable = () => {
               <div className="flex flex-wrap -mx-3">
                 <div className="flex-none w-auto max-w-full px-3">
                   <div className="relative inline-flex items-center justify-center text-white transition-all duration-200 ease-in-out text-base h-19 w-19 rounded-xl">
-                    <img
+                    <Image
                       src="https://img.freepik.com/free-psd/3d-icon-social-media-app_23-2150049569.jpg?size=626&ext=jpg&ga=GA1.1.48835190.1718728664&semt=ais_user"
                       alt="profile_image"
                       className="w-16 h-16 shadow-2xl rounded-xl"
@@ -122,7 +123,7 @@ const RequestTable = () => {
                               <td className="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                                 <div className="flex px-2 py-1">
                                   <div>
-                                    <img
+                                    <Image
                                       src={User.photoURL}
                                       className="inline-flex items-center justify-center mr-4 text-sm text-white transition-all duration-200 ease-in-out h-9 w-9 rounded-xl"
                                       alt="user1"

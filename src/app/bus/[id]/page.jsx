@@ -20,17 +20,34 @@ const getServices = async (id) => {
   }
 };
 
+const getFeedback = async (id) => {
+  try {
+    const response = await axios.get(
+      "http://localhost:8000/api/v1/driver-rating/" + id
+    );
+    const data = response.data;
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
 const BusDetail = () => {
   const { id } = useParams();
   const [serviceDetail, setServiceDetail] = useState(null);
   const [feedback, setFeedback] = useState("");
   const [rating, setRating] = useState(0);
+  const [userRating, setUserRating] = useState([]);
 
   console.log(id);
   useEffect(() => {
     const fetchServiceDetail = async () => {
       const data = await getServices(id);
+      const ratings = await getFeedback(data.driver.id);
       setServiceDetail(data);
+      setUserRating(ratings);
     };
 
     fetchServiceDetail();
@@ -41,11 +58,36 @@ const BusDetail = () => {
   }
 
   const handleRateDriver = async () => {
-    console.log(rating);
-    console.log(feedback);
+    const token = sessionStorage.getItem("token");
+    console.log("Is rationg");
+    const ratingData = {
+      DriverId: driver.id,
+      ServiceId: null,
+      BookingId: null,
+      rating,
+      feedbackText: feedback,
+      feedbackDate: new Date(Date.now()),
+    };
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/api/v1/rating",
+        ratingData,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+
+      console.log(response);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   console.log(serviceDetail);
+  console.log(userRating);
 
   const { service, driver, schedule, pricing } = serviceDetail;
   return (
@@ -280,31 +322,34 @@ const BusDetail = () => {
                 </Link>
               </div>
             </div>
-            <div className="flex items-center p-4 pl-4">
-              <img
-                width="48"
-                height="48"
-                src="https://img.icons8.com/material-sharp/48/FAB005/user-male-circle.png"
-                alt="user-male-circle"
-              />
-              <div className="ml-4 w-60 border-b-2">
-                <p className="font-medium text-white">Soun Sopanha</p>
-                <p className="ml-4 text-sm text-white">Good job Bro!</p>
+            {userRating.map((rating) => (
+              <div className="flex items-center p-4 pl-4">
+                <img
+                  width="48"
+                  height="48"
+                  src={rating?.user.photoURL}
+                  alt="user-male-circle"
+                />
+                <div className="ml-4 w-60 border-b-2">
+                  <ReactStars
+                    classNames="text-center"
+                    count={5}
+                    value={rating.rating}
+                   
+                    size={16}
+                    edit={false}
+                    isHalf={true}
+                    activeColor="#ffd700"
+                  />
+                  <p className="font-medium text-white">
+                    {rating?.user.fullName}
+                  </p>
+                  <p className="ml-4 text-sm text-white">
+                    {rating?.feedbackText}
+                  </p>
+                </div>
               </div>
-            </div>
-
-            <div className="flex items-center p-4 pl-4">
-              <img
-                width="48"
-                height="48"
-                src="https://img.icons8.com/material-sharp/48/FAB005/user-male-circle.png"
-                alt="user-male-circle"
-              />
-              <div className="ml-4 w-60 border-b-2">
-                <p className="font-medium text-white">KOLA</p>
-                <p className="ml-4 text-sm text-white">Good job Bro!</p>
-              </div>
-            </div>
+            ))}
             <div className="py-4 pl-8 font-medium text-white md:flex">
               <Link href="#">See more</Link>
             </div>

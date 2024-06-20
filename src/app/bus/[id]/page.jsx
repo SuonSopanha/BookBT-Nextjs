@@ -323,7 +323,7 @@ const BusDetail = () => {
               </div>
             </div>
             {userRating.map((rating) => (
-              <div className="flex items-center p-4 pl-4">
+              <div key={rating.id} className="flex items-center p-4 pl-4">
                 <img
                   width="48"
                   height="48"

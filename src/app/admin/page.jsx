@@ -157,7 +157,7 @@ const AdminDashboard = () => {
                       <div class="flex-none w-2/3 max-w-full px-3">
                         <div>
                           <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:opacity-60">
-                            Today's Booking
+                            Today Booking
                           </p>
                           <h5 class="mb-2 font-bold">
                             {statistic?.todayBookings}

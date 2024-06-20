@@ -81,8 +81,8 @@ const Signup = () => {
               <h1 className="text-white text-3xl font-medium">Welcome</h1>
               <div>
                 <p className="text-white">
-                  To Create an account. It's free and only takes a minute and
-                  we'll be glad to keep your information safe.
+                  To Create an account. It is free and only takes a minute and
+                  we will be glad to keep your information safe.
                 </p>
               </div>
             </div>

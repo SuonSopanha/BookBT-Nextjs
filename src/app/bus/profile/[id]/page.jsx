@@ -265,7 +265,7 @@ const BusProfile = () => {
                         {/* Example rows - replace these with dynamic data */}
 
                         {currentBookings.map((booking) => (
-                          <tr className="hover:bg-slate-100">
+                          <tr key={booking.service.id} className="hover:bg-slate-100">
                             <td className="p-3 text-center">
                               {booking.user.fullName}
                             </td>

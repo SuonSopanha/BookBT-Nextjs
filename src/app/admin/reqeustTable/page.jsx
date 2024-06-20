@@ -153,7 +153,7 @@ const RequestTable = () => {
                         </thead>
                         <tbody>
                           {Driver.map((Driver) => (
-                            <tr>
+                            <tr key={Driver.id}>
                               <td className="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                                 <div className="flex px-2 py-1">
                                   <div>

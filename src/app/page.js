@@ -754,7 +754,7 @@ export default async function Home() {
 
           <div className="mx-auto mt-10 pl-96 pr-2 flex md:pl-48 md:pr-4 flex-row items-center justify-center space-x-4 space-y-4 overflow-scroll bg-white pb-10 md:flex-row md:space-x-20 md:space-y-0">
             {topDrivers.map((driver) => (
-              <div className="relative flex-shrink-0">
+              <div key={driver.id} className="relative flex-shrink-0">
                 <img
                   src={driver.photoURL}
                   className="h-80 w-52 object-cover"

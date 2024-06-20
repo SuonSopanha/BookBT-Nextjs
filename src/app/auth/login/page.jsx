@@ -69,7 +69,7 @@ const Login = () => {
               <div>
                 <p className="text-white">
                   Welcome to our website login page we are glad to have you here
-                  to visit our website. We'll be glad to keep your information
+                  to visit our website. We ll be glad to keep your information
                   safe.
                 </p>
               </div>
@@ -139,7 +139,7 @@ const Login = () => {
 
                 <div className="mt-4 ">
                   <span className="ml-2 text-xs">
-                    Don't have an account?
+                    Do not have an account?
                     <a href="/auth/signup" className="text-blue-500">
                       {" "}
                       Create an account

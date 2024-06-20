@@ -70,7 +70,7 @@ const TaxiList = () => {
         </div>
         <div className="relative bg-white pt-2">
           {searchService.map((service) => (
-            <div className="flex h-full items-center justify-center bg-white p-10">
+            <div key={service.service.id} className="flex h-full items-center justify-center bg-white p-10">
               <div className="border-t-2 border-yellow-500">
                 <div className="md:max-w-fixed flex flex-col items-center rounded-lg md:flex-row dark:bg-white">
                   <img

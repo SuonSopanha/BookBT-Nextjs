@@ -118,7 +118,7 @@ const RequestTable = () => {
                         </thead>
                         <tbody>
                           {User.map((User) => (
-                            <tr>
+                            <tr key={User.id}>
                               <td className="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                                 <div className="flex px-2 py-1">
                                   <div>

@@ -9,10 +9,9 @@ const UserProfile = () => {
   const [myBooking, setMyBooking] = useState([]);
   const [Driver, setDriver] = useState({});
 
-  const token = sessionStorage.getItem("token");
-
   useEffect(() => {
     const fetchUser = async () => {
+      const token = sessionStorage.getItem("token");
       try {
         // Log the token to verify it
         // Fetch user data
@@ -75,6 +74,7 @@ const UserProfile = () => {
 
   useEffect(() => {
     const checkDriver = async () => {
+      const token = sessionStorage.getItem("token");
       try {
         const isDriver = await axios.get(
           "http://localhost:8000/api/v1/ifDriver",

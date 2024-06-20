@@ -238,4 +238,10 @@ const TaxiList = () => {
   );
 };
 
-export default TaxiList;
+const TaxiListWrapper = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <TaxiList />
+  </Suspense>
+);
+
+export default TaxiListWrapper;

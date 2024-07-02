@@ -1,4 +1,18 @@
+"use client";
+import Toast from "@/components/toast/toast";
+import { useState } from "react";
+
 const ForgetPassword = () => {
+  const [toast, setToast] = useState(null);
+
+  const showToast = (status, message) => {
+    setToast({ status, message });
+  };
+
+  const closeToast = () => {
+    setToast(null);
+  };
+
   return (
     <div>
       <div
@@ -61,6 +75,33 @@ const ForgetPassword = () => {
                   </a>
                 </div>
               </form>
+
+              <button
+                onClick={() =>
+                  showToast("success", "Success! Your changes have been saved.")
+                }
+                className="bg-blue-500 text-white p-2 rounded"
+              >
+                Show Success Toast
+              </button>
+              <button
+                onClick={() =>
+                  showToast("error", "Error! Something went wrong.")
+                }
+                className="bg-red-500 text-white p-2 rounded ml-2"
+              >
+                Show Error Toast
+              </button>
+
+              {toast && (
+                <div className="fixed bottom-4 right-4">
+                  <Toast
+                    status={toast.status}
+                    message={toast.message}
+                    onClose={closeToast}
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>

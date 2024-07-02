@@ -7,7 +7,7 @@ import { useParams } from "next/navigation";
 const getServices = async (id) => {
   try {
     const response = await axios.get(
-      "http://localhost:8000/api/v1/service/" + id
+      `${process.env.NEXT_PUBLIC_API_URL}/api/v1/service/` + id
     );
     const data = response.data;
     console.log(data);
@@ -97,7 +97,7 @@ const BookingForm = () => {
     console.log(bookingData);
     try {
       const response = await axios.post(
-        `${process.env.API_URL}/api/v1/booking`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/booking`,
         bookingData,
         {
           headers: {
@@ -118,7 +118,7 @@ const BookingForm = () => {
 
         try {
           const notificationResponse = await axios.post(
-            `${process.env.API_URL}/api/v1/notification`,
+            `${process.env.NEXT_PUBLIC_API_URL}/api/v1/notification`,
             notificationData,
             {
               headers: {

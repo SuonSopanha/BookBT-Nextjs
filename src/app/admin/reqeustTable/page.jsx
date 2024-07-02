@@ -11,7 +11,7 @@ const RequestTable = () => {
     const fetchDriverRequest = async () => {
       try {
         const response = await axios.get(
-          `${process.env.API_URL}/api/v1/un-approve`
+          `${process.env.NEXT_PUBLIC_API_URL}/api/v1/un-approve`
         );
         const data = response.data;
         setDriver(data);
@@ -28,7 +28,7 @@ const RequestTable = () => {
   const handleApproved = async (id) => {
     try {
       const response = await axios.put(
-        `${process.env.API_URL}/api/v1/approve-driver/${id}`
+        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/approve-driver/${id}`
       );
       console.log(response.data);
       if (response.data.message === "Driver updated successfully") {
@@ -44,7 +44,7 @@ const RequestTable = () => {
       const token = sessionStorage.getItem("token");
       console.log("Token:", token); // Log the token to verify it
       const response = await axios.delete(
-        `${process.env.API_URL}/api/v1/driver/${id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/driver/${id}`,
         {
           headers: {
             Authorization: "Bearer " + token,

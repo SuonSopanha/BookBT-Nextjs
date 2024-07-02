@@ -4,7 +4,7 @@ import ReactStars from "react-rating-stars-component";
 
 const getAllServices = async () => {
   try {
-    const response = await axios.get(`${process.env.API_URL}/api/v1/service/`);
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/service/`);
     const data = response.data;
     return data;
   } catch (error) {

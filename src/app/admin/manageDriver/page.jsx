@@ -10,7 +10,7 @@ const RequestTable = () => {
   useEffect(() => {
     const fetchDriverRequest = async () => {
       try {
-        const response = await axios.get(`${process.env.API_URL}/api/v1/driver`);
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/driver`);
         const data = response.data;
         setDriver(data);
       } catch (error) {

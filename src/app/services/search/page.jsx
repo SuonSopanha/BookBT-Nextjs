@@ -23,7 +23,7 @@ const TaxiList = () => {
     const fetchService = async () => {
       try {
         const response = await axios.post(
-          `${process.env.API_URL}/api/v1/service-search`,
+          `${process.env.NEXT_PUBLIC_API_URL}/api/v1/service-search`,
           {
             selectedService,
             startLocation,

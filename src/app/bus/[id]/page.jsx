@@ -9,7 +9,7 @@ import axios from "axios";
 const getServices = async (id) => {
   try {
     const response = await axios.get(
-      `${process.env.API_URL}/api/v1/service/` + id
+      `${process.env.NEXT_PUBLIC_API_URL}/api/v1/service/` + id
     );
     const data = response.data;
     console.log(data);
@@ -23,7 +23,7 @@ const getServices = async (id) => {
 const getFeedback = async (id) => {
   try {
     const response = await axios.get(
-      `${process.env.API_URL}/api/v1/driver-rating/` + id
+      `${process.env.NEXT_PUBLIC_API_URL}/api/v1/driver-rating/` + id
     );
     const data = response.data;
     console.log(data);
@@ -71,7 +71,7 @@ const BusDetail = () => {
 
     try {
       const response = await axios.post(
-        `${process.env.API_URL}/api/v1/rating`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/rating`,
         ratingData,
         {
           headers: {

@@ -80,7 +80,7 @@ const ServiceRegister = () => {
 
     try {
       const service = await axios.post(
-        `${process.env.API_URL}/api/v1/service`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/service`,
         {
           location: formData.location,
           destination: formData.destination,
@@ -104,7 +104,7 @@ const ServiceRegister = () => {
 
         try {
           const pricing = await axios.post(
-            `${process.env.API_URL}/api/v1/pricing`,
+            `${process.env.NEXT_PUBLIC_API_URL}/api/v1/pricing`,
             {
               serviceId: serviceID,
               baseFare: formData.baseFare,
@@ -121,7 +121,7 @@ const ServiceRegister = () => {
           );
 
           const scheduled = await axios.post(
-            `${process.env.API_URL}/api/v1/schedule`,
+            `${process.env.NEXT_PUBLIC_API_URL}/api/v1/schedule`,
             {
               serviceId: serviceID,
               dayOfWeek: formData.dayOfWeek,

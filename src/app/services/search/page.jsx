@@ -23,7 +23,7 @@ const TaxiList = () => {
     const fetchService = async () => {
       try {
         const response = await axios.post(
-          `${process.env.API_URL}/api/v1/service-search`,
+          `${process.env.NEXT_PUBLIC_API_URL}/api/v1/service-search`,
           {
             selectedService,
             startLocation,
@@ -70,9 +70,9 @@ const TaxiList = () => {
         </div>
         <div className="relative bg-white pt-2">
           {searchService.map((service) => (
-            <div key={service.service.id} className="flex h-full items-center justify-center bg-white p-10">
+            <div key={service.service.id} className="flex h-full items-center justify-center  bg-gradient-to-r from-white via-gray-100 to-white p-3 rounded-lg shadow-sm p-10">
               <div className="border-t-2 border-yellow-500">
-                <div className="md:max-w-fixed flex flex-col items-center rounded-lg md:flex-row dark:bg-white">
+                <div className="md:max-w-fixed flex flex-col items-center rounded-lg md:flex-row  dark:bg-white">
                   <img
                     className="h-full w-full object-cover md:h-auto md:w-96 md:rounded-none"
                     src={service.service.vehiclePictureURL[0]}
@@ -146,8 +146,8 @@ const TaxiList = () => {
                               onClick={() => {
                                 window.location.href = "/bus/" + service.service.id;
                               }}
-                              className="h-10 w-28 rounded-3xl border-2 border-black bg-amber-200 text-sm font-medium hover:border-amber-200"
-                            >
+                              className="relative mt-6 flex h-12 w-40 items-center justify-center overflow-hidden rounded-lg bg-gradient-to-r from-yellow-400 to-amber-700 text-sm font-medium text-gray-900 shadow-lg hover:border-2 hover:border-gray-800 transition ease-in-out duration-150"
+                              >
                               View Details
                             </button>
                           </a>

@@ -19,7 +19,7 @@ const NotificationPage = () => {
       if (token) {
         try {
           const response = await axios.get(
-            `${process.env.API_URL}/api/v1/notification/`,
+            `${process.env.NEXT_PUBLIC_API_URL}/api/v1/notification/`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,

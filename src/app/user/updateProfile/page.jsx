@@ -70,7 +70,7 @@ const UpdateProfile = () => {
 
     try {
       
-      const response = await axios.post(`${process.env.API_URL}/api/v1/user/addInfo`, profileData,{
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/user/addInfo`, profileData,{
         headers: {
           Authorization: "Bearer " + token 
         },

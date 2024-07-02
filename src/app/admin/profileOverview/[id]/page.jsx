@@ -7,7 +7,7 @@ import axios from "axios";
 const fetchDriver = async (id) =>{
   try {
     const response = await axios.get(
-      `${process.env.API_URL}/api/v1/driver-details/` + id
+      `${process.env.NEXT_PUBLIC_API_URL}/api/v1/driver-details/` + id
     );
     const data = response.data;
     console.log(data);
@@ -43,7 +43,7 @@ const ProfileOverview = () => {
   const handleApproved = async (id) => {
     try {
       const response = await axios.put(
-        `${process.env.API_URL}/api/v1/approve-driver/${id}`
+        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/approve-driver/${id}`
       );
       console.log(response.data);
       if (response.data.message === "Driver updated successfully") {
@@ -58,7 +58,7 @@ const ProfileOverview = () => {
     try {
       console.log("Token:", token); // Log the token to verify it
       const response = await axios.delete(
-        `${process.env.API_URL}/api/v1/driver/${id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/driver/${id}`,
         {
           headers: {
             Authorization: "Bearer " + token,

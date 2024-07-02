@@ -6,6 +6,7 @@ import SearchBar from "../searchBar/searchBar";
 const Header = () => {
   const [open, setOpen] = useState(false);
   const [language, setLanguage] = useState("EN");
+  const [notiDrop, setNotiDrop] = useState(false);
 
   const toggleMenu = () => {
     console.log("clicked");
@@ -17,7 +18,8 @@ const Header = () => {
   };
 
   const handleNotification = () => {
-    window.location.href = "/user/notificationList";
+    // window.location.href = "/user/notificationList";
+    setNotiDrop(!notiDrop);
   };
 
   return (
@@ -71,12 +73,14 @@ const Header = () => {
                 >
                   Home
                 </a>
-                <button
-                  onClick={() => toggleMenu()}
-                  className="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-orange-400 focus:text-orange-400 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:shadow-outline"
-                >
-                  Booking
-                </button>
+                <a>
+                  <button
+                    onClick={() => toggleMenu()}
+                    className="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-orange-400 focus:text-orange-400 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:shadow-outline"
+                  >
+                    Booking
+                  </button>
+                </a>
                 <a
                   href="/bus/list"
                   className="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-orange-400 focus:text-orange-400 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:shadow-outline"
@@ -133,9 +137,12 @@ const Header = () => {
                   <span>{language}</span>
                 </button>
 
-                <button onClick={handleNotification} className="flex items-center px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-orange-400 focus:text-orange-400 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:shadow-outline">
+                <button
+                  onClick={handleNotification}
+                  className="flex items-center px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-orange-400 focus:text-orange-400 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:shadow-outline"
+                >
                   <svg
-                    className="w-6 h-6 mr-2"
+                    className="w-6 h-6"
                     fill="none"
                     stroke="currentColor"
                     strokeLinecap="round"
@@ -145,6 +152,67 @@ const Header = () => {
                   >
                     <path d="M12 22c1.1 0 2-.9 2-2H10c0 1.1.9 2 2 2zM18.29 17H5.71c-.4 0-.73-.29-.83-.67L4 16.7V8.99c0-3.07 2.13-5.64 5-6.32V2c0-.55.45-1 1-1s1 .45 1 1v.68c2.87.68 5 3.25 5 6.32v7.71l-.88.63c-.1.38-.43.67-.83.67z" />
                   </svg>
+
+                  {notiDrop && (
+                    <div className="absolute right-0 top-16 bg-white rounded-md shadow-lg overflow-hidden z-20 w-60">
+                      <div className="py-2">
+                        <a
+                          href="#"
+                          className="flex items-center px-4 py-3 border-b hover:bg-gray-100 -mx-2"
+                        >
+                          <svg
+                            className="w-8 h-8 ml-2"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            viewBox="0 0 24 24"
+                          >
+                            <path d="M12 22c1.1 0 2-.9 2-2H10c0 1.1.9 2 2 2zM18.29 17H5.71c-.4 0-.73-.29-.83-.67L4 16.7V8.99c0-3.07 2.13-5.64 5-6.32V2c0-.55.45-1 1-1s1 .45 1 1v.68c2.87.68 5 3.25 5 6.32v7.71l-.88.63c-.1.38-.43.67-.83.67z" />
+                          </svg>
+                          <p className="text-gray-600 text-sm mx-2">
+                            <span className="font-bold" href="#">
+                              Sara Salah
+                            </span>{" "}
+                            replied on the{" "}
+                            <span className="font-bold text-blue-500" href="#">
+                              Upload Image
+                            </span>{" "}
+                            article . 2m
+                          </p>
+                        </a>
+                        <a
+                          href="#"
+                          className="flex items-center px-4 py-3 border-b hover:bg-gray-100 -mx-2"
+                        >
+                          <svg
+                            className="w-8 h-8 ml-2"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            viewBox="0 0 24 24"
+                          >
+                            <path d="M12 22c1.1 0 2-.9 2-2H10c0 1.1.9 2 2 2zM18.29 17H5.71c-.4 0-.73-.29-.83-.67L4 16.7V8.99c0-3.07 2.13-5.64 5-6.32V2c0-.55.45-1 1-1s1 .45 1 1v.68c2.87.68 5 3.25 5 6.32v7.71l-.88.63c-.1.38-.43.67-.83.67z" />
+                          </svg>
+                          <p className="text-gray-600 text-sm mx-2">
+                            <span className="font-bold" href="#">
+                              Slick Net
+                            </span>{" "}
+                            started following you . 45m
+                          </p>
+                        </a>
+                      </div>
+                      <a
+                        href="#"
+                        className="block bg-gray-800 text-white text-center font-bold py-2"
+                      >
+                        See all notifications
+                      </a>
+                    </div>
+                  )}
                 </button>
 
                 <button className="px-4 py-2  border-2  border-orange-400 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-orange-400 focus:text-orange-400 hover:bg-gray-100 focus:bg-gray-100 focus:outline-bgray-100 focus:shadow-outline">

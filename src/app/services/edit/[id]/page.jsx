@@ -7,7 +7,7 @@ import axios from "axios";
 const getServices = async (id) => {
   try {
     const response = await axios.get(
-      `${process.env.API_URL}/api/v1/service/` + id
+      `${process.env.NEXT_PUBLIC_API_URL}/api/v1/service/` + id
     );
     const data = response.data;
     console.log(data);
@@ -79,7 +79,7 @@ const ServiceDetail = () => {
     const token = sessionStorage.getItem("token");
     try {
       await axios.put(
-        `${process.env.API_URL}/api/v1/service/` + id,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/service/` + id,
         serviceDetail.service,
         {
           headers: {
@@ -89,7 +89,7 @@ const ServiceDetail = () => {
       );
 
       await axios.put(
-        `${process.env.API_URL}/api/v1/pricing/` + pricing.id,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/pricing/` + pricing.id,
         serviceDetail.pricing,
         {
           headers: {
@@ -109,7 +109,7 @@ const ServiceDetail = () => {
     const token = sessionStorage.getItem("token");
     try {
       const scheduled = await axios.post(
-        `${process.env.API_URL}/api/v1/schedule`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/schedule`,
         {
           serviceId: service.id,
           dayOfWeek: newScheduleFormData.dayOfWeek,
@@ -140,7 +140,7 @@ const ServiceDetail = () => {
         (s) => s.id === scheduleId
       );
       await axios.put(
-        `${process.env.API_URL}/api/v1/schedule/` + scheduleId,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/schedule/` + scheduleId,
         scheduleToUpdate,
         {
           headers: {
@@ -159,7 +159,7 @@ const ServiceDetail = () => {
     const token = sessionStorage.getItem("token");
     try {
       await axios.delete(
-        `${process.env.API_URL}/api/v1/schedule/` + scheduleId,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/schedule/` + scheduleId,
         {
           headers: {
             Authorization: "Bearer " + token,

@@ -16,7 +16,7 @@ const Login = () => {
     try {
       setIsSubmitting(true);
       const response = await axios.post(
-        `${process.env.API_URL}/api/v1/auth/login`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/login`,
         {
           email: email,
           password,

@@ -16,7 +16,7 @@ const UserProfile = () => {
         // Log the token to verify it
         // Fetch user data
         const userResponse = await axios.get(
-          `${process.env.API_URL}/api/v1/user/userInfo`,
+          `${process.env.NEXT_PUBLIC_API_URL}/api/v1/user/userInfo`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -26,7 +26,7 @@ const UserProfile = () => {
 
         try {
           const bookingResponse = await axios.get(
-            `${process.env.API_URL}/api/v1/my-booking`,
+            `${process.env.NEXT_PUBLIC_API_URL}/api/v1/my-booking`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -77,7 +77,7 @@ const UserProfile = () => {
       const token = sessionStorage.getItem("token");
       try {
         const isDriver = await axios.get(
-          `${process.env.API_URL}/api/v1/ifDriver`,
+          `${process.env.NEXT_PUBLIC_API_URL}/api/v1/ifDriver`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

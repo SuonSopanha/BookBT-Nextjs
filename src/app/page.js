@@ -3,17 +3,27 @@
 import Image from "next/image";
 import Counter from "@/components/buttons";
 import ReactStars from "react-rating-stars-component";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 const fetchTopDrivers = async () => {
-  const response = await axios.get(`${process.env.API_URL}/api/v1/top-drivers`);
+  const response = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/v1/top-drivers`
+  );
   const data = response.data;
   return data;
 };
 
-export default async function Home() {
-  const topDrivers = await fetchTopDrivers();
-  console.log(topDrivers);
+export default function Home() {
+  const [topDrivers, setTopDrivers] = useState();
+  useEffect(() => {
+    const fetchData = async () => {
+      const topDriver = await fetchTopDrivers();
+      setTopDrivers(topDriver);
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -753,12 +763,9 @@ export default async function Home() {
           </div>
 
           <div className="mx-auto mt-10 pl-96 pr-2 flex md:pl-48 md:pr-4 flex-row items-center justify-center space-x-4 space-y-4 overflow-scroll bg-white pb-10 md:flex-row md:space-x-20 md:space-y-0">
-            {topDrivers.map((driver) => (
+            {topDrivers?.map((driver) => (
               <div key={driver.id} className="relative flex-shrink-0">
-                <img
-                  src={driver.photoURL}
-                  className="h-80 w-52 object-cover"
-                />
+                <img src={driver.photoURL} className="h-80 w-52 object-cover" />
                 <div className="absolute bottom-0 flex h-20 w-full flex-col justify-center bg-slate-800 pl-2 pt-2 text-left">
                   <div className="flex">
                     <div className="flex -mt-4">

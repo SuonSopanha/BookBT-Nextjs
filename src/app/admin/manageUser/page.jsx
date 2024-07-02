@@ -11,7 +11,7 @@ const RequestTable = () => {
     const fetchUserRequest = async () => {
       try {
         const response = await axios.get(
-          `${process.env.API_URL}/api/v1/all-users`
+          `${process.env.NEXT_PUBLIC_API_URL}/api/v1/all-users`
         );
         const data = response.data;
         setUser(data);

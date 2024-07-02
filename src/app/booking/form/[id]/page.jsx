@@ -97,7 +97,7 @@ const BookingForm = () => {
     console.log(bookingData);
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/booking",
+        `${process.env.API_URL}/api/v1/booking`,
         bookingData,
         {
           headers: {
@@ -118,7 +118,7 @@ const BookingForm = () => {
 
         try {
           const notificationResponse = await axios.post(
-            "http://localhost:8000/api/v1/notification",
+            `${process.env.API_URL}/api/v1/notification`,
             notificationData,
             {
               headers: {

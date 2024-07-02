@@ -7,7 +7,7 @@ import axios from "axios";
 const getServices = async (id) => {
   try {
     const response = await axios.get(
-      "http://localhost:8000/api/v1/service/" + id
+      `${process.env.API_URL}/api/v1/service/` + id
     );
     const data = response.data;
     console.log(data);
@@ -71,7 +71,7 @@ const ServiceDetail = () => {
     const token = sessionStorage.getItem("token");
     try {
       const scheduled = await axios.post(
-        "http://localhost:8000/api/v1/schedule",
+        `${process.env.API_URL}/api/v1/schedule`,
         {
           serviceId: service.id,
           dayOfWeek: newScheduleFormData.dayOfWeek,

@@ -16,7 +16,7 @@ const BusProfile = () => {
   const getDriver = async (id) => {
     try {
       const response = await axios.get(
-        "http://localhost:8000/api/v1/driver/" + id,
+        `${process.env.API_URL}/api/v1/driver/` + id,
         {
           headers: {
             Authorization: "Bearer " + token,
@@ -33,7 +33,7 @@ const BusProfile = () => {
   const getServices = async (id) => {
     try {
       const response = await axios.get(
-        "http://localhost:8000/api/v1/driverService",
+        `${process.env.API_URL}/api/v1/driverService`,
         {
           headers: {
             Authorization: "Bearer " + token,
@@ -50,7 +50,7 @@ const BusProfile = () => {
   const getBooking = async (id) => {
     try {
       const response = await axios.get(
-        "http://localhost:8000/api/v1/driver-booking/" + id,
+        `${process.env.API_URL}/api/v1/driver-booking/` + id,
         {
           headers: {
             Authorization: "Bearer " + token,

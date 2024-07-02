@@ -8,7 +8,7 @@ import LineChart from "@/components/Chart/lineChart";
 const getStatistics = async () => {
   try {
     const response = await axios.get(
-      "http://localhost:8000/api/v1/getStatistics"
+      `${process.env.API_URL}/api/v1/getStatistics`
     );
     const data = response.data;
     console.log(data);
@@ -34,7 +34,7 @@ const AdminDashboard = () => {
         // Log the token to verify it
         // Fetch user data
         const userResponse = await axios.get(
-          "http://localhost:8000/api/v1/user/userInfo",
+          `${process.env.API_URL}/api/v1/user/userInfo`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

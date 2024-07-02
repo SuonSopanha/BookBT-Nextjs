@@ -25,7 +25,7 @@ const Signup = () => {
     try {
       setIsSubmitting(true); // Set isSubmitting to true when form is submitted
   
-      const response = await axios.post('http://localhost:8000/api/v1/auth/signup', {
+      const response = await axios.post(`${process.env.API_URL}/api/v1/auth/signup`, {
         fullname: name,
         email,
         password,

@@ -6,7 +6,7 @@ import ReactStars from "react-rating-stars-component";
 import axios from "axios";
 
 const fetchTopDrivers = async () => {
-  const response = await axios.get("http://localhost:8000/api/v1/top-drivers");
+  const response = await axios.get(`${process.env.API_URL}/api/v1/top-drivers`);
   const data = response.data;
   return data;
 };

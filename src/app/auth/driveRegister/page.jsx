@@ -73,7 +73,7 @@ const DriveRegister = () => {
 
     try {
       
-      const response = await axios.post("http://localhost:8000/api/v1/driver", profileData,{
+      const response = await axios.post(`${process.env.API_URL}/api/v1/driver`, profileData,{
         headers: {
           Authorization: "Bearer " + token 
         },

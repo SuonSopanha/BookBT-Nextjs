@@ -7,7 +7,7 @@ import axios from "axios";
 const getRecipt = async (id) => {
   try {
     const response = await axios.get(
-      "http://localhost:8000/api/v1/recipt/" + id
+      `${process.env.API_URL}/api/v1/recipt/` + id
     );
     const data = response.data;
     console.log(data);
@@ -39,7 +39,7 @@ const BookingReciept = () => {
   const handleCancel = async () => {
     try {
       const response = await axios.put(
-        "http://localhost:8000/api/v1/booking-status/" + id,
+        `${process.env.API_URL}/api/v1/booking-status/` + id,
         { bookingStatus: "canceled" },
         {
           headers: {
@@ -50,7 +50,7 @@ const BookingReciept = () => {
       if (response.data.message === "Booking updated successfully") {
         try {
           const notification = await axios.post(
-            "http://localhost:8000/api/v1/notification",
+            `${process.env.API_URL}/api/v1/notification`,
             {
               driverId: reciept.driverId,
               bookingId: id,

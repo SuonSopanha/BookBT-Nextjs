@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import axios from "axios";
 
-const fetchDriver = async (id) =>{
+const fetchDriver = async (id) => {
   try {
     const response = await axios.get(
       `${process.env.NEXT_PUBLIC_API_URL}/api/v1/driver-details/` + id
@@ -14,31 +14,25 @@ const fetchDriver = async (id) =>{
     return data;
   } catch (error) {
     console.error(error);
-    return []
+    return [];
   }
-}
-
-
-
+};
 
 const ProfileOverview = () => {
-
   const { id } = useParams();
   console.log(id);
 
-  const [Driver,setDriver] = useState({});
+  const [Driver, setDriver] = useState({});
   const token = sessionStorage.getItem("token");
 
   useEffect(() => {
-    const fetchedDriver = async() => {
+    const fetchedDriver = async () => {
       const data = await fetchDriver(id);
       setDriver(data);
-    }
+    };
 
     fetchedDriver();
-
-  },[])
-
+  }, []);
 
   const handleApproved = async (id) => {
     try {
@@ -47,13 +41,13 @@ const ProfileOverview = () => {
       );
       console.log(response.data);
       if (response.data.message === "Driver updated successfully") {
-        window.location.href = '/admin/reqeustTable'
+        window.location.href = "/admin/reqeustTable";
       }
     } catch (error) {
       console.log(error);
     }
   };
-  
+
   const handleDecline = async (id) => {
     try {
       console.log("Token:", token); // Log the token to verify it
@@ -67,24 +61,24 @@ const ProfileOverview = () => {
       );
       console.log(response.data);
       if (response.data.message === "Driver deleted successfully") {
-        window.location.href = '/admin/reqeustTable'
+        window.location.href = "/admin/reqeustTable";
       }
     } catch (error) {
       console.log("Error:", error.response); // Log the error response
     }
   };
 
-  const {driver,service,schedule,pricing} = Driver;
+  const { driver, service, schedule, pricing } = Driver;
 
-  if(!Driver){
-    <h1>Loading...</h1>
+  if (!Driver) {
+    <h1>Loading...</h1>;
   }
   return (
     <div>
       <main className="flex h-full overflow-hidden pt-16">
         <div className="flex-grow p-4 ">
           <div className="relative w-full mx-auto mt-6">
-          <div className="relative flex flex-col flex-auto min-w-0 p-4 mx-6 mb-4 overflow-hidden break-words bg-white border-0 dark:bg-slate-850 dark:shadow-dark-xl shadow-3xl rounded-2xl bg-clip-border">
+            <div className="relative flex flex-col flex-auto min-w-0 p-4 mx-6 mb-4 overflow-hidden break-words bg-white border-0 dark:bg-slate-850 dark:shadow-dark-xl shadow-3xl rounded-2xl bg-clip-border">
               <div className="flex flex-wrap -mx-3">
                 <div className="flex-none w-auto max-w-full px-3">
                   <div className="relative inline-flex items-center justify-center text-white transition-all duration-200 ease-in-out text-base h-19 w-19 rounded-xl">
@@ -135,7 +129,15 @@ const ProfileOverview = () => {
                 </a>
 
                 <a
-                  href="#"
+                  href="/admin/Booking"
+                  aria-current="false"
+                  class="w-full flex items-center gap-x-2 justify-center font-medium rounded-r px-5 py-2 border bg-white text-gray-800 border-gray-200 hover:bg-gray-100"
+                >
+                  Booking
+                </a>
+
+                <a
+                  href="/admin/Report"
                   aria-current="false"
                   class="w-full flex items-center gap-x-2 justify-center font-medium rounded-r px-5 py-2 border bg-white text-gray-800 border-gray-200 hover:bg-gray-100"
                 >
@@ -210,7 +212,7 @@ const ProfileOverview = () => {
                             Date of Birth
                           </label>
                           <span className="text-gray-700 block w-full bg-white px-3 py-2 rounded-lg border border-solid border-gray-300">
-                            {driver?.dateOfBirth.slice(0,10)}
+                            {driver?.dateOfBirth.slice(0, 10)}
                           </span>
                         </div>
                       </div>
@@ -311,7 +313,7 @@ const ProfileOverview = () => {
                             Base Fare
                           </label>
                           <span className="text-gray-700 block w-full bg-white px-3 py-2 rounded-lg border border-solid border-gray-300">
-                            {pricing?.baseFare } {pricing?.currencyType}
+                            {pricing?.baseFare} {pricing?.currencyType}
                           </span>
                         </div>
                       </div>
@@ -324,7 +326,7 @@ const ProfileOverview = () => {
                             Additional Charge
                           </label>
                           <span className="text-gray-700 block w-full bg-white px-3 py-2 rounded-lg border border-solid border-gray-300">
-                          {pricing?.additionalCharge } {pricing?.currencyType}
+                            {pricing?.additionalCharge} {pricing?.currencyType}
                           </span>
                         </div>
                       </div>
@@ -337,7 +339,7 @@ const ProfileOverview = () => {
                             Solo Charge
                           </label>
                           <span className="text-gray-700 block w-full bg-white px-3 py-2 rounded-lg border border-solid border-gray-300">
-                          {pricing?.soloCharge } {pricing?.currencyType}
+                            {pricing?.soloCharge} {pricing?.currencyType}
                           </span>
                         </div>
                       </div>
@@ -351,7 +353,7 @@ const ProfileOverview = () => {
                             Pricing Description
                           </label>
                           <span className="text-gray-700 block w-full bg-white px-3 py-2 rounded-lg border border-solid border-gray-300">
-                           {pricing?.description}
+                            {pricing?.description}
                           </span>
                         </div>
                       </div>
@@ -421,13 +423,17 @@ const ProfileOverview = () => {
                             <span className="leading-normal text-sm opacity-80">
                               Vehicle Type
                             </span>
-                            <span className="font-bold text-lg">{service?.vehicleType}</span>
+                            <span className="font-bold text-lg">
+                              {service?.vehicleType}
+                            </span>
                           </div>
                           <div className="flex text-center items-center justify-between space-x-5">
                             <span className="leading-normal text-sm opacity-80">
                               Seats
                             </span>
-                            <span className="font-bold text-lg">{service?.maxSeat}</span>
+                            <span className="font-bold text-lg">
+                              {service?.maxSeat}
+                            </span>
                           </div>
                         </div>
                       </div>

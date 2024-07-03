@@ -7,6 +7,16 @@ const Header = () => {
   const [open, setOpen] = useState(false);
   const [language, setLanguage] = useState("EN");
   const [notiDrop, setNotiDrop] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+
+    if (token) {
+      setIsLogin(true);
+      console.log(token);
+    }
+  }, []);
 
   const toggleMenu = () => {
     console.log("clicked");
@@ -20,6 +30,15 @@ const Header = () => {
   const handleNotification = () => {
     // window.location.href = "/user/notificationList";
     setNotiDrop(!notiDrop);
+  };
+
+  const handleLogout = () => {
+    if (isLogin) {
+      sessionStorage.removeItem("token");
+      window.location.href = "/auth/login";
+    } else {
+      window.location.href = "/auth/login";
+    }
   };
 
   return (
@@ -215,8 +234,11 @@ const Header = () => {
                   )}
                 </button>
 
-                <button className="px-4 py-2  border-2  border-orange-400 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-orange-400 focus:text-orange-400 hover:bg-gray-100 focus:bg-gray-100 focus:outline-bgray-100 focus:shadow-outline">
-                  <a href="/auth/login">Login</a>
+                <button
+                  onClick={handleLogout}
+                  className="px-4 py-2  border-2  border-orange-400 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-orange-400 focus:text-orange-400 hover:bg-gray-100 focus:bg-gray-100 focus:outline-bgray-100 focus:shadow-outline"
+                >
+                  <a href="/auth/login">{isLogin ? "Logout" : "login"}</a>
                 </button>
               </div>
             </div>

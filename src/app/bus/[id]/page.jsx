@@ -41,6 +41,10 @@ const BusDetail = () => {
   const [rating, setRating] = useState(0);
   const [userRating, setUserRating] = useState([]);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [reportType, setReportType] = useState("");
+  const [reportContent, setReportContent] = useState("");
+
   console.log(id);
   useEffect(() => {
     const fetchServiceDetail = async () => {
@@ -56,6 +60,20 @@ const BusDetail = () => {
   if (!serviceDetail) {
     return <div>Loading...</div>;
   }
+
+  const handleReport = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleSubmitReport = () => {
+    // Handle the report submission logic here
+    console.log({ reportType, reportContent });
+    setIsModalOpen(false);
+  };
 
   const handleRateDriver = async () => {
     const token = sessionStorage.getItem("token");
@@ -231,16 +249,84 @@ const BusDetail = () => {
                   ))}
                 </div>
 
-                <div className="pt-4 px-4">
-                  <Link
-                    href="#"
-                    className="text-yellow-600 font-medium hover:underline"
+                <div className="flex justify-between mx-2">
+                  <div className="pt-4 px-4">
+                    <Link
+                      href="#"
+                      className="text-yellow-600 font-medium hover:underline"
+                    >
+                      See more
+                    </Link>
+                  </div>
+
+                  <button
+                    onClick={handleReport}
+                    className="pt-4 px-4 flex items-center space-x-2"
                   >
-                    See more
-                  </Link>
+                    <img
+                      width="16"
+                      height="16"
+                      src="https://img.icons8.com/material-outlined/24/FA5252/disclaimer.png"
+                      alt="report-icon"
+                    />
+                    <div className="text-red-600 font-medium hover:underline">
+                      Report
+                    </div>
+                  </button>
                 </div>
               </div>
             </div>
+
+            {isModalOpen && (
+              <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+                  <h2 className="text-xl font-bold mb-4 text-gray-800">
+                    Report Driver
+                  </h2>
+                  <label className="block mb-2 font-medium text-gray-700">
+                    Report Type
+                  </label>
+                  <select
+                    value={reportType}
+                    onChange={(e) => setReportType(e.target.value)}
+                    className="w-full p-2 mb-4 border border-zinc-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                  >
+                    <option value="">Select report type</option>
+                    <option value="price">Price</option>
+                    <option value="hygiene">Hygiene</option>
+                    <option value="convenience">Convenience</option>
+                    <option value="driver_behavior">Driver Behavior</option>
+                    <option value="vehicle_condition">Vehicle Condition</option>
+                    <option value="safety">Safety</option>
+                    <option value="service_quality">Service Quality</option>
+                    <option value="other">Other</option>
+                  </select>
+                  <label className="block mb-2 font-medium text-gray-700">
+                    Report Content
+                  </label>
+                  <textarea
+                    value={reportContent}
+                    onChange={(e) => setReportContent(e.target.value)}
+                    className="w-full p-2 mb-4 border border-zinc-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                    rows="4"
+                  ></textarea>
+                  <div className="flex justify-end space-x-4">
+                    <button
+                      onClick={handleCloseModal}
+                      className="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={handleSubmitReport}
+                      className="px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
 
             <div className="relative w-full sm:w-1/2 rounded-lg bg-white shadow-md">
               <div className="p-6">
@@ -398,7 +484,6 @@ const BusDetail = () => {
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>

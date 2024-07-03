@@ -4,7 +4,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 
-const RequestTable = () => {
+const BookingTable = () => {
   const [User, setUser] = useState([]);
 
   useEffect(() => {
@@ -79,7 +79,6 @@ const RequestTable = () => {
                 >
                   User
                 </a>
-
                 <a
                   href="/admin/Booking"
                   aria-current="false"
@@ -112,13 +111,19 @@ const RequestTable = () => {
                               User
                             </th>
                             <th className="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 text-xxs border-b-solid tracking-none whitespace-nowrap  opacity-70">
-                              Address
+                              Driver
                             </th>
                             <th className="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 text-xxs border-b-solid tracking-none whitespace-nowrap  opacity-70">
-                              Phone
+                              Service
                             </th>
                             <th className="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 text-xxs border-b-solid tracking-none whitespace-nowrap  opacity-70">
-                              Register At
+                              Cost
+                            </th>
+                            <th className="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 text-xxs border-b-solid tracking-none whitespace-nowrap  opacity-70">
+                              Status
+                            </th>
+                            <th className="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 text-xxs border-b-solid tracking-none whitespace-nowrap  opacity-70">
+                              RideDate
                             </th>
                             <th className="px-6 py-3 font-semibold capitalize align-middle bg-transparent border-b border-collapse border-solid shadow-none dark:border-white/40 tracking-none whitespace-nowrap  opacity-70">
                               Action
@@ -131,7 +136,7 @@ const RequestTable = () => {
                               <td className="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                                 <div className="flex px-2 py-1">
                                   <div>
-                                    <image
+                                    <img
                                       src={User.photoURL}
                                       className="inline-flex items-center justify-center mr-4 text-sm text-white transition-all duration-200 ease-in-out h-9 w-9 rounded-xl"
                                       alt="user1"
@@ -144,13 +149,32 @@ const RequestTable = () => {
                                         {User.fullName}
                                       </a>
                                     </h6>
-                                    <p className="mb-0 text-xs leading-tight dark:opacity-80 ">
-                                      {User.email}
-                                    </p>
                                   </div>
                                 </div>
                               </td>
                               <td className="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                                <div className="flex px-2 py-1">
+                                  <div>
+                                    <img
+                                      src={User.photoURL}
+                                      className="inline-flex items-center justify-center mr-4 text-sm text-white transition-all duration-200 ease-in-out h-9 w-9 rounded-xl"
+                                      alt="user1"
+                                    />
+                                  </div>
+                                  <div className="flex flex-col justify-center">
+                                    <h6 className="mb-0 text-sm leading-normal">
+                                      {" "}
+                                      <a href="adminTaxiProfileVeiw.html">
+                                        {User.fullName}
+                                      </a>
+                                    </h6>
+                                  </div>
+                                </div>
+                              </td>
+                              <td className="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
+                                <p className="mb-0 text-xs font-semibold leading-tight dark:opacity-80">
+                                  {User.address}
+                                </p>
                                 <p className="mb-0 text-xs font-semibold leading-tight dark:opacity-80">
                                   {User.address}
                                 </p>
@@ -160,25 +184,25 @@ const RequestTable = () => {
                                   {User.phoneNumber}
                                 </p>
                               </td>
+                              <td className="p-1 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent text-center space-x-5">
+                                <div className="text-xs font-semibold leading-tight dark:opacity-80 text-white bg-green-500 rounded-lg py-1 px-2 mx-4">
+                                  {" "}
+                                  Confirm{" "}
+                                </div>
+                              </td>
                               <td className="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                                 <span className="text-xs font-semibold leading-tight dark:opacity-80 ">
                                   {User.createdAt.slice(0, 10)}
                                 </span>
                               </td>
+
                               <td className="p-1 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent text-center space-x-5">
                                 <a
                                   href="javascript:;"
-                                  className="text-xs font-semibold leading-tight dark:opacity-80 text-white bg-red-500 py-2 px-4"
+                                  className="text-xs font-semibold leading-tight dark:opacity-80 text-white bg-blue-500 hover:bg-blue-700 py-2 px-4"
                                 >
                                   {" "}
-                                  Suspend{" "}
-                                </a>
-                                <a
-                                  href="javascript:;"
-                                  className="text-xs font-semibold leading-tight dark:opacity-80 text-white bg-red-700 py-2 px-4"
-                                >
-                                  {" "}
-                                  Ban{" "}
+                                  Veiw Reciept{" "}
                                 </a>
                               </td>
                             </tr>
@@ -257,4 +281,4 @@ const RequestTable = () => {
   );
 };
 
-export default RequestTable;
+export default BookingTable;

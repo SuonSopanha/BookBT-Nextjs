@@ -4,7 +4,6 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import LineChart from "@/components/Chart/lineChart";
 
-
 const getStatistics = async () => {
   try {
     const response = await axios.get(
@@ -23,13 +22,12 @@ const AdminDashboard = () => {
   const [user, setUser] = useState({});
   const [statistic, setStatistic] = useState({});
   const [chartData, setChartData] = useState({ months: [], counts: [] });
-  const [loading,setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
-  
   useEffect(() => {
     const fetchUser = async () => {
       setLoading(true);
-      const token = sessionStorage.getItem('token');
+      const token = sessionStorage.getItem("token");
       try {
         // Log the token to verify it
         // Fetch user data
@@ -47,13 +45,11 @@ const AdminDashboard = () => {
         if (userResponse.data.user.role !== "admin") {
           window.location.href = "/";
         }
-        
-        
+
         setLoading(false);
       } catch (error) {
         console.log(error);
-      } finally{
-
+      } finally {
       }
 
       // Set state with fetched data
@@ -78,11 +74,10 @@ const AdminDashboard = () => {
 
     fetchUser();
     fetchStat();
-
   }, []);
 
-  if(loading){
-      return <dv>Loading...</dv>
+  if (loading) {
+    return <dv>Loading...</dv>;
   }
   return (
     <div>
@@ -140,7 +135,15 @@ const AdminDashboard = () => {
                 </a>
 
                 <a
-                  href="#"
+                  href="/admin/Booking"
+                  aria-current="false"
+                  class="w-full flex items-center gap-x-2 justify-center font-medium rounded-r px-5 py-2 border bg-white text-gray-800 border-gray-200 hover:bg-gray-100"
+                >
+                  Booking
+                </a>
+
+                <a
+                  href="/admin/Report"
                   aria-current="false"
                   class="w-full flex items-center gap-x-2 justify-center font-medium rounded-r px-5 py-2 border bg-white text-gray-800 border-gray-200 hover:bg-gray-100"
                 >
@@ -302,8 +305,6 @@ const AdminDashboard = () => {
                 </div>
               </div>
             </div>
-
-
           </div>
         </div>
       </main>

@@ -2,15 +2,21 @@
 
 import axios from "axios";
 import { useState, useEffect } from "react";
-import Image from 'next/image';
+import Image from "next/image";
 
 const RequestTable = () => {
   const [Driver, setDriver] = useState([]);
+  const [isSuspendModalOpen, setIsSuspendModalOpen] = useState(false);
+  const [suspendReason, setSuspendReason] = useState("");
+  const [suspendDuration, setSuspendDuration] = useState("");
+  const [supendDriverID, setsupendDriverID] = useState("");
 
   useEffect(() => {
     const fetchDriverRequest = async () => {
       try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/driver`);
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/v1/driver`
+        );
         const data = response.data;
         setDriver(data);
       } catch (error) {
@@ -23,11 +29,22 @@ const RequestTable = () => {
 
   const handleView = (id) => {
     window.location.href = "/admin/profileOverview/" + id;
-  }
+  };
 
   const handleSuspend = (id) => {
-    
-  }
+    setsupendDriverID(id);
+    setIsSuspendModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsSuspendModalOpen(false);
+  };
+
+  const handleSubmitReport = () => {
+    // Handle the report submission logic here
+    console.log({ suspendReason, suspendDuration });
+    setIsSuspendModalOpen(false);
+  };
 
   return (
     <div>
@@ -38,7 +55,7 @@ const RequestTable = () => {
               <div className="flex flex-wrap -mx-3">
                 <div className="flex-none w-auto max-w-full px-3">
                   <div className="relative inline-flex items-center justify-center text-white transition-all duration-200 ease-in-out text-base h-19 w-19 rounded-xl">
-                    <Image
+                    <img
                       src="https://img.freepik.com/free-psd/3d-icon-social-media-app_23-2150049569.jpg?size=626&ext=jpg&ga=GA1.1.48835190.1718728664&semt=ais_user"
                       alt="profile_image"
                       className="w-16 h-16 shadow-2xl rounded-xl"
@@ -85,7 +102,15 @@ const RequestTable = () => {
                 </a>
 
                 <a
-                  href="#"
+                  href="/admin/Booking"
+                  aria-current="false"
+                  class="w-full flex items-center gap-x-2 justify-center font-medium rounded-r px-5 py-2 border bg-white text-gray-800 border-gray-200 hover:bg-gray-100"
+                >
+                  Booking
+                </a>
+
+                <a
+                  href="/admin/Report"
                   aria-current="false"
                   class="w-full flex items-center gap-x-2 justify-center font-medium rounded-r px-5 py-2 border bg-white text-gray-800 border-gray-200 hover:bg-gray-100"
                 >
@@ -127,7 +152,7 @@ const RequestTable = () => {
                               <td className="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                                 <div className="flex px-2 py-1">
                                   <div>
-                                    <Image
+                                    <image
                                       src={Driver.photoURL}
                                       className="inline-flex items-center justify-center mr-4 text-sm text-white transition-all duration-200 ease-in-out h-9 w-9 rounded-xl"
                                       alt="user1"
@@ -164,14 +189,14 @@ const RequestTable = () => {
                               <td className="p-1 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent text-center space-x-5">
                                 <button
                                   onClick={() => handleView(Driver.id)}
-                                  className="text-xs font-semibold leading-tight dark:opacity-80 text-white bg-blue-500 py-2 px-4"
+                                  className="text-xs font-semibold leading-tight dark:opacity-80 text-white bg-blue-500 hover:bg-blue-700 py-2 px-4"
                                 >
                                   {" "}
                                   View{" "}
                                 </button>
                                 <button
-
-                                  className="text-xs font-semibold leading-tight dark:opacity-80 text-white bg-red-500 py-2 px-4"
+                                  onClick={() => handleSuspend(Driver.id)}
+                                  className="text-xs font-semibold leading-tight dark:opacity-80 text-white bg-red-500 hover:bg-red-700 py-2 px-4"
                                 >
                                   {" "}
                                   Suspend{" "}
@@ -186,6 +211,54 @@ const RequestTable = () => {
                 </div>
               </div>
             </div>
+
+            {isSuspendModalOpen && (
+              <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+                  <h2 className="text-xl font-bold mb-4 text-gray-800">
+                    Suspend Driver #{supendDriverID}
+                  </h2>
+                  <label className="block mb-2 font-medium text-gray-700">
+                    Suspend Duration
+                  </label>
+                  <select
+                    value={suspendDuration}
+                    onChange={(e) => setSuspendDuration(e.target.value)}
+                    className="w-full p-2 mb-4 border border-zinc-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                  >
+                    <option value="">Select Suspend Duration</option>
+                    <option value="1">24 Hours</option>
+                    <option value="3">3 Days</option>
+                    <option value="7">7 Days</option>
+                    <option value="30">Permanent</option>
+  
+                  </select>
+                  <label className="block mb-2 font-medium text-gray-700">
+                    Suspend Reason
+                  </label>
+                  <textarea
+                    value={suspendReason}
+                    onChange={(e) => setSuspendReason(e.target.value)}
+                    className="w-full p-2 mb-4 border border-zinc-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                    rows="4"
+                  ></textarea>
+                  <div className="flex justify-end space-x-4">
+                    <button
+                      onClick={handleCloseModal}
+                      className="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={handleSubmitReport}
+                      className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                    >
+                      Suspend
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
 
             <footer className="pt-4">
               <div className="w-full px-6 mx-auto">

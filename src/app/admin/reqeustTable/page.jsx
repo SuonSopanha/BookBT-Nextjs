@@ -6,7 +6,6 @@ import { useState, useEffect } from "react";
 const RequestTable = () => {
   const [Driver, setDriver] = useState([]);
 
-
   useEffect(() => {
     const fetchDriverRequest = async () => {
       try {
@@ -116,7 +115,15 @@ const RequestTable = () => {
                 </a>
 
                 <a
-                  href="#"
+                  href="/admin/Booking"
+                  aria-current="false"
+                  class="w-full flex items-center gap-x-2 justify-center font-medium rounded-r px-5 py-2 border bg-white text-gray-800 border-gray-200 hover:bg-gray-100"
+                >
+                  Booking
+                </a>
+
+                <a
+                  href="/admin/Report"
                   aria-current="false"
                   class="w-full flex items-center gap-x-2 justify-center font-medium rounded-r px-5 py-2 border bg-white text-gray-800 border-gray-200 hover:bg-gray-100"
                 >
@@ -167,7 +174,9 @@ const RequestTable = () => {
                                   <div className="flex flex-col justify-center">
                                     <h6 className="mb-0 text-sm leading-normal">
                                       {" "}
-                                      <a href={`/admin/profileOverview/${Driver.id}`}>
+                                      <a
+                                        href={`/admin/profileOverview/${Driver.id}`}
+                                      >
                                         {Driver.firstName} {Driver.lastName}
                                       </a>
                                     </h6>

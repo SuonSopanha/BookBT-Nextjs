@@ -4,7 +4,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 
-const RequestTable = () => {
+const ReportTable = () => {
   const [User, setUser] = useState([]);
 
   useEffect(() => {
@@ -87,7 +87,6 @@ const RequestTable = () => {
                 >
                   Booking
                 </a>
-
                 <a
                   href="/admin/Report"
                   aria-current="false"
@@ -109,16 +108,16 @@ const RequestTable = () => {
                         <thead className="align-bottom">
                           <tr>
                             <th className="px-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 text-xxs border-b-solid tracking-none whitespace-nowrap  opacity-70">
-                              User
+                              Driver
                             </th>
                             <th className="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 text-xxs border-b-solid tracking-none whitespace-nowrap  opacity-70">
-                              Address
+                              Report
                             </th>
                             <th className="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 text-xxs border-b-solid tracking-none whitespace-nowrap  opacity-70">
-                              Phone
+                              Complaint
                             </th>
                             <th className="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-collapse shadow-none dark:border-white/40 text-xxs border-b-solid tracking-none whitespace-nowrap  opacity-70">
-                              Register At
+                              Report-Date
                             </th>
                             <th className="px-6 py-3 font-semibold capitalize align-middle bg-transparent border-b border-collapse border-solid shadow-none dark:border-white/40 tracking-none whitespace-nowrap  opacity-70">
                               Action
@@ -131,7 +130,7 @@ const RequestTable = () => {
                               <td className="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                                 <div className="flex px-2 py-1">
                                   <div>
-                                    <image
+                                    <img
                                       src={User.photoURL}
                                       className="inline-flex items-center justify-center mr-4 text-sm text-white transition-all duration-200 ease-in-out h-9 w-9 rounded-xl"
                                       alt="user1"
@@ -171,14 +170,14 @@ const RequestTable = () => {
                                   className="text-xs font-semibold leading-tight dark:opacity-80 text-white bg-red-500 py-2 px-4"
                                 >
                                   {" "}
-                                  Suspend{" "}
+                                  Suspend Driver{" "}
                                 </a>
                                 <a
                                   href="javascript:;"
-                                  className="text-xs font-semibold leading-tight dark:opacity-80 text-white bg-red-700 py-2 px-4"
+                                  className="text-xs font-semibold leading-tight dark:opacity-80 text-white bg-blue-500 py-2 px-4"
                                 >
                                   {" "}
-                                  Ban{" "}
+                                  Clear{" "}
                                 </a>
                               </td>
                             </tr>
@@ -257,4 +256,4 @@ const RequestTable = () => {
   );
 };
 
-export default RequestTable;
+export default ReportTable;

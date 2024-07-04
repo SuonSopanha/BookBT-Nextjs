@@ -2,12 +2,15 @@
 import { useState, useEffect } from "react";
 import SearchButton from "./searchButton";
 import SearchBar from "../searchBar/searchBar";
+import axios from "axios";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
   const [language, setLanguage] = useState("EN");
   const [notiDrop, setNotiDrop] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
+
+  const [notification, setNotification] = useState([]);
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -16,6 +19,27 @@ const Header = () => {
       setIsLogin(true);
       console.log(token);
     }
+
+    const fetchNoti = async () => {
+      if (token) {
+        try {
+          const response = await axios.get(
+            `${process.env.NEXT_PUBLIC_API_URL}/api/v1/notification/`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          console.log(response.data);
+          setNotification(response.data);
+        } catch (error) {
+          console.error("Error fetching user:", error);
+        }
+      }
+    };
+
+    fetchNoti();
   }, []);
 
   const toggleMenu = () => {
@@ -173,59 +197,45 @@ const Header = () => {
                   </svg>
 
                   {notiDrop && (
-                    <div className="absolute right-0 top-16 bg-white rounded-md shadow-lg overflow-hidden z-20 w-60">
+                    <div className="absolute right-0 top-16 bg-white rounded-md shadow-lg overflow-hidden z-20 w-72">
                       <div className="py-2">
-                        <a
-                          href="#"
-                          className="flex items-center px-4 py-3 border-b hover:bg-gray-100 -mx-2"
-                        >
-                          <svg
-                            className="w-8 h-8 ml-2"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            viewBox="0 0 24 24"
+                        {notification?.slice(0,5).map((notification) => (
+                          <a
+                            key={notification.id}
+                            href={`/booking/request/${notification.bookingId}`}
+                            className="flex items-center px-4 py-3 border-b hover:bg-gray-100 -mx-2"
                           >
-                            <path d="M12 22c1.1 0 2-.9 2-2H10c0 1.1.9 2 2 2zM18.29 17H5.71c-.4 0-.73-.29-.83-.67L4 16.7V8.99c0-3.07 2.13-5.64 5-6.32V2c0-.55.45-1 1-1s1 .45 1 1v.68c2.87.68 5 3.25 5 6.32v7.71l-.88.63c-.1.38-.43.67-.83.67z" />
-                          </svg>
-                          <p className="text-gray-600 text-sm mx-2">
-                            <span className="font-bold" href="#">
-                              Sara Salah
-                            </span>{" "}
-                            replied on the{" "}
-                            <span className="font-bold text-blue-500" href="#">
-                              Upload Image
-                            </span>{" "}
-                            article . 2m
-                          </p>
-                        </a>
-                        <a
-                          href="#"
-                          className="flex items-center px-4 py-3 border-b hover:bg-gray-100 -mx-2"
-                        >
-                          <svg
-                            className="w-8 h-8 ml-2"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            viewBox="0 0 24 24"
-                          >
-                            <path d="M12 22c1.1 0 2-.9 2-2H10c0 1.1.9 2 2 2zM18.29 17H5.71c-.4 0-.73-.29-.83-.67L4 16.7V8.99c0-3.07 2.13-5.64 5-6.32V2c0-.55.45-1 1-1s1 .45 1 1v.68c2.87.68 5 3.25 5 6.32v7.71l-.88.63c-.1.38-.43.67-.83.67z" />
-                          </svg>
-                          <p className="text-gray-600 text-sm mx-2">
-                            <span className="font-bold" href="#">
-                              Slick Net
-                            </span>{" "}
-                            started following you . 45m
-                          </p>
-                        </a>
+                            <svg
+                              className="w-8 h-8 ml-2"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              viewBox="0 0 24 24"
+                            >
+                              <path d="M12 22c1.1 0 2-.9 2-2H10c0 1.1.9 2 2 2zM18.29 17H5.71c-.4 0-.73-.29-.83-.67L4 16.7V8.99c0-3.07 2.13-5.64 5-6.32V2c0-.55.45-1 1-1s1 .45 1 1v.68c2.87.68 5 3.25 5 6.32v7.71l-.88.63c-.1.38-.43.67-.83.67z" />
+                            </svg>
+                            <p className="text-blue-600 text-sm mx-2">
+                              <span className="font-bold" href="#">
+                              {notification.notificationType.replace("_", " ")}
+                              </span>{" "}
+                              <span
+                                className="font-light text-gray-500"
+                                href="#"
+                              >
+                                {notification.notificationMessage}
+                              </span>{" "}
+                              {new Date(
+                              notification.notificationDate
+                            ).toLocaleDateString()}
+                            </p>
+                          </a>
+                        ))}
+
                       </div>
                       <a
-                        href="#"
+                        href="/user/notificationList"
                         className="block bg-gray-800 text-white text-center font-bold py-2"
                       >
                         See all notifications

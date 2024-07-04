@@ -17,11 +17,25 @@ const getStatistics = async () => {
   }
 };
 
+const getHighestBookingDriver = async () => {
+  try {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/v1/highest-booking`
+    );
+    const data = response.data;
+    console.log(data);
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 const AdminDashboard = () => {
   const app_url = process.env.APP_URL;
   const [user, setUser] = useState({});
   const [statistic, setStatistic] = useState({});
   const [chartData, setChartData] = useState({ months: [], counts: [] });
+  const [driver, setDriver] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -72,6 +86,17 @@ const AdminDashboard = () => {
       }
     };
 
+    const fetchHighestBookingDriver = async () => {
+      try {
+        const stat = await getHighestBookingDriver();
+        setDriver(stat);
+        console.log(stat);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchHighestBookingDriver();
     fetchUser();
     fetchStat();
   }, []);
@@ -269,39 +294,33 @@ const AdminDashboard = () => {
               </div>
 
               <div class="w-full max-w-full px-3 lg:w-4/12 lg:flex-none ml-12">
-                <div
-                  slider
-                  class="relative w-full h-full overflow-hidden rounded-2xl"
-                >
-                  <div
-                    slide
-                    class="absolute w-full h-full transition-all duration-500"
-                  >
-                    <img
-                      class="object-cover h-full"
-                      src="https://img.freepik.com/free-vector/urban-bus-bus-stop-with-flat-design_23-2147832442.jpg"
-                      alt="carousel image"
-                    />
-                    <div class="block text-start ml-12 left-0 bottom-0 absolute right-[15%] pt-5 pb-5">
-                      <div class="inline-block w-8 h-8 mb-4 text-center text-black bg-white bg-center rounded-lg fill-current stroke-none">
-                        <i class="top-0.75 text-xxs relative text-slate-700 ni ni-camera-compact"></i>
-                      </div>
-                      <h5 class="mb-1 text-white">Get started with Argon</h5>
-                      <p class="dark:opacity-80 text-white">
-                        There’s nothing I really wanted to do in life that I
-                        wasn’t able to get good at.
-                      </p>
-                    </div>
+                <div class="bg-white shadow-md rounded-md overflow-hidden max-w-lg mx-auto mt-4">
+                  <div class="bg-gray-100 py-2 px-4">
+                    <h2 class="text-xl font-semibold text-gray-800">
+                      Top Driver
+                    </h2>
                   </div>
+                  <ul class="divide-y divide-gray-200">
+                    {driver.map((driver, index) => (
+                      <li key={driver.id} class="flex items-center py-4 px-6">
+                        <span class="text-gray-700 text-lg font-medium mr-4">
+                          {index + 1}.
+                        </span>
+                        <img
+                          class="w-12 h-12 rounded-full object-cover mr-4"
+                          src={driver.photoURL}
+                          alt="User avatar"
+                        />
+                        <div class="flex-1">
+                          <h3 class="text-lg font-medium text-gray-800">
+                            {driver.firstName} {driver.lastName}
+                          </h3>
+                          <p class="text-gray-600 text-base">{driver.bookingCount} bookings</p>
+                        </div>
+                      </li>
+                    ))}
 
-                  <button
-                    btn-next
-                    class="absolute z-10 w-10 h-10 p-2 text-lg text-white border-none opacity-50 cursor-pointer hover:opacity-100 far fa-chevron-right active:scale-110 top-6 right-4"
-                  ></button>
-                  <button
-                    btn-prev
-                    class="absolute z-10 w-10 h-10 p-2 text-lg text-white border-none opacity-50 cursor-pointer hover:opacity-100 far fa-chevron-left active:scale-110 top-6 right-16"
-                  ></button>
+                  </ul>
                 </div>
               </div>
             </div>

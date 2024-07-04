@@ -5,25 +5,31 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 
 const ReportTable = () => {
-  const [User, setUser] = useState([]);
+  const [Report, setReport] = useState([]);
 
   useEffect(() => {
-    const fetchUserRequest = async () => {
+    const token = sessionStorage.getItem("token");
+    const fetchReportRequest = async () => {
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/v1/all-users`
+          `${process.env.NEXT_PUBLIC_API_URL}/api/v1/report`,
+          {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          }
         );
         const data = response.data;
-        setUser(data);
+        setReport(data);
       } catch (error) {
         console.log(error);
       }
     };
 
-    fetchUserRequest();
+    fetchReportRequest();
   }, []);
 
-  console.log(User);
+  console.log(Report);
 
   return (
     <div>
@@ -100,7 +106,7 @@ const ReportTable = () => {
               <div className="flex-none w-full max-w-full px-3">
                 <div className="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
                   <div className="p-6 pb-0 mb-0 border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
-                    <h6 class>User</h6>
+                    <h1 class>Report</h1>
                   </div>
                   <div className="flex-auto px-0 pt-0 pb-2">
                     <div className="p-0 overflow-x-auto">
@@ -125,43 +131,43 @@ const ReportTable = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          {User.map((User) => (
-                            <tr key={User.id}>
+                          {Report.map((report) => (
+                            <tr key={report.id}>
                               <td className="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                                 <div className="flex px-2 py-1">
                                   <div>
                                     <img
-                                      src={User.photoURL}
+                                      src={report.driver.photoURL}
                                       className="inline-flex items-center justify-center mr-4 text-sm text-white transition-all duration-200 ease-in-out h-9 w-9 rounded-xl"
-                                      alt="user1"
+                                      alt="report1"
                                     />
                                   </div>
                                   <div className="flex flex-col justify-center">
                                     <h6 className="mb-0 text-sm leading-normal">
                                       {" "}
                                       <a href="adminTaxiProfileVeiw.html">
-                                        {User.fullName}
+                                        {report.driver.fistName} {report.driver.lastName}
                                       </a>
                                     </h6>
                                     <p className="mb-0 text-xs leading-tight dark:opacity-80 ">
-                                      {User.email}
+                                      {report.driver.email}
                                     </p>
                                   </div>
                                 </div>
                               </td>
                               <td className="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                                 <p className="mb-0 text-xs font-semibold leading-tight dark:opacity-80">
-                                  {User.address}
+                                  {report.reportType}
                                 </p>
                               </td>
                               <td className="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                                 <p className="mb-0 text-xs font-semibold leading-tight dark:opacity-80">
-                                  {User.phoneNumber}
+                                  {report.reportContent}
                                 </p>
                               </td>
                               <td className="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                                 <span className="text-xs font-semibold leading-tight dark:opacity-80 ">
-                                  {User.createdAt.slice(0, 10)}
+                                  {report.createdAt.slice(0, 10)}
                                 </span>
                               </td>
                               <td className="p-1 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent text-center space-x-5">

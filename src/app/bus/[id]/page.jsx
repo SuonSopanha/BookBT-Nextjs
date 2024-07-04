@@ -6,6 +6,8 @@ import Link from "next/link";
 import ReactStars from "react-rating-stars-component";
 import axios from "axios";
 
+import Toast from "@/components/toast/toast";
+
 const getServices = async (id) => {
   try {
     const response = await axios.get(
@@ -45,6 +47,16 @@ const BusDetail = () => {
   const [reportType, setReportType] = useState("");
   const [reportContent, setReportContent] = useState("");
 
+  const [toast, setToast] = useState(null);
+
+  const showToast = (status, message) => {
+    setToast({ status, message });
+  };
+
+  const closeToast = () => {
+    setToast(null);
+  };
+
   console.log(id);
   useEffect(() => {
     const fetchServiceDetail = async () => {
@@ -69,10 +81,41 @@ const BusDetail = () => {
     setIsModalOpen(false);
   };
 
-  const handleSubmitReport = () => {
-    // Handle the report submission logic here
-    console.log({ reportType, reportContent });
-    setIsModalOpen(false);
+  const handleSubmitReport = async () => {
+    const token = sessionStorage.getItem("token");
+
+    const reportData = {
+      DriverId: driver.id,
+      reportType,
+      reportContent,
+      reportDate: new Date(Date.now()),
+    };
+
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/report`,
+        reportData,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+
+      console.log(response);
+
+      if (response.data.message === "Report created successfully") {
+        showToast("success", response.data.message);
+        setIsModalOpen(false);
+      } else {
+        showToast("error", response.data.error);
+        setIsModalOpen(false);
+      }
+    } catch (e) {
+      console.log(e);
+      showToast("error","An error occurred");
+      setIsModalOpen(false);
+    }
   };
 
   const handleRateDriver = async () => {
@@ -483,6 +526,16 @@ const BusDetail = () => {
                 </div>
               </div>
             </div>
+
+            {toast && (
+              <div className="fixed bottom-4 right-4">
+                <Toast
+                  status={toast.status}
+                  message={toast.message}
+                  onClose={closeToast}
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>

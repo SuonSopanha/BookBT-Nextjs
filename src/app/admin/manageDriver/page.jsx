@@ -3,6 +3,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Toast from "@/components/toast/toast";
 
 const RequestTable = () => {
   const [Driver, setDriver] = useState([]);
@@ -11,6 +12,16 @@ const RequestTable = () => {
   const [suspendDuration, setSuspendDuration] = useState("");
   const [supendDriverID, setsupendDriverID] = useState("");
 
+  const [toast, setToast] = useState(null);
+
+  const showToast = (status, message) => {
+    setToast({ status, message });
+  };
+
+  const closeToast = () => {
+    setToast(null);
+  };
+
   useEffect(() => {
     const fetchDriverRequest = async () => {
       try {
@@ -18,6 +29,7 @@ const RequestTable = () => {
           `${process.env.NEXT_PUBLIC_API_URL}/api/v1/driver`
         );
         const data = response.data;
+        console.log(data);
         setDriver(data);
       } catch (error) {
         console.log(error);
@@ -40,10 +52,41 @@ const RequestTable = () => {
     setIsSuspendModalOpen(false);
   };
 
-  const handleSubmitReport = () => {
+  const handleSubmitReport = async () => {
     // Handle the report submission logic here
-    console.log({ suspendReason, suspendDuration });
-    setIsSuspendModalOpen(false);
+    const token = sessionStorage.getItem("token");
+
+    const reportData = {
+      DriverId: supendDriverID,
+      reason: suspendReason,
+      duration: suspendDuration,
+    };
+
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/suspend-driver/${supendDriverID}`,
+        reportData,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+
+      console.log(response);
+
+      if (response.data.message === "Driver suspended successfully") {
+        showToast("success", response.data.message);
+        setIsSuspendModalOpen(false);
+      } else {
+        showToast("error", response.data.error);
+        setIsSuspendModalOpen(false);
+      }
+    } catch (e) {
+      console.log(e);
+      showToast("error", "An error occurred");
+      setIsSuspendModalOpen(false);
+    }
   };
 
   return (
@@ -194,13 +237,23 @@ const RequestTable = () => {
                                   {" "}
                                   View{" "}
                                 </button>
-                                <button
-                                  onClick={() => handleSuspend(Driver.id)}
-                                  className="text-xs font-semibold leading-tight dark:opacity-80 text-white bg-red-500 hover:bg-red-700 py-2 px-4"
-                                >
-                                  {" "}
-                                  Suspend{" "}
-                                </button>
+                                {Driver.isSuspended === false ? (
+                                  <button
+                                    onClick={() => handleSuspend(Driver.id)}
+                                    className="text-xs font-semibold leading-tight dark:opacity-80 text-white bg-red-500 hover:bg-red-700 py-2 px-4"
+                                  >
+                                    {" "}
+                                    Suspend{" "}
+                                  </button>
+                                ) : (
+                                  <button
+                                    onClick={() => handleSuspend(Driver.id)}
+                                    className="text-xs font-semibold leading-tight dark:opacity-80 text-white bg-green-500 hover:bg-green-700 py-2 px-4"
+                                  >
+                                    {" "}
+                                    Unsuspend{" "}
+                                  </button>
+                                )}
                               </td>
                             </tr>
                           ))}
@@ -231,7 +284,6 @@ const RequestTable = () => {
                     <option value="3">3 Days</option>
                     <option value="7">7 Days</option>
                     <option value="30">Permanent</option>
-  
                   </select>
                   <label className="block mb-2 font-medium text-gray-700">
                     Suspend Reason
@@ -249,6 +301,7 @@ const RequestTable = () => {
                     >
                       Cancel
                     </button>
+                    {}
                     <button
                       onClick={handleSubmitReport}
                       className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-yellow-500"
@@ -257,6 +310,16 @@ const RequestTable = () => {
                     </button>
                   </div>
                 </div>
+              </div>
+            )}
+
+            {toast && (
+              <div className="fixed bottom-4 right-4">
+                <Toast
+                  status={toast.status}
+                  message={toast.message}
+                  onClose={closeToast}
+                />
               </div>
             )}
 

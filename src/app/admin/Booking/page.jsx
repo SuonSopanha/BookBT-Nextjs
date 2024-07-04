@@ -5,25 +5,25 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 
 const BookingTable = () => {
-  const [User, setUser] = useState([]);
+  const [Booking, setBooking] = useState([]);
 
   useEffect(() => {
-    const fetchUserRequest = async () => {
+    const fetchBookingRequest = async () => {
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/v1/all-users`
+          `${process.env.NEXT_PUBLIC_API_URL}/api/v1/everyBooking`
         );
         const data = response.data;
-        setUser(data);
+        setBooking(data);
       } catch (error) {
         console.log(error);
       }
     };
 
-    fetchUserRequest();
+    fetchBookingRequest();
   }, []);
 
-  console.log(User);
+  console.log(Booking);
 
   return (
     <div>
@@ -131,22 +131,22 @@ const BookingTable = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          {User.map((User) => (
-                            <tr key={User.id}>
+                          {Booking.map((Booking) => (
+                            <tr key={Booking.id}>
                               <td className="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                                 <div className="flex px-2 py-1">
                                   <div>
                                     <img
-                                      src={User.photoURL}
+                                      src={Booking.userPhotoURL}
                                       className="inline-flex items-center justify-center mr-4 text-sm text-white transition-all duration-200 ease-in-out h-9 w-9 rounded-xl"
-                                      alt="user1"
+                                      alt="Booking1"
                                     />
                                   </div>
                                   <div className="flex flex-col justify-center">
                                     <h6 className="mb-0 text-sm leading-normal">
                                       {" "}
                                       <a href="adminTaxiProfileVeiw.html">
-                                        {User.fullName}
+                                        {Booking.userFullName}
                                       </a>
                                     </h6>
                                   </div>
@@ -156,16 +156,16 @@ const BookingTable = () => {
                                 <div className="flex px-2 py-1">
                                   <div>
                                     <img
-                                      src={User.photoURL}
+                                      src={Booking.driverPhotoURL}
                                       className="inline-flex items-center justify-center mr-4 text-sm text-white transition-all duration-200 ease-in-out h-9 w-9 rounded-xl"
-                                      alt="user1"
+                                      alt="Booking1"
                                     />
                                   </div>
                                   <div className="flex flex-col justify-center">
                                     <h6 className="mb-0 text-sm leading-normal">
                                       {" "}
                                       <a href="adminTaxiProfileVeiw.html">
-                                        {User.fullName}
+                                        {Booking.driverFirstName} {Booking.driverLastName}
                                       </a>
                                     </h6>
                                   </div>
@@ -173,32 +173,32 @@ const BookingTable = () => {
                               </td>
                               <td className="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                                 <p className="mb-0 text-xs font-semibold leading-tight dark:opacity-80">
-                                  {User.address}
+                                  {Booking.location}
                                 </p>
                                 <p className="mb-0 text-xs font-semibold leading-tight dark:opacity-80">
-                                  {User.address}
+                                  {Booking.destination}
                                 </p>
                               </td>
                               <td className="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                                 <p className="mb-0 text-xs font-semibold leading-tight dark:opacity-80">
-                                  {User.phoneNumber}
+                                  {Booking.totalFare}
                                 </p>
                               </td>
                               <td className="p-1 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent text-center space-x-5">
                                 <div className="text-xs font-semibold leading-tight dark:opacity-80 text-white bg-green-500 rounded-lg py-1 px-2 mx-4">
                                   {" "}
-                                  Confirm{" "}
+                                  {Booking.bookingStatus}{" "}
                                 </div>
                               </td>
                               <td className="p-2 text-center align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
                                 <span className="text-xs font-semibold leading-tight dark:opacity-80 ">
-                                  {User.createdAt.slice(0, 10)}
+                                  {Booking.bookingDate.slice(0, 10)}
                                 </span>
                               </td>
 
                               <td className="p-1 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent text-center space-x-5">
                                 <a
-                                  href="javascript:;"
+                                  href={`/booking/adminReceipt/${Booking.id}`}
                                   className="text-xs font-semibold leading-tight dark:opacity-80 text-white bg-blue-500 hover:bg-blue-700 py-2 px-4"
                                 >
                                   {" "}

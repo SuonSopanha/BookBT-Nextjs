@@ -3,9 +3,24 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Toast from "@/components/toast/toast";
 
 const ReportTable = () => {
   const [Report, setReport] = useState([]);
+  const [isSuspendModalOpen, setIsSuspendModalOpen] = useState(false);
+  const [suspendReason, setSuspendReason] = useState("");
+  const [suspendDuration, setSuspendDuration] = useState("");
+  const [supendDriverID, setsupendDriverID] = useState("");
+
+  const [toast, setToast] = useState(null);
+
+  const showToast = (status, message) => {
+    setToast({ status, message });
+  };
+
+  const closeToast = () => {
+    setToast(null);
+  };
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -28,6 +43,52 @@ const ReportTable = () => {
 
     fetchReportRequest();
   }, []);
+
+  const handleSuspend = (id) => {
+    setsupendDriverID(id);
+    setIsSuspendModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsSuspendModalOpen(false);
+  };
+
+  const handleSubmitReport = async () => {
+    // Handle the report submission logic here
+    const token = sessionStorage.getItem("token");
+
+    const reportData = {
+      DriverId: supendDriverID,
+      reason: suspendReason,
+      duration: suspendDuration,
+    };
+
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/suspend-driver/${supendDriverID}`,
+        reportData,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+
+      console.log(response);
+
+      if (response.data.message === "Driver suspended successfully") {
+        showToast("success", response.data.message);
+        setIsSuspendModalOpen(false);
+      } else {
+        showToast("error", response.data.error);
+        setIsSuspendModalOpen(false);
+      }
+    } catch (e) {
+      console.log(e);
+      showToast("error", "An error occurred");
+      setIsSuspendModalOpen(false);
+    }
+  };
 
   console.log(Report);
 
@@ -146,7 +207,8 @@ const ReportTable = () => {
                                     <h6 className="mb-0 text-sm leading-normal">
                                       {" "}
                                       <a href="adminTaxiProfileVeiw.html">
-                                        {report.driver.fistName} {report.driver.lastName}
+                                        {report.driver.fistName}{" "}
+                                        {report.driver.lastName}
                                       </a>
                                     </h6>
                                     <p className="mb-0 text-xs leading-tight dark:opacity-80 ">
@@ -171,13 +233,23 @@ const ReportTable = () => {
                                 </span>
                               </td>
                               <td className="p-1 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent text-center space-x-5">
-                                <a
-                                  href="javascript:;"
-                                  className="text-xs font-semibold leading-tight dark:opacity-80 text-white bg-red-500 py-2 px-4"
-                                >
-                                  {" "}
-                                  Suspend Driver{" "}
-                                </a>
+                                {report.driver.isSuspended === false ? (
+                                  <button
+                                    onClick={() => handleSuspend(report.driver.id)}
+                                    className="text-xs font-semibold leading-tight dark:opacity-80 text-white bg-red-500 hover:bg-red-700 py-2 px-4"
+                                  >
+                                    {" "}
+                                    Suspend Driver{" "}
+                                  </button>
+                                ) : (
+                                  <button
+                                    onClick={() => handleSuspend(report.driver.id)}
+                                    className="text-xs font-semibold leading-tight dark:opacity-80 text-white bg-green-500 hover:bg-green-700 py-2 px-4"
+                                  >
+                                    {" "}
+                                    Unsuspend{" "}
+                                  </button>
+                                )}
                                 <a
                                   href="javascript:;"
                                   className="text-xs font-semibold leading-tight dark:opacity-80 text-white bg-blue-500 py-2 px-4"
@@ -195,6 +267,64 @@ const ReportTable = () => {
                 </div>
               </div>
             </div>
+
+            {isSuspendModalOpen && (
+              <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+                  <h2 className="text-xl font-bold mb-4 text-gray-800">
+                    Suspend Driver #{supendDriverID}
+                  </h2>
+                  <label className="block mb-2 font-medium text-gray-700">
+                    Suspend Duration
+                  </label>
+                  <select
+                    value={suspendDuration}
+                    onChange={(e) => setSuspendDuration(e.target.value)}
+                    className="w-full p-2 mb-4 border border-zinc-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                  >
+                    <option value="">Select Suspend Duration</option>
+                    <option value="1">24 Hours</option>
+                    <option value="3">3 Days</option>
+                    <option value="7">7 Days</option>
+                    <option value="30">Permanent</option>
+                  </select>
+                  <label className="block mb-2 font-medium text-gray-700">
+                    Suspend Reason
+                  </label>
+                  <textarea
+                    value={suspendReason}
+                    onChange={(e) => setSuspendReason(e.target.value)}
+                    className="w-full p-2 mb-4 border border-zinc-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                    rows="4"
+                  ></textarea>
+                  <div className="flex justify-end space-x-4">
+                    <button
+                      onClick={handleCloseModal}
+                      className="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                    >
+                      Cancel
+                    </button>
+                    {}
+                    <button
+                      onClick={handleSubmitReport}
+                      className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                    >
+                      Suspend
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {toast && (
+              <div className="fixed bottom-4 right-4">
+                <Toast
+                  status={toast.status}
+                  message={toast.message}
+                  onClose={closeToast}
+                />
+              </div>
+            )}
 
             <footer className="pt-4">
               <div className="w-full px-6 mx-auto">

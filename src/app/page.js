@@ -243,7 +243,7 @@ export default function Home() {
             movement of people from one place to another.
           </p>
           <button className="relative mb-8 ml-8 mt-5 flex h-12 w-40 items-center justify-center overflow-hidden rounded-lg bg-gradient-to-r from-yellow-500 to-amber-200 text-sm font-medium text-black shadow-lg">
-            <a href="#">Explore More</a>
+            <a href="/bus/list">Explore More</a>
             <div className="absolute right-0 mt-12 h-20 w-20 translate-x-1/2 transform rounded-full bg-white"></div>
           </button>
         </div>
@@ -297,7 +297,7 @@ export default function Home() {
                     id="searchBook"
                     className="relative mb-8 ml-8 mt-5 flex h-12 w-40 items-center justify-center overflow-hidden rounded-lg bg-gradient-to-r from-yellow-500 to-amber-200 text-sm font-medium text-black shadow-lg shadow-slate-500 hover:border-2 hover:border-gray-950"
                   >
-                    <a href="#">Booking Now</a>
+                    <a href="/bus/list">Booking Now</a>
                     <div className="absolute right-0 mt-12 h-20 w-20 translate-x-1/2 transform rounded-full bg-yellow-500"></div>
                   </button>
                 </div>
@@ -694,7 +694,7 @@ export default function Home() {
                       <br />
                       passengers at designated stops.
                     </p>
-                    <a href="/taxi-list">
+                    <a href="/bus/list">
                       <button className="mb-10 mt-5 h-10 w-28 rounded-3xl border-2 border-black text-sm font-medium hover:bg-amber-200">
                         Find Now
                       </button>
@@ -720,7 +720,7 @@ export default function Home() {
                       <br />
                       hire a private vehicle for personal travel.
                     </p>
-                    <a href="/taxi-list">
+                    <a href="/bus/list">
                       <button className="mb-10 mt-5 h-10 w-28 rounded-3xl border-2 border-black text-sm font-medium hover:bg-amber-200">
                         Find Now
                       </button>

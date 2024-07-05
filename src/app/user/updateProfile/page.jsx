@@ -9,6 +9,7 @@ const UpdateProfile = () => {
   const [gender, setGender] = useState("male");
   const [contactNumber, setContactNumber] = useState("");
   const [address, setAddress] = useState("");
+  const [isSaving,setIsSaving] = useState(false);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -51,6 +52,7 @@ const UpdateProfile = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsSaving(true);
     const uploadedImageURL = await handleFileUpload();
 
     if (!uploadedImageURL) {
@@ -78,6 +80,7 @@ const UpdateProfile = () => {
 
 
       if(response.data.message === "User information updated successfully") {
+        setIsSaving(false);
         window.location.href = '/user';
         
       }
@@ -182,7 +185,7 @@ const UpdateProfile = () => {
               onClick={handleSubmit}
               className="w-full sm:w-1/5 lg:w-1/5 h-16 mt-2 mb-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             >
-              Save
+              {isSaving ? "Save..." : "Save"}
             </button>
           </div>
         </div>

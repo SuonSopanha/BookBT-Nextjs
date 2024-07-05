@@ -407,7 +407,7 @@ const ProfileOverview = () => {
                   </div>
                 </div>
               </div>
-              <div className="w-full max-w-full px-3 mt-6 shrink-0 md:w-4/12 md:flex-0 md:mt-0">
+              <div className="flex flex-col w-full max-w-full px-3 mt-6 shrink-0 md:w-4/12 md:flex-0 md:mt-0 space-y-4">
                 <div className="relative flex flex-col min-w-0 break-words bg-white border-0 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
                   <img
                     className="w-full rounded-t-2xl"
@@ -415,7 +415,7 @@ const ProfileOverview = () => {
                     alt="profile cover image"
                   />
 
-                  <div className="flex-auto p-6 pt-0">
+                  <div className="flex-auto h-fit p-6 pt-0">
                     <div className="flex flex-wrap -mx-3">
                       <div className="w-full max-w-full px-3 flex-1-0">
                         <div className="flex justify-center flex-col mt-4 mx-6">
@@ -438,22 +438,45 @@ const ProfileOverview = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="mt-6 text-center">
-                      <h5 className="dark:text-white">
-                        Mark Davis
-                        <span className="font-light">, 35</span>
-                      </h5>
-                      <div className="mb-2 font-semibold leading-relaxed text-base dark:text-white/80 text-slate-700">
-                        <i className="mr-2 dark:text-white ni ni-pin-3"></i>
-                        Bucharest, Romania
-                      </div>
-                      <div className="mt-6 mb-2 font-semibold leading-relaxed text-base dark:text-white/80 text-slate-700">
-                        <i className="mr-2 dark:text-white ni ni-briefcase-24"></i>
-                        Solution Manager - Creative Tim Officer
-                      </div>
-                      <div className="dark:text-white/80">
-                        <i className="mr-2 dark:text-white ni ni-hat-3"></i>
-                        University of Computer Science
+                  </div>
+                </div>
+                <div className="relative flex flex-col min-w-0 break-words bg-white border-0 shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
+                  <img
+                    className="w-full rounded-t-2xl"
+                    src={driver?.driverLicense}
+                    alt="profile cover image"
+                  />
+
+                  <div className="flex-auto p-6 pt-0">
+                    <div className="flex flex-wrap -mx-3">
+                      Driver License and Experience
+                      <div className="w-full max-w-full px-3 flex-1-0">
+                        <div className="flex justify-center flex-col mt-4 mx-6">
+                          <div className="flex text-center items-center justify-between space-x-5">
+                            <span className="leading-normal text-sm opacity-80">
+                              License Number
+                            </span>
+                            <span className="font-bold text-lg">
+                              {driver?.licenseNumber}
+                            </span>
+                          </div>
+                          <div className="flex text-center items-center justify-between space-x-5">
+                            <span className="leading-normal text-sm opacity-80">
+                              Expiry Date
+                            </span>
+                            <span className="font-bold text-lg">
+                              {driver?.licenseExpireDate.slice(0, 10)}
+                            </span>
+                          </div>
+                          <div className="flex text-center items-center justify-between space-x-5">
+                            <span className="leading-normal text-sm opacity-80">
+                              Driving Experience
+                            </span>
+                            <span className="font-bold text-lg">
+                              {driver?.drivingExperience}
+                            </span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>

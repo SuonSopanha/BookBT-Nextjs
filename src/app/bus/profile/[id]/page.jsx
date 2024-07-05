@@ -141,187 +141,219 @@ const BusProfile = () => {
                 </div>
               </div>
 
-              <div className="m-2 flex items-center justify-center">
-                <a href="/bus-feedback">
-                  <button className=" font-medium hover:text-yellow-300">
-                    View Feedback
-                  </button>
-                </a>
-              </div>
-              <div className="m-2 flex items-center justify-center">
-                <button
-                  onClick={() => {
-                    window.location.href =
-                      "/user/editProfile";
-                  }}
-                  className="h-10 w-32 rounded-xl border-2 border-zinc-fw-full0 hover:bg-yellow-300"
-                >
-                  <p className="text-lg font-bold text-yellow-400 hover:text-white">
-                    Edit Profile
-                  </p>
-                </button>
-              </div>
-              <div className="m-2 flex items-center justify-center">
-                <button
-                  onClick={() => {
-                    window.location.href =
-                      "/services/register";
-                  }}
-                  className="h-10 w-32 rounded-xl border-2 border-zinc-fw-full0 hover:bg-yellow-300"
-                >
-                  <p className="text-sm font-bold text-yellow-400 hover:text-white">
-                    Add New Service
-                  </p>
-                </button>
-              </div>
-            </div>
-
-            <div className="relative w-full sm:w-1/2 rounded-lg bg-white shadow-lg">
-              <div className="m-4 pb-12">
-                {/* Taxi Provider Profile Section */}
-                <div className="ml-0.5 flex items-center">
-                  <p className="ml-2 text-xl font-bold text-gray-700">
-                    Taxi Provider Profile
-                  </p>
-                </div>
-                <div className="my-3 ml-1 flex">
-                  <div className="w-full overflow-x-auto">
-                    <table className="bg-white w-full table-fixed text-sm shadow-md rounded-lg overflow-hidden">
-                      <thead className="bg-blue-900 text-white">
-                        <tr>
-                          <th className="p-3">Location</th>
-                          <th className="p-3">Destination</th>
-                          <th className="p-3">Vehicle</th>
-                          <th className="p-3">Max Seat</th>
-                          <th className="p-3">Action</th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-gray-200">
-                        {/* Example rows - replace these with dynamic data */}
-                        {services.map((service) => (
-                          <tr key={service.id} className="hover:bg-slate-100">
-                            <td className="p-3 text-center">
-                              {service.location}
-                            </td>
-                            <td className="p-3 text-center">
-                              {service.destination}
-                            </td>
-                            <td className="p-3 text-center">
-                              {service.category}
-                            </td>
-                            <td className="p-3 text-center">
-                              {service.maxSeat}
-                            </td>
-                            <td className="p-3 text-center flex">
-                              <button
-                                onClick={() => {
-                                  window.location.href =
-                                    "/services/detail/" +
-                                    service.id;
-                                }}
-                                className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-700"
-                              >
-                                View
-                              </button>
-                              <button
-                                onClick={() => {
-                                  window.location.href =
-                                    "/services/edit/" +
-                                    service.id;
-                                }}
-                                className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-700"
-                              >
-                                Edit
-                              </button>
-                            </td>
-                          </tr>
-                        ))}
-
-                        {/* Add more rows as needed */}
-                      </tbody>
-                    </table>
+              {driver.isSuspended === false ? (
+                <>
+                  <div className="m-2 flex items-center justify-center">
+                    <a href="/bus-feedback">
+                      <button className=" font-medium hover:text-yellow-300">
+                        View Feedback
+                      </button>
+                    </a>
                   </div>
-                </div>
-
-                {/* Booking Section */}
-                <div className="ml-0.5 flex items-center mt-6 border-t-4">
-                  <p className="ml-2 text-xl font-bold text-gray-700">
-                    Booking
-                  </p>
-                </div>
-                <div className="my-3 ml-1 flex">
-                  <div className="w-full overflow-x-auto">
-                    <table className="bg-white w-full table-fixed text-sm shadow-md rounded-lg overflow-hidden">
-                      <thead className="bg-blue-900 text-white">
-                        <tr>
-                          <th className="p-3">User</th>
-                          <th className="p-3">Service</th>
-                          <th className="p-3">Date</th>
-                          <th className="p-3">Status</th>
-                          <th className="p-3">Action</th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-gray-200">
-                        {/* Example rows - replace these with dynamic data */}
-
-                        {currentBookings.map((booking) => (
-                          <tr key={booking.service.id} className="hover:bg-slate-100">
-                            <td className="p-3 text-center">
-                              {booking.user.fullName}
-                            </td>
-                            <td className="p-3 text-center">
-                              {booking.service.location}{" "}
-                              {booking.service.destination}
-                            </td>
-                            <td className="p-3 text-center">
-                              {booking.bookingDate.slice(0, 10)}{" "}
-                              {booking.pickupTime.slice(0, 5)}
-                            </td>
-                            <td className="p-3 text-center">
-                              {booking.bookingStatus}
-                            </td>
-                            <td className="p-3 text-center">
-                              <button
-                                onClick={() => {
-                                  window.location.href =
-                                    "/booking/request/" +
-                                    booking.id;
-                                }}
-                                className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-700"
-                              >
-                                View
-                              </button>
-                            </td>
-                          </tr>
-                        ))}
-
-                        {/* Add more rows as needed */}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                {/* Pagination */}
-                <div className="flex justify-center mt-4">
-                  {[
-                    ...Array(
-                      Math.ceil(booking.length / bookingsPerPage)
-                    ).keys(),
-                  ].map((number) => (
+                  <div className="m-2 flex items-center justify-center">
                     <button
-                      key={number}
-                      onClick={() => paginate(number + 1)}
-                      className={`px-4 py-2 mx-1 border rounded ${
-                        currentPage === number + 1
-                          ? "bg-blue-500 text-white"
-                          : "bg-white text-blue-500 border-blue-500"
-                      }`}
+                      onClick={() => {
+                        window.location.href = "/user/editProfile";
+                      }}
+                      className="h-10 w-32 rounded-xl border-2 border-zinc-fw-full0 hover:bg-yellow-300"
                     >
-                      {number + 1}
+                      <p className="text-lg font-bold text-yellow-400 hover:text-white">
+                        Edit Profile
+                      </p>
                     </button>
-                  ))}
+                  </div>
+                  <div className="m-2 flex items-center justify-center">
+                    <button
+                      onClick={() => {
+                        window.location.href = "/services/register";
+                      }}
+                      className="h-10 w-32 rounded-xl border-2 border-zinc-fw-full0 hover:bg-yellow-300"
+                    >
+                      <p className="text-sm font-bold text-yellow-400 hover:text-white">
+                        Add New Service
+                      </p>
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <></>
+              )}
+            </div>
+
+            {driver.isSuspended === true ? (
+              <div className="relative w-full  p-2 h-full sm:w-1/2 rounded-lg bg-white shadow-lg">
+                <div class="border shadow-red-500 shadow-md max-w-2xl p-6 rounded-lg">
+                  <h1 class="text-4xl font-mono text-red-500 font-extrabold py-3">
+                    Your Account are Under Suspension
+                  </h1>
+                  <ul class="list-disc text-lg px-6">
+                    <li>
+                      During this suspension period, you will not be able to
+                      access or use your driver account.
+                    </li>
+                    <li>
+                      We advise you to review our guidelines and policies to
+                      ensure compliance in the future.
+                    </li>
+                    <li>
+                      If you have any questions or believe this suspension was
+                      made in error, please contact our support team at{" "}
+                      <span className="text-blue-500">BookingBT@gmail.com</span>{" "}
+                      for further assistance..
+                    </li>
+                  </ul>
                 </div>
               </div>
-            </div>
+            ) : (
+              <div className="relative w-full sm:w-1/2 rounded-lg bg-white shadow-lg">
+                <div className="m-4 pb-12">
+                  {/* Taxi Provider Profile Section */}
+                  <div className="ml-0.5 flex items-center">
+                    <p className="ml-2 text-xl font-bold text-gray-700">
+                      Taxi Provider Profile
+                    </p>
+                  </div>
+                  <div className="my-3 ml-1 flex">
+                    <div className="w-full overflow-x-auto">
+                      <table className="bg-white w-full table-fixed text-sm shadow-md rounded-lg overflow-hidden">
+                        <thead className="bg-blue-900 text-white">
+                          <tr>
+                            <th className="p-3">Location</th>
+                            <th className="p-3">Destination</th>
+                            <th className="p-3">Vehicle</th>
+                            <th className="p-3">Max Seat</th>
+                            <th className="p-3">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-200">
+                          {/* Example rows - replace these with dynamic data */}
+                          {services.map((service) => (
+                            <tr key={service.id} className="hover:bg-slate-100">
+                              <td className="p-3 text-center">
+                                {service.location}
+                              </td>
+                              <td className="p-3 text-center">
+                                {service.destination}
+                              </td>
+                              <td className="p-3 text-center">
+                                {service.category}
+                              </td>
+                              <td className="p-3 text-center">
+                                {service.maxSeat}
+                              </td>
+                              <td className="p-3 text-center flex">
+                                <button
+                                  onClick={() => {
+                                    window.location.href =
+                                      "/services/detail/" + service.id;
+                                  }}
+                                  className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-700"
+                                >
+                                  View
+                                </button>
+                                <button
+                                  onClick={() => {
+                                    window.location.href =
+                                      "/services/edit/" + service.id;
+                                  }}
+                                  className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-700"
+                                >
+                                  Edit
+                                </button>
+                              </td>
+                            </tr>
+                          ))}
+
+                          {/* Add more rows as needed */}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  {/* Booking Section */}
+                  <div className="ml-0.5 flex items-center mt-6 border-t-4">
+                    <p className="ml-2 text-xl font-bold text-gray-700">
+                      Booking
+                    </p>
+                  </div>
+                  <div className="my-3 ml-1 flex">
+                    <div className="w-full overflow-x-auto">
+                      <table className="bg-white w-full table-fixed text-sm shadow-md rounded-lg overflow-hidden">
+                        <thead className="bg-blue-900 text-white">
+                          <tr>
+                            <th className="p-3">User</th>
+                            <th className="p-3">Service</th>
+                            <th className="p-3">Date</th>
+                            <th className="p-3">Status</th>
+                            <th className="p-3">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-200">
+                          {/* Example rows - replace these with dynamic data */}
+
+                          {currentBookings?.map((booking) => (
+                            <tr
+                              key={booking.service.id}
+                              className="hover:bg-slate-100"
+                            >
+                              <td className="p-3 text-center">
+                                {booking.user.fullName}
+                              </td>
+                              <td className="p-3 text-center">
+                                {booking.service.location}{" "}
+                                {booking.service.destination}
+                              </td>
+                              <td className="p-3 text-center">
+                                {booking.bookingDate.slice(0, 10)}{" "}
+                                {booking.pickupTime.slice(0, 5)}
+                              </td>
+                              <td className="p-3 text-center">
+                                {booking.bookingStatus}
+                              </td>
+                              <td className="p-3 text-center">
+                                <button
+                                  onClick={() => {
+                                    window.location.href =
+                                      "/booking/request/" + booking.id;
+                                  }}
+                                  className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-700"
+                                >
+                                  View
+                                </button>
+                              </td>
+                            </tr>
+                          ))}
+
+                          {/* Add more rows as needed */}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  {/* Pagination */}
+                  <div className="flex justify-center mt-4">
+                    {booking && bookingsPerPage > 0
+                      ? [
+                          ...Array(
+                            Math.ceil(booking.length / bookingsPerPage)
+                          ).keys(),
+                        ].map((number) => (
+                          <button
+                            key={number}
+                            onClick={() => paginate(number + 1)}
+                            className={`px-4 py-2 mx-1 border rounded ${
+                              currentPage === number + 1
+                                ? "bg-blue-500 text-white"
+                                : "bg-white text-blue-500 border-blue-500"
+                            }`}
+                          >
+                            {number + 1}
+                          </button>
+                        ))
+                      : null}
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

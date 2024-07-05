@@ -5,6 +5,8 @@ import axios from "axios";
 const DriveRegister = () => {
   const [imagePreview, setImagePreview] = useState(null);
   const [imageURL, setImageURL] = useState(null);
+  const [licensePreview, setLicensePreview] = useState(null);
+  const [licenseURL, setLicenseURL] = useState(null);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [contactNumber, setContactNumber] = useState("");
@@ -12,6 +14,11 @@ const DriveRegister = () => {
   const [gender, setGender] = useState("male");
   const [address, setAddress] = useState("");
   const [email, setEmail] = useState("");
+  const [licenseNumber, setLicenseNumber] = useState("");
+  const [licenseExpireDate, setLicenseExpireDate] = useState("");
+  const [drivingExperience, setDrivingExperience] = useState(0);
+  const [isSubmiting,setIsSubmiting] = useState(false);
+
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -19,6 +26,17 @@ const DriveRegister = () => {
       const reader = new FileReader();
       reader.onloadend = () => {
         setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleLicenseChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setLicensePreview(reader.result);
       };
       reader.readAsDataURL(file);
     }
@@ -52,39 +70,74 @@ const DriveRegister = () => {
     }
   };
 
+  const handleLicenseUpload = async () => {
+    const fileInput = document.getElementById("license-image");
+    const file = fileInput.files[0];
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "BookingBT");
+
+    try {
+      const response = await fetch(
+        "https://api.cloudinary.com/v1_1/dfevo0hzt/image/upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        setLicenseURL(data.secure_url);
+        return data.secure_url;
+      } else {
+        console.error("Failed to upload image to Cloudinary");
+      }
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    }
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsSubmiting(true);
     const uploadedImageURL = await handleFileUpload();
+    const uploadedLicenseURL = await handleLicenseUpload();
 
     const profileData = {
       firstName,
       lastName,
       contactNumber,
-      dateOfBirth : dob,
+      dateOfBirth: dob,
       gender,
       address,
       email,
-      photoURL : uploadedImageURL,
+      photoURL: uploadedImageURL,
+      licenseNumber,
+      licenseExpireDate,
+      drivingExperience,
+      driverLicense: uploadedLicenseURL,
     };
 
     console.log(profileData);
 
-    const token = sessionStorage.getItem('token');
+    const token = sessionStorage.getItem("token");
 
     try {
-      
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/driver`, profileData,{
-        headers: {
-          Authorization: "Bearer " + token 
-        },
-      });
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/driver`,
+        profileData,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
 
-      if(response.data.message === "Driver created successfully") {
-
-        window.location.href = '/services/register';
-        
+      if (response.data.message === "Driver created successfully") {
+        setIsSubmiting(false);
+        window.location.href = "/services/register";
       }
-
     } catch (error) {
       console.error("Error updating profile:", error);
     }
@@ -214,12 +267,79 @@ const DriveRegister = () => {
               </label>
             </div>
           </div>
+
+          <div className="flex flex-wrap mt-4">
+            <div className="w-full sm:w-1/2 mb-4 sm:mb-0 pr-0 sm:pr-4">
+              <label className="text-gray-600 font-light">License Number</label>
+              <input
+                type="text"
+                value={licenseNumber}
+                onChange={(e) => setLicenseNumber(e.target.value)}
+                placeholder="Enter your License Number"
+                className="w-full mt-2 px-2 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500 bg-slate-100"
+              ></input>
+            </div>
+            <div className="w-full sm:w-1/2 pl-0 sm:pl-4">
+              <label className="text-gray-600 font-light">
+                License Expiry Date
+              </label>
+              <input
+                type="date"
+                value={licenseExpireDate}
+                onChange={(e) => setLicenseExpireDate(e.target.value)}
+                className="w-full mt-2 px-2 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500 bg-slate-100"
+              ></input>
+            </div>
+          </div>
+          <div className="flex flex-wrap mt-4">
+            <div className="w-full sm:w-1/2 mb-4 sm:mb-0 pr-0 sm:pr-4">
+              <label className="text-gray-600 font-light">
+                Driving Experience (years)
+              </label>
+              <input
+                type="number"
+                value={drivingExperience}
+                onChange={(e) => setDrivingExperience(e.target.value)}
+                placeholder="Enter your Driving Experience"
+                className="w-full mt-2 px-2 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500 bg-slate-100"
+              ></input>
+            </div>
+            <div className="w-full sm:w-1/2 pl-0 sm:pl-4">
+              <label className="block text-gray-700 text-sm font-semibold mb-2">
+                Upload License
+              </label>
+              <label
+                htmlFor="license-image"
+                className="w-64 flex flex-col items-center justify-center bg-slate-100 border-dashed border-2 border-gray-400 cursor-pointer hover:border-blue-500 hover:bg-blue-300 h-32 relative"
+              >
+                <input
+                  id="license-image"
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={handleLicenseChange}
+                ></input>
+                {!licensePreview && (
+                  <span className="text-gray-600 font-bold py-2 px-4 hover:text-blue-700">
+                    +
+                  </span>
+                )}
+                {licensePreview && (
+                  <img
+                    src={licensePreview}
+                    className="w-full h-full object-cover rounded-full"
+                    alt="Preview"
+                  ></img>
+                )}
+              </label>
+            </div>
+          </div>
           <div className="flex justify-center mt-4">
             <button
               onClick={handleSubmit}
               className="w-full sm:w-1/5 lg:w-1/5 h-16 mt-2 mb-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             >
-              SUBMIT
+              {isSubmiting ? "Submiting..." : "Submit"}
             </button>
           </div>
         </div>

@@ -113,7 +113,7 @@ const BusDetail = () => {
       }
     } catch (e) {
       console.log(e);
-      showToast("error","An error occurred");
+      showToast("error", "An error occurred");
       setIsModalOpen(false);
     }
   };
@@ -141,9 +141,14 @@ const BusDetail = () => {
         }
       );
 
-      console.log(response);
+      if (response.data.message === "Rating created successfully") {
+        showToast("success", response.data.message);
+      } else {
+        showToast("error", response.data.error);
+      }
     } catch (e) {
       console.log(e);
+      showToast("error", "An error occurred");
     }
   };
 

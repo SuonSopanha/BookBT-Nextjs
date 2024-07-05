@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "next/navigation";
+import Toast from "@/components/toast/toast";
 
 const getServices = async (id) => {
   try {
@@ -32,6 +33,16 @@ const BookingForm = () => {
     selectedSeat: "",
   });
   const [dayOfWeek, setDayOfWeek] = useState("");
+
+  const [toast, setToast] = useState(null);
+
+  const showToast = (status, message) => {
+    setToast({ status, message });
+  };
+
+  const closeToast = () => {
+    setToast(null);
+  };
 
   useEffect(() => {
     const fetchServiceDetail = async () => {
@@ -127,16 +138,19 @@ const BookingForm = () => {
             }
           );
 
-          if(notificationResponse.data.message === "Notification created successfully"){
+          if (
+            notificationResponse.data.message ===
+            "Notification created successfully"
+          ) {
+            showToast("success", "Booking request sent successfully");
             console.log(notificationResponse);
-            window.location.href = "/booking/reciept/" +  response.data.booking.id
+            window.location.href =
+              "/booking/reciept/" + response.data.booking.id;
           }
-
-
         } catch (e) {
+          showToast("error", "An error occurred");
           console.error(e);
         }
-
       }
 
       // Redirect to another page or show a success message
@@ -244,7 +258,10 @@ const BookingForm = () => {
                                   scheduleItem.dayOfWeek === dayOfWeek
                               )
                               .map((filteredSchedule) => (
-                                <option key={filteredSchedule.id} value={filteredSchedule.departureTime}>
+                                <option
+                                  key={filteredSchedule.id}
+                                  value={filteredSchedule.departureTime}
+                                >
                                   {filteredSchedule.departureTime.slice(0, 5)}
                                 </option>
                               ))}
@@ -328,6 +345,15 @@ const BookingForm = () => {
             </div>
           </form>
         </div>
+        {toast && (
+          <div className="fixed bottom-4 right-4">
+            <Toast
+              status={toast.status}
+              message={toast.message}
+              onClose={closeToast}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

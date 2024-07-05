@@ -21,6 +21,7 @@ const ServiceRegister = () => {
   });
   const [imagePreview, setImagePreview] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
+  const [isSubmiting, setIsSubmiting] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -71,6 +72,7 @@ const ServiceRegister = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsSubmiting(true);
     const vehiclePictureURL = await handleFileUpload();
 
     const completeFormData = { ...formData, imageUrl };
@@ -134,7 +136,7 @@ const ServiceRegister = () => {
               },
             }
           );
-          
+          setIsSubmiting(false);
           window.location.href = "/"
         } catch (e) {
           console.log(e);
@@ -445,7 +447,7 @@ const ServiceRegister = () => {
               type="submit"
               className="w-full sm:w-1/5 lg:w-1/5 h-16 mt-2 mb-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             >
-              SUBMIT
+              {isSubmiting ? "Submitting..." : "Submit"}
             </button>
           </div>
         </form>

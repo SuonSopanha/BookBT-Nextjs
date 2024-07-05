@@ -89,6 +89,35 @@ const RequestTable = () => {
     }
   };
 
+  const handleUnsuspendDriver = async (id) => {
+    const token = sessionStorage.getItem("token");
+
+    try {
+      const response = await axios.put(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/unsuspend-driver/${id}`,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+
+      console.log(response);
+
+      if (response.data.message === "Driver unsuspended successfully") {
+        showToast("success", response.data.message);
+        setIsSuspendModalOpen(false);
+      } else {
+        showToast("error", response.data.error);
+        setIsSuspendModalOpen(false);
+      }
+    } catch (e) {
+      console.log(e);
+      showToast("error", "An error occurred");
+      setIsSuspendModalOpen(false);
+    }
+  };
+
   return (
     <div>
       <main className="flex h-full overflow-hidden pt-8">
@@ -247,7 +276,7 @@ const RequestTable = () => {
                                   </button>
                                 ) : (
                                   <button
-                                    onClick={() => handleSuspend(Driver.id)}
+                                    onClick={() => handleUnsuspendDriver(Driver.id)}
                                     className="text-xs font-semibold leading-tight dark:opacity-80 text-white bg-green-500 hover:bg-green-700 py-2 px-4"
                                   >
                                     {" "}

@@ -313,7 +313,7 @@ const UserProfile = () => {
                               <button
                                 onClick={() => {
                                   window.location.href =
-                                    "http://localhost:3000/booking/reciept/" +
+                                    "/booking/reciept/" +
                                     booking.id;
                                 }}
                               >

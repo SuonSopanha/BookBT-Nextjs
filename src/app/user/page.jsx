@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import axios from "axios";
 
 const UserProfile = () => {
@@ -8,6 +9,7 @@ const UserProfile = () => {
   const [isDriver, setIsDriver] = useState(false);
   const [myBooking, setMyBooking] = useState([]);
   const [Driver, setDriver] = useState({});
+
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -65,7 +67,10 @@ const UserProfile = () => {
         }
 
         // Optional: Provide feedback to the user
+
+
         alert("An error occurred while fetching data. Please try again later.");
+        window.location.href = "/auth/login";
       }
     };
 
